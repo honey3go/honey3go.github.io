@@ -1,0 +1,741 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="总结,网易云音乐,vue,html," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="最近两个半月，利用业余时间做了网易云音乐PC仿站，是学习前端以来第一个完整的实战项目。前端使用VUE(包括vue-resource和vue-router)，后端使用python实时获取数据(感谢来自猩猩的男票提供的大力支持=3=)。全部项目请戳-&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; https://github.com/love3forever/gogo3
+这一系列总结主要想整理的是，在项目过">
+<meta property="og:type" content="article">
+<meta property="og:title" content="仿网易云音乐PC-总结Part1(HTML5)">
+<meta property="og:url" content="http://yoursite.com/2017/07/27/仿网易云音乐PC-总结Part1-HTML/index.html">
+<meta property="og:site_name" content="萝三画室">
+<meta property="og:description" content="最近两个半月，利用业余时间做了网易云音乐PC仿站，是学习前端以来第一个完整的实战项目。前端使用VUE(包括vue-resource和vue-router)，后端使用python实时获取数据(感谢来自猩猩的男票提供的大力支持=3=)。全部项目请戳-&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; https://github.com/love3forever/gogo3
+这一系列总结主要想整理的是，在项目过">
+<meta property="og:updated_time" content="2017-08-01T13:12:00.956Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="仿网易云音乐PC-总结Part1(HTML5)">
+<meta name="twitter:description" content="最近两个半月，利用业余时间做了网易云音乐PC仿站，是学习前端以来第一个完整的实战项目。前端使用VUE(包括vue-resource和vue-router)，后端使用python实时获取数据(感谢来自猩猩的男票提供的大力支持=3=)。全部项目请戳-&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; https://github.com/love3forever/gogo3
+这一系列总结主要想整理的是，在项目过">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/07/27/仿网易云音乐PC-总结Part1-HTML/"/>
+
+
+
+
+
+  <title> 仿网易云音乐PC-总结Part1(HTML5) | 萝三画室 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">萝三画室</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle">向死而生</p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/27/仿网易云音乐PC-总结Part1-HTML/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="LOLISuri">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="萝三画室">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="萝三画室" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                仿网易云音乐PC-总结Part1(HTML5)
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-27T09:27:35+08:00">
+                2017-07-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>最近两个半月，利用业余时间做了网易云音乐PC仿站，是学习前端以来第一个完整的实战项目。前端使用<strong><em>VUE</em></strong>(包括vue-resource和vue-router)，后端使用<strong><em>python</em></strong>实时获取数据(感谢来自猩猩的男票提供的大力支持=3=)。<br>全部项目请戳-&gt;&gt;&gt;&gt;&gt; <a href="https://github.com/love3forever/gogo3" target="_blank" rel="external">https://github.com/love3forever/gogo3</a></p>
+<p>这一系列总结主要想整理的是，在项目过程中使用的新方法、思路、以及遇到的坑，包括HTML5、CSS、ES6、VUE四个部分。本篇是Part1-HTML5，内容包括选择符API、类扩展classList、自定义数据属性三个内容。<br><a id="more"></a></p>
+<h1 id="选择符API"><a href="#选择符API" class="headerlink" title="选择符API"></a>选择符API</h1><p>H5之前，原生DOM选择符API仅有两个：</p>
+<ul>
+<li>getElementById()</li>
+<li>getElementsByTagName()<br>　尽管DOM作为API已经非常完善了，但是为了实现更多的功能，DOM仍然进行了扩展，其中一个重要的扩展就是对选择器API的扩展。扩展内容包括：getElementsByClassName()、querySelector()、querySelectorAll()、matchesSelector()。</li>
+</ul>
+<p>示例：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">img</span> <span class="attr">id</span>=<span class="string">"outside"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"mydiv"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">id</span>=<span class="string">"inside"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"lonely"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"selected"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"inner"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure>
+<h2 id="getElementsByClassName"><a href="#getElementsByClassName" class="headerlink" title="getElementsByClassName()"></a>getElementsByClassName()</h2><p>getElementsByClassName()方法接收一个参数，即一个包含一个或多个类名的字符串，返回带有指定类的所有元素的类数组对象HTMLCollection。传入多个类名时，类名的先后顺序不重要。与getElementsByTagName()类似，该方法既可以用于HTML文档对象，也可以用于element元素对象。</p>
+<h2 id="querySelector"><a href="#querySelector" class="headerlink" title="querySelector()"></a>querySelector()</h2><p>querySelector()方法接收<strong><em>一个CSS选择符</em></strong>，返回与该模式匹配的<strong><em>第一个元素</em></strong>，如果没找到则返回<strong><em>null</em></strong>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> id = <span class="built_in">document</span>.querySelector(<span class="string">"#mydiv"</span>);</div><div class="line"><span class="keyword">var</span> <span class="class"><span class="keyword">class</span> </span>= <span class="built_in">document</span>.querySelector(<span class="string">".selected"</span>);</div><div class="line"><span class="keyword">var</span> fistChild = <span class="built_in">document</span>.querySelector(<span class="string">".selected div"</span>);</div></pre></td></tr></table></figure>
+<h2 id="querySelectorAll"><a href="#querySelectorAll" class="headerlink" title="querySelectorAll()"></a>querySelectorAll()</h2><p>querySelectorAll()方法接收<strong><em>一个CSS选择符</em></strong>,但返回是<strong><em>所有匹配元素</em></strong>，以NodeList实例形式返回，如果没找到则返回<strong><em>空的NodeList</em></strong>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> children = <span class="built_in">document</span>.querySelectorAll(<span class="string">".selected div"</span>);</div></pre></td></tr></table></figure>
+<h2 id="matchesSelector"><a href="#matchesSelector" class="headerlink" title="matchesSelector()"></a>matchesSelector()</h2><p>matchesSelector()方法接收<strong><em>一个CSS选择符</em></strong>,返回是<strong><em>是否存在匹配元素</em></strong>(true/false)。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> mydiv = <span class="built_in">document</span>.matchesSelector(<span class="string">"#mydiv"</span>);<span class="comment">//true</span></div><div class="line"><span class="keyword">var</span> myId = <span class="built_in">document</span>.matchesSelector(<span class="string">"#myId"</span>);<span class="comment">//false</span></div></pre></td></tr></table></figure>
+<h2 id="需要注意的问题："><a href="#需要注意的问题：" class="headerlink" title="需要注意的问题："></a>需要注意的问题：</h2><ol>
+<li>当通过Element类型调用querySelectorAll()方法时，会在该Element的后代元素并包括Element自身范围内查找元素。<br>比如对于上文结构：</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">document</span>.querySelectorAll(<span class="string">"#mydiv div div"</span>);<span class="comment">//返回div.inner</span></div><div class="line"><span class="built_in">document</span>.querySelector(<span class="string">"#mydiv"</span>).querySelectorAll(<span class="string">"div div"</span>);<span class="comment">//返回div.lonely、div.selected、div.inner</span></div></pre></td></tr></table></figure>
+<ol>
+<li><p>静态方法&amp;返回值<br>get系列返回的是动态HTMLCollection，query系列返回静态NodeList。<br>我们知道getElementById()、getElementsByTagName()、getElementsByClassName()会随着实际DOM元素的变化而变化，可以理解为这些方法返回的元素或NodeList始终与当前页面保持一致。而接收CSS选择符的querySelector()、querySelectorAll()、matchesSelector()方法并不会这样，他们保存的是赋值那一时刻的页面状态，即快照。</p>
+</li>
+<li><p>性能<br>就单次运行而言，getELement(s)By…系列更快(速度大约是100倍的差距)。因此建议，如果目标元素不是需要多次getELement(s)By…，就使用get系列。如果目标元素获取很麻烦，则使用query系列，这样更方便。</p>
+</li>
+<li><p>兼容<br>query系列IE9以下不支持。</p>
+</li>
+</ol>
+<h1 id="类扩展classList"><a href="#类扩展classList" class="headerlink" title="类扩展classList"></a>类扩展classList</h1><p>H5新增了一种操作类名的方式：classList。<br>在此之前，我们只能通过className属性添加、删除和替换类名。由于className中保存的是一个字符串，所以每次修改都需要重新设置整个字符串的值。<br>比如对于以下元素：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"a b c"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>我们试图删除b类：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> classes = div.className.split(<span class="regexp">/\s+/</span>);</div><div class="line"></div><div class="line"><span class="keyword">var</span> pos = <span class="number">-1</span>,</div><div class="line">    i = <span class="number">0</span>,</div><div class="line">    len = classes.length;</div><div class="line"></div><div class="line"><span class="keyword">for</span> (i,len;i&lt;len;i++)&#123;</div><div class="line">	<span class="keyword">if</span> (classes[i] == <span class="string">"b"</span>)&#123;</div><div class="line">		pos = i;</div><div class="line">		<span class="keyword">break</span>;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">classes.splice(i,<span class="number">1</span>);</div><div class="line">div.className = classes.join(<span class="string">" "</span>);</div></pre></td></tr></table></figure>
+<p>新增的classList属性可以让操作更简单，它是集合类型DOMTokenList的实例。这个集合包括以下属性和方法：</p>
+<ul>
+<li>属性：length 表示包含多少元素</li>
+<li>方法：<ul>
+<li>item():遍历取得每个元素</li>
+<li>add(value):添加字符串到列表，若已存在则不添加。</li>
+<li>remove(value):从列表中删除字符串，若不存在则不删除。</li>
+<li>contain(value):列表中是否包含字符串，返回true/false。</li>
+<li>toggle(value):若列表中已存在字符串，则删除；不存在，则添加<br>这样一来，前面的代码只用一行即可实现：</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">div.classList.remove(<span class="string">"b"</span>);</div></pre></td></tr></table></figure>
+<p>需要注意的是，这些方法一次仅能操作一个元素。</p>
+<h1 id="自定义数据属性"><a href="#自定义数据属性" class="headerlink" title="自定义数据属性"></a>自定义数据属性</h1><p>H5规定，可以为元素添加非标准的属性(需要加data-前缀)，提供用户自定义的信息，并可以通过元素的dataset属性访问。<br>比如为元素添加自定义属性myName：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"myId"</span> <span class="attr">data-myName</span>=<span class="string">"Suri"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>访问myName属性：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> myName = <span class="built_in">document</span>.getElementById(<span class="string">"myId"</span>).dataset.myName;<span class="comment">//Suri</span></div></pre></td></tr></table></figure>
+<h1 id="在项目中的应用"><a href="#在项目中的应用" class="headerlink" title="在项目中的应用"></a>在项目中的应用</h1><h2 id="classList"><a href="#classList" class="headerlink" title="classList"></a>classList</h2><p>背景：对于首页的海报轮播图，当页面滚动导致海报消失在视口时，暂停轮播；出现在视口时，继续轮播。<br>实现方法：</p>
+<ol>
+<li>将暂停轮播动画写入一个单独的css类</li>
+</ol>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.paused</span>&#123;</div><div class="line">	<span class="attribute">animation-play-state</span>:paused;</div><div class="line"> 	<span class="attribute">-webkit-animation-play-state</span>:paused;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ol>
+<li>监听scroll事件，实时获取视口与页面顶部的距离(滚动条滚动的距离)，根据该距离与轮播图位置判断轮播图是否消失在视口。是则暂停动画，否则继续动画。</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'scroll'</span>, ()=&gt;&#123;<span class="comment">//箭头函数修正this指针</span></div><div class="line">    <span class="keyword">this</span>.scrollLength = <span class="built_in">document</span>.documentElement.scrollTop || <span class="built_in">document</span>.body.scrollTop; </div><div class="line">    <span class="comment">//控制首页slide组件动画开始/暂停。鼠标滚动使得slide离开页面可视范围时，动画暂停</span></div><div class="line">    <span class="keyword">let</span> slide = <span class="built_in">document</span>.getElementById(<span class="string">'flag'</span>);</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (slide)&#123;</div><div class="line">      <span class="keyword">if</span> (<span class="keyword">this</span>.scrollLength &gt; <span class="number">440</span>)&#123;</div><div class="line">        slide.classList.add(<span class="string">'paused'</span>);</div><div class="line">      &#125; <span class="keyword">else</span> &#123;</div><div class="line">        slide.classList.remove(<span class="string">'paused'</span>);</div><div class="line">      &#125;;</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>源码请戳 <a href="https://github.com/love3forever/gogo3/blob/master/src/App.vue" target="_blank" rel="external">https://github.com/love3forever/gogo3/blob/master/src/App.vue</a> （line 29-40）</p>
+<h2 id="自定义数据属性-1"><a href="#自定义数据属性-1" class="headerlink" title="自定义数据属性"></a>自定义数据属性</h2><p>背景：一个歌曲列表中，每个子元素(每首歌曲)中都有一个播放按钮，点击按钮则按钮改变样式。同一时刻列表中最多只能有一个按钮被按下。<br>实现方法：</p>
+<ol>
+<li>为歌曲子元素加入自定义数据属性tag，唯一识别一个子元素。</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">:class</span>=<span class="string">"[track.click?'tracks-cli':'tracks-ply']"</span> <span class="attr">:data-tag</span>=<span class="string">"index"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></div></pre></td></tr></table></figure>
+<ol>
+<li>对歌曲按钮的点击事件添加事件代理，即监听父元素歌曲列表的onclick事件。</li>
+<li>利用delement.dataset.tag获取触发onclick事件的歌曲子元素。</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//歌单播放按钮点击事件代理</span></div><div class="line">   plySong:<span class="function"><span class="keyword">function</span>(<span class="params">ev</span>)</span>&#123;</div><div class="line">     <span class="keyword">var</span> ev = ev||<span class="built_in">window</span>.event;</div><div class="line">     <span class="keyword">var</span> target = ev.target||ev.srcElement;</div><div class="line"></div><div class="line">     <span class="keyword">if</span> (target.nodeName.toLowerCase() == <span class="string">"span"</span>)&#123;</div><div class="line">       <span class="keyword">var</span> index = <span class="built_in">parseInt</span>(target.dataset.tag);</div><div class="line">       <span class="keyword">this</span>.plyClick(index);             </div><div class="line">     &#125;</div><div class="line">   &#125;,</div><div class="line"> &#125;,</div></pre></td></tr></table></figure>
+<ol>
+<li>如果歌曲列表中已有播放按钮被按下,则将其回复默认样式。然后改变当前按下的按钮样式。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//歌单播放按钮点击事件</span></div><div class="line">plyClick:<span class="function"><span class="keyword">function</span>(<span class="params">index</span>)</span>&#123;</div><div class="line">  <span class="keyword">var</span> current = <span class="keyword">this</span>.top50.map(<span class="function"><span class="keyword">function</span>(<span class="params">item</span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span> item.click;</div><div class="line">  &#125;).indexOf(<span class="literal">true</span>);</div><div class="line"></div><div class="line">  <span class="keyword">if</span> (current&gt;<span class="number">-1</span>)&#123;</div><div class="line">    mouseBtnEv.setNewVal(<span class="keyword">this</span>.top50[current], <span class="string">'click'</span>, <span class="literal">false</span>);</div><div class="line">  &#125;</div><div class="line">  mouseBtnEv.setNewVal(<span class="keyword">this</span>.top50[index], <span class="string">'click'</span>, <span class="literal">true</span>);</div><div class="line">&#125;,</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>源码请戳 <a href="https://github.com/love3forever/gogo3/blob/master/src/components/artist-hot.vue" target="_blank" rel="external">https://github.com/love3forever/gogo3/blob/master/src/components/artist-hot.vue</a><br>1.见line 22<br>2.3.见line 78-87<br>4.见line 67-77</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/总结/" rel="tag"># 总结</a>
+          
+            <a href="/tags/网易云音乐/" rel="tag"># 网易云音乐</a>
+          
+            <a href="/tags/vue/" rel="tag"># vue</a>
+          
+            <a href="/tags/html/" rel="tag"># html</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/05/盒子模型，浮动，定位总结/" rel="next" title="盒子模型，浮动，定位总结">
+                <i class="fa fa-chevron-left"></i> 盒子模型，浮动，定位总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/27/仿网易云音乐PC-总结Part2-CSS/" rel="prev" title="仿网易云音乐PC-总结Part2(CSS)">
+                仿网易云音乐PC-总结Part2(CSS) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="LOLISuri" />
+          <p class="site-author-name" itemprop="name">LOLISuri</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#选择符API"><span class="nav-number">1.</span> <span class="nav-text">选择符API</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#getElementsByClassName"><span class="nav-number">1.1.</span> <span class="nav-text">getElementsByClassName()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#querySelector"><span class="nav-number">1.2.</span> <span class="nav-text">querySelector()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#querySelectorAll"><span class="nav-number">1.3.</span> <span class="nav-text">querySelectorAll()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#matchesSelector"><span class="nav-number">1.4.</span> <span class="nav-text">matchesSelector()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#需要注意的问题："><span class="nav-number">1.5.</span> <span class="nav-text">需要注意的问题：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#类扩展classList"><span class="nav-number">2.</span> <span class="nav-text">类扩展classList</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#自定义数据属性"><span class="nav-number">3.</span> <span class="nav-text">自定义数据属性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在项目中的应用"><span class="nav-number">4.</span> <span class="nav-text">在项目中的应用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#classList"><span class="nav-number">4.1.</span> <span class="nav-text">classList</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义数据属性-1"><span class="nav-number">4.2.</span> <span class="nav-text">自定义数据属性</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LOLISuri</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

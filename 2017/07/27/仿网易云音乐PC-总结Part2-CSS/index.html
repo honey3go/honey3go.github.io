@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="CSS," />
+  <meta name="keywords" content="总结,网易云音乐,CSS," />
 
 
 
@@ -87,21 +87,16 @@
 
 
 
-<meta name="description" content="问题背景实现两个div，其中一个随滚轮滚动，效果如下。">
+<meta name="description" content="本篇是仿网易云音乐PC-总结的第二部分，Part2-CSS，内容比较零散，多数为过程中遇到的坑，留此记录加深印象。仿网易云音乐PC全部项目请戳-&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; https://github.com/love3forever/gogo3">
 <meta property="og:type" content="article">
-<meta property="og:title" content="解决body位置下移问题">
-<meta property="og:url" content="http://yoursite.com/2017/03/05/body位置下移/index.html">
+<meta property="og:title" content="仿网易云音乐PC-总结Part2(CSS)">
+<meta property="og:url" content="http://yoursite.com/2017/07/27/仿网易云音乐PC-总结Part2-CSS/index.html">
 <meta property="og:site_name" content="萝三画室">
-<meta property="og:description" content="问题背景实现两个div，其中一个随滚轮滚动，效果如下。">
-<meta property="og:image" content="http://omcbpoa4a.bkt.clouddn.com/1.png">
-<meta property="og:image" content="http://omcbpoa4a.bkt.clouddn.com/2.png">
-<meta property="og:image" content="http://omcbpoa4a.bkt.clouddn.com/3.png">
-<meta property="og:image" content="http://omcbpoa4a.bkt.clouddn.com/4.png">
-<meta property="og:updated_time" content="2017-08-01T13:12:37.197Z">
+<meta property="og:description" content="本篇是仿网易云音乐PC-总结的第二部分，Part2-CSS，内容比较零散，多数为过程中遇到的坑，留此记录加深印象。仿网易云音乐PC全部项目请戳-&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; https://github.com/love3forever/gogo3">
+<meta property="og:updated_time" content="2017-08-01T13:13:40.955Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="解决body位置下移问题">
-<meta name="twitter:description" content="问题背景实现两个div，其中一个随滚轮滚动，效果如下。">
-<meta name="twitter:image" content="http://omcbpoa4a.bkt.clouddn.com/1.png">
+<meta name="twitter:title" content="仿网易云音乐PC-总结Part2(CSS)">
+<meta name="twitter:description" content="本篇是仿网易云音乐PC-总结的第二部分，Part2-CSS，内容比较零散，多数为过程中遇到的坑，留此记录加深印象。仿网易云音乐PC全部项目请戳-&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; https://github.com/love3forever/gogo3">
 
 
 
@@ -129,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/03/05/body位置下移/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/07/27/仿网易云音乐PC-总结Part2-CSS/"/>
 
 
 
 
 
-  <title> 解决body位置下移问题 | 萝三画室 </title>
+  <title> 仿网易云音乐PC-总结Part2(CSS) | 萝三画室 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -252,7 +247,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/05/body位置下移/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/27/仿网易云音乐PC-总结Part2-CSS/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="LOLISuri">
@@ -276,7 +271,7 @@
             
             
               
-                解决body位置下移问题
+                仿网易云音乐PC-总结Part2(CSS)
               
             
           </h1>
@@ -291,8 +286,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-05T20:00:43+08:00">
-                2017-03-05
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-27T15:23:49+08:00">
+                2017-07-27
               </time>
             
 
@@ -327,15 +322,24 @@
       
 
       
-        <h1 id="问题背景"><a href="#问题背景" class="headerlink" title="问题背景"></a>问题背景</h1><p>实现两个div，其中一个随滚轮滚动，效果如下。<br><img src="http://omcbpoa4a.bkt.clouddn.com/1.png" alt="图1-正常情况"><br><a id="more"></a><br>上图是正常情况，下图是滚轮滚动时的情况。<br><img src="http://omcbpoa4a.bkt.clouddn.com/2.png" alt="图2-滚轮滚动"></p>
-<h1 id="实现过程"><a href="#实现过程" class="headerlink" title="实现过程"></a>实现过程</h1><h2 id="首先添加两个普通的div"><a href="#首先添加两个普通的div" class="headerlink" title="首先添加两个普通的div"></a>首先添加两个普通的div</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;body&gt;</div><div class="line">    &lt;div id=&quot;header&quot;&gt;我是header&lt;/div&gt;</div><div class="line">    &lt;div id=&quot;main&quot;&gt;我是main&lt;/div&gt;</div><div class="line">&lt;/body&gt;</div></pre></td></tr></table></figure>
-<p>为了显示清楚,设置div的背景颜色。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;style type=&quot;text/css&quot;&gt;</div><div class="line">body&#123;</div><div class="line">    margin: 0;</div><div class="line">   &#125;</div><div class="line">#header&#123;</div><div class="line">    background: pink;</div><div class="line">   &#125;</div><div class="line">#main&#123;</div><div class="line">    background: green; </div><div class="line">    height: 1000px;</div><div class="line">   &#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure></p>
-<p>这样看上去与图1一致，但无法实现图2的效果。</p>
-<h2 id="将header固定在视窗顶部"><a href="#将header固定在视窗顶部" class="headerlink" title="将header固定在视窗顶部"></a>将header固定在视窗顶部</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#header&#123;</div><div class="line">    background: pink;</div><div class="line">    /*由于下文fixed定位使元素脱离正常文档流，如果不指定width，则其值自适应子元素宽度*/</div><div class="line">    width: 100%;</div><div class="line">    position:fixed;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>此时发现，main被header盖住了,如图3.<br><img src="http://omcbpoa4a.bkt.clouddn.com/3.png" alt="图3"><br>原因是fixed使header元素脱离了正常文档流，相当于本来是第二个元素的main元素变成了第一个元素，占据了body首行位置。</p>
-<h2 id="让main元素露出来"><a href="#让main元素露出来" class="headerlink" title="让main元素露出来"></a>让main元素露出来</h2><p>为了让main露出来，我马上想到的是通过设置它的margin-top。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#main&#123;</div><div class="line">    background: green; </div><div class="line">    height: 1000px;</div><div class="line">    margin-top:21px;/*留出header宽度*/</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>然而结果并非我想要的.<br><img src="http://omcbpoa4a.bkt.clouddn.com/4.png" alt="图4"><br>不但main没露出来，连header的位置都下移了！查看元素位置发现body元素也下移了21px!<br>这个问题是由一个原则造成的。我们知道，正常文档流中，子元素的外边界（margin）应与父元素的内边界（padding）对齐。但“如果父元素的第一个子元素存在非0的margin，则父元素与子元素之间以内边界对齐”。这就造成了body和main的padding重合，效果就如图四。<br>4放弃margin，改成padding<br>知道了错误原因，我们就可以对症下药了。只要将main的margin设为0，上述“”中的原则便不适用了，main的margin依然与body的padding对齐。再通过增加main的padding-top使其内容区移动到header的位置外，main中的内容就可以全部显示出来了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#main&#123;</div><div class="line">    background: green; </div><div class="line">    height: 1000px;</div><div class="line">    padding-top:21px;/*留出header宽度*/</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>Done！<br>原则很简单，但很多时候都不记得。<br>最后再重述一下导致本例问题出现的原则：“如果父元素的第一个子元素存在非0的margin，则父元素与子元素之间以内边界对齐”。</p>
+        <p>本篇是仿网易云音乐PC-总结的第二部分，Part2-CSS，内容比较零散，多数为过程中遇到的坑，留此记录加深印象。<br>仿网易云音乐PC全部项目请戳-&gt;&gt;&gt;&gt;&gt; <a href="https://github.com/love3forever/gogo3" target="_blank" rel="external">https://github.com/love3forever/gogo3</a><br><a id="more"></a></p>
+<h1 id="同一行之内的inline-block元素之间水平方向有有缝隙。"><a href="#同一行之内的inline-block元素之间水平方向有有缝隙。" class="headerlink" title="同一行之内的inline-block元素之间水平方向有有缝隙。"></a>同一行之内的inline-block元素之间水平方向有有缝隙。</h1><p>这个问题是在某一次显示转换元素的display属性后发现的。明明同一行内两个inline-block元素盒子的width之和等于父元素内容区width，但是第二个元素依然被挤到下一行中，这让我百思不得其解。后来通过度娘才知道<strong><em>缝隙</em></strong>这回事。缝隙出现的原因在于标签段之间的的空格。去除缝隙目前有以下几种方法：</p>
+<ol>
+<li>移除空格，兄弟元素紧挨着彼此</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">""</span>&gt;</span></div><div class="line">	第一名<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">""</span>&gt;</span></div><div class="line">	第二名<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">""</span>&gt;</span></div><div class="line">	第三名<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">""</span>&gt;</span>第一名<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="comment">&lt;!--</span></div><div class="line">	--&gt;<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">""</span>&gt;</span>第二名<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="comment">&lt;!--</span></div><div class="line">	--&gt;<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">""</span>&gt;</span>第三名<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<ol>
+<li>标签不闭合<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">""</span>&gt;</span>第一名</div><div class="line">	<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">""</span>&gt;</span>第二名</div><div class="line">	<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">""</span>&gt;</span>第三名<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="comment">&lt;!--最后一个元素加了闭合是为了向下兼容，h5可不加--&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>3.font-size：0<br>4.尽量避免同一行使用inline-block<br>以上方法属于比较常用的方法，各自也有优缺点。w本项目中我用的是3、4方法。1、2方法无须改变CSS，仅仅调整HTML书写格式，但这会使得代码可读性差，并且对动态增删的元素产生效果，美团之前用过;3方法经常让人忘记指定了font-size为0，并且需要为子元素指定font-size。如果这个inline-block元素并不包含元素标签而包含文本标签时，显然不能用这种方法。4.方法主要通过浮动和绝对定位实现与Inline-block一样的布局，结构和思路更清晰。在仿站的时候，我也研究了下官网的布局思路，发现官网用4的情况更多。然而这种方法的缺点是，由于浮动和绝对定位会导致元素脱离文档流，这对性能会有一定影响。</p>
+<h1 id="垂直居中"><a href="#垂直居中" class="headerlink" title="垂直居中"></a>垂直居中</h1><ol>
+<li>垂直居中首先想到的是vertical-align，然而这货的表现太不稳定，对此我并没有深入的学习和理解(butw后续一定会好好理解一下)。只明确的一点是，vertical-align只对inline或inline-block元素生效。block元素垂直居中另height===line-height。如果这样不起作用，我就立刻放弃这个方法。</li>
+<li>通过盒子模型<br>在既定的情况下，通过为元素显示的指定margin、padding值也可以实现居中效果。</li>
+<li>flex布局<br>弹性盒子布局，不仅方便的实现垂直居中，还可以定义排序、换行方式等。flex教程详见 <a href="http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html" target="_blank" rel="external">http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html</a></li>
+</ol>
+<h1 id="SEO优化"><a href="#SEO优化" class="headerlink" title="SEO优化"></a>SEO优化</h1><p>SEO优化有个最基础的步骤：<h>标签内加入文字而页面上不显示。实现“文字隐藏”效果只需text-indent:-9999;(文本缩进)</h></p>
+<h1 id="a标签的href属性的神奇效果"><a href="#a标签的href属性的神奇效果" class="headerlink" title="a标签的href属性的神奇效果"></a>a标签的href属性的神奇效果</h1><p>a标签的href=”#”属性，可以让页面滚动条滚回顶部，可以应用到网页中“回到顶部”按钮。<br>a标签的href=”javascript:;”属性，可以让元素保持mouseover则光标变为手指，mouseclick不生效的效果。</p>
 
       
     </div>
@@ -359,6 +363,10 @@
       
         <div class="post-tags">
           
+            <a href="/tags/总结/" rel="tag"># 总结</a>
+          
+            <a href="/tags/网易云音乐/" rel="tag"># 网易云音乐</a>
+          
             <a href="/tags/CSS/" rel="tag"># CSS</a>
           
         </div>
@@ -372,14 +380,18 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2017/07/27/仿网易云音乐PC-总结Part1-HTML/" rel="next" title="仿网易云音乐PC-总结Part1(HTML5)">
+                <i class="fa fa-chevron-left"></i> 仿网易云音乐PC-总结Part1(HTML5)
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/03/05/盒子模型，浮动，定位总结/" rel="prev" title="盒子模型，浮动，定位总结">
-                盒子模型，浮动，定位总结 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/08/01/仿网易云音乐PC-总结Part3-ES6/" rel="prev" title="仿网易云音乐PC-总结Part3(ES6)">
+                仿网易云音乐PC-总结Part3(ES6) <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -496,7 +508,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#问题背景"><span class="nav-number">1.</span> <span class="nav-text">问题背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现过程"><span class="nav-number">2.</span> <span class="nav-text">实现过程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#首先添加两个普通的div"><span class="nav-number">2.1.</span> <span class="nav-text">首先添加两个普通的div</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#将header固定在视窗顶部"><span class="nav-number">2.2.</span> <span class="nav-text">将header固定在视窗顶部</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#让main元素露出来"><span class="nav-number">2.3.</span> <span class="nav-text">让main元素露出来</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#同一行之内的inline-block元素之间水平方向有有缝隙。"><span class="nav-number">1.</span> <span class="nav-text">同一行之内的inline-block元素之间水平方向有有缝隙。</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#垂直居中"><span class="nav-number">2.</span> <span class="nav-text">垂直居中</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SEO优化"><span class="nav-number">3.</span> <span class="nav-text">SEO优化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#a标签的href属性的神奇效果"><span class="nav-number">4.</span> <span class="nav-text">a标签的href属性的神奇效果</span></a></li></ol></div>
             
 
           </div>
