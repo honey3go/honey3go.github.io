@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="总结,网易云音乐,CSS," />
+  <meta name="keywords" content="CSS,总结,网易云音乐," />
 
 
 
@@ -93,7 +93,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/07/27/仿网易云音乐PC-总结Part2-CSS/index.html">
 <meta property="og:site_name" content="萝三画室">
 <meta property="og:description" content="本篇是仿网易云音乐PC-总结的第二部分，Part2-CSS，内容比较零散，多数为过程中遇到的坑，留此记录加深印象。仿网易云音乐PC全部项目请戳-&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; https://github.com/love3forever/gogo3">
-<meta property="og:updated_time" content="2017-08-01T13:13:40.955Z">
+<meta property="og:updated_time" content="2017-08-03T14:35:38.733Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="仿网易云音乐PC-总结Part2(CSS)">
 <meta name="twitter:description" content="本篇是仿网易云音乐PC-总结的第二部分，Part2-CSS，内容比较零散，多数为过程中遇到的坑，留此记录加深印象。仿网易云音乐PC全部项目请戳-&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; https://github.com/love3forever/gogo3">
@@ -340,6 +340,8 @@
 </ol>
 <h1 id="SEO优化"><a href="#SEO优化" class="headerlink" title="SEO优化"></a>SEO优化</h1><p>SEO优化有个最基础的步骤：<h>标签内加入文字而页面上不显示。实现“文字隐藏”效果只需text-indent:-9999;(文本缩进)</h></p>
 <h1 id="a标签的href属性的神奇效果"><a href="#a标签的href属性的神奇效果" class="headerlink" title="a标签的href属性的神奇效果"></a>a标签的href属性的神奇效果</h1><p>a标签的href=”#”属性，可以让页面滚动条滚回顶部，可以应用到网页中“回到顶部”按钮。<br>a标签的href=”javascript:;”属性，可以让元素保持mouseover则光标变为手指，mouseclick不生效的效果。</p>
+<h1 id="父元素hover时触发子元素样式改变"><a href="#父元素hover时触发子元素样式改变" class="headerlink" title="父元素hover时触发子元素样式改变"></a>父元素hover时触发子元素样式改变</h1><p>背景：一个登录按钮(#logBtn)，鼠标hover到按钮，其下方出现一个包含多种登录方式的div(#logDiv)，鼠标移开，div隐藏。<br>问题：原本的想法是，将登录按钮的hover与否存为一个变量(vue)，通过变量控制div的display属性。然而这种方法实现后发现，当Hover到登录按钮，下一步进入div选择登录方式时，div消失了。这是事件冒泡的问题，虽然div是子元素，但是JS认为已经hover出了登录按钮，变量变为FALSE，因此div就被隐藏了。本想通过阻止事件冒泡来解决这个问题，后来发现是我把简单的事情想复杂了。<br>解决办法：无需将登录按钮的hover与否存为一个变量，只需加入如下新的css样式即可。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#logBtn:hover #logDiv&#123;</div><div class="line">  display: none;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这样实现，完美解决了上面的问题，而且极其简单- -于是我到底是啥脑回路能第一时间想到上面的方法啊╮(╯▽╰)╭吐槽下自己</p>
 
       
     </div>
@@ -363,11 +365,11 @@
       
         <div class="post-tags">
           
+            <a href="/tags/CSS/" rel="tag"># CSS</a>
+          
             <a href="/tags/总结/" rel="tag"># 总结</a>
           
             <a href="/tags/网易云音乐/" rel="tag"># 网易云音乐</a>
-          
-            <a href="/tags/CSS/" rel="tag"># CSS</a>
           
         </div>
       
@@ -462,7 +464,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -473,7 +475,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -508,7 +510,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#同一行之内的inline-block元素之间水平方向有有缝隙。"><span class="nav-number">1.</span> <span class="nav-text">同一行之内的inline-block元素之间水平方向有有缝隙。</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#垂直居中"><span class="nav-number">2.</span> <span class="nav-text">垂直居中</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SEO优化"><span class="nav-number">3.</span> <span class="nav-text">SEO优化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#a标签的href属性的神奇效果"><span class="nav-number">4.</span> <span class="nav-text">a标签的href属性的神奇效果</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#同一行之内的inline-block元素之间水平方向有有缝隙。"><span class="nav-number">1.</span> <span class="nav-text">同一行之内的inline-block元素之间水平方向有有缝隙。</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#垂直居中"><span class="nav-number">2.</span> <span class="nav-text">垂直居中</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SEO优化"><span class="nav-number">3.</span> <span class="nav-text">SEO优化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#a标签的href属性的神奇效果"><span class="nav-number">4.</span> <span class="nav-text">a标签的href属性的神奇效果</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#父元素hover时触发子元素样式改变"><span class="nav-number">5.</span> <span class="nav-text">父元素hover时触发子元素样式改变</span></a></li></ol></div>
             
 
           </div>
