@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="CSS," />
+  <meta name="keywords" content="读书笔记,javascript,你不知道的JS," />
 
 
 
@@ -87,18 +87,16 @@
 
 
 
-<meta name="description" content="看完慕课网HTML+CSS基础课程+《CSS权威指南》之后，尝试做了个Blog静态页面，通过动手深入理解了CSS盒子模型，float，position布局。记住以下原则，使用纯CSS排版布局时，思路就应该清晰多了。">
+<meta name="description" content="本系列深入理解JS是对JavaScript这门语言中一些比较特殊和难懂的点做的说明和总结。JavaScript被认为是一门简单易用的语音，它具有许多负责的概念和原理，但却魔术般的使用一种看起来很简单的方法体现出来，这也使得很多开发者仅仅停留在能够使用的层面上，而未曾真正的深入理解其中的原理。这样的知其然而不知其所以然，会导致在实际应用中JS表现出不曾预料到的诡异行为，然后很多人会避开他们，去采用其">
 <meta property="og:type" content="article">
-<meta property="og:title" content="盒子模型，浮动，定位总结">
-<meta property="og:url" content="http://yoursite.com/2017/03/05/盒子模型，浮动，定位总结/index.html">
+<meta property="og:title" content="深入理解JS-part1-编译和变量提升">
+<meta property="og:url" content="http://yoursite.com/2017/08/06/深入理解JS-part1-J编译和变量提升/index.html">
 <meta property="og:site_name" content="萝三画室">
-<meta property="og:description" content="看完慕课网HTML+CSS基础课程+《CSS权威指南》之后，尝试做了个Blog静态页面，通过动手深入理解了CSS盒子模型，float，position布局。记住以下原则，使用纯CSS排版布局时，思路就应该清晰多了。">
-<meta property="og:image" content="http://omcbpoa4a.bkt.clouddn.com/QQ%E5%9B%BE%E7%89%8720170305203957.png">
-<meta property="og:updated_time" content="2017-08-01T13:12:32.255Z">
+<meta property="og:description" content="本系列深入理解JS是对JavaScript这门语言中一些比较特殊和难懂的点做的说明和总结。JavaScript被认为是一门简单易用的语音，它具有许多负责的概念和原理，但却魔术般的使用一种看起来很简单的方法体现出来，这也使得很多开发者仅仅停留在能够使用的层面上，而未曾真正的深入理解其中的原理。这样的知其然而不知其所以然，会导致在实际应用中JS表现出不曾预料到的诡异行为，然后很多人会避开他们，去采用其">
+<meta property="og:updated_time" content="2017-08-06T10:12:43.556Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="盒子模型，浮动，定位总结">
-<meta name="twitter:description" content="看完慕课网HTML+CSS基础课程+《CSS权威指南》之后，尝试做了个Blog静态页面，通过动手深入理解了CSS盒子模型，float，position布局。记住以下原则，使用纯CSS排版布局时，思路就应该清晰多了。">
-<meta name="twitter:image" content="http://omcbpoa4a.bkt.clouddn.com/QQ%E5%9B%BE%E7%89%8720170305203957.png">
+<meta name="twitter:title" content="深入理解JS-part1-编译和变量提升">
+<meta name="twitter:description" content="本系列深入理解JS是对JavaScript这门语言中一些比较特殊和难懂的点做的说明和总结。JavaScript被认为是一门简单易用的语音，它具有许多负责的概念和原理，但却魔术般的使用一种看起来很简单的方法体现出来，这也使得很多开发者仅仅停留在能够使用的层面上，而未曾真正的深入理解其中的原理。这样的知其然而不知其所以然，会导致在实际应用中JS表现出不曾预料到的诡异行为，然后很多人会避开他们，去采用其">
 
 
 
@@ -126,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/03/05/盒子模型，浮动，定位总结/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/08/06/深入理解JS-part1-J编译和变量提升/"/>
 
 
 
 
 
-  <title> 盒子模型，浮动，定位总结 | 萝三画室 </title>
+  <title> 深入理解JS-part1-编译和变量提升 | 萝三画室 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -249,7 +247,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/05/盒子模型，浮动，定位总结/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/06/深入理解JS-part1-J编译和变量提升/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="LOLISuri">
@@ -273,7 +271,7 @@
             
             
               
-                盒子模型，浮动，定位总结
+                深入理解JS-part1-编译和变量提升
               
             
           </h1>
@@ -288,8 +286,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-05T20:41:41+08:00">
-                2017-03-05
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-06T15:25:03+08:00">
+                2017-08-06
               </time>
             
 
@@ -324,19 +322,25 @@
       
 
       
-        <p>看完<a href="http://www.imooc.com/learn/9" target="_blank" rel="external">慕课网HTML+CSS基础课程</a>+《CSS权威指南》之后，尝试做了个Blog静态页面，通过动手深入理解了CSS盒子模型，float，position布局。记住以下原则，使用纯CSS排版布局时，思路就应该清晰多了。<br><a id="more"></a></p>
-<h1 id="盒子模型"><a href="#盒子模型" class="headerlink" title="盒子模型"></a>盒子模型</h1><p>关于盒子模型，首先要理解的一点是:<strong>==元素的width并不是元素的实际宽度==</strong>.width指的是元素中内容区的宽度，而内容区是被矩形盒子包裹着的。元素实际的宽度，是矩形盒子的宽度。比如我们定义了以下元素和内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;body&gt;</div><div class="line">    &lt;div&gt;</div><div class="line">        &lt;p style=&quot;display:inline&quot;&gt;我是内容&lt;/p&gt;</div><div class="line">        &lt;p style=&quot;display:inline&quot;&gt;我是内容&lt;/p&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">&lt;/body&gt;</div></pre></td></tr></table></figure></p>
-<p>它们的实际位置关系如下</p>
-<p><img src="http://omcbpoa4a.bkt.clouddn.com/QQ%E5%9B%BE%E7%89%8720170305203957.png" alt=""></p>
-<p>p元素的width是红框（内容区）的宽度；实际宽度是黑色虚线框的宽度，其值=width+左右两侧的(margin+border+padding)。</p>
-<p>其次，正常文档流中，相邻两元素以margin边界对齐。</p>
-<p>最后一点，对于正常文档流中的block父元素，其width=一行中所有子元素实际宽度之和。即div元素的width为图中虚线框国的宽度。</p>
-<h1 id="浮动"><a href="#浮动" class="headerlink" title="浮动"></a>浮动</h1><p>float会使元素脱离正常文档流，包含块是其距离最近的父元素。</p>
-<h1 id="定位"><a href="#定位" class="headerlink" title="定位"></a>定位</h1><p>absolute、fixed会使元素脱离正常文档流，relative不会。</p>
+        <p>本系列<strong><em>深入理解JS</em></strong>是对JavaScript这门语言中一些比较特殊和难懂的点做的说明和总结。JavaScript被认为是一门简单易用的语音，它具有许多负责的概念和原理，但却魔术般的使用一种看起来很简单的方法体现出来，这也使得很多开发者仅仅停留在能够使用的层面上，而未曾真正的深入理解其中的原理。这样的知其然而不知其所以然，会导致在实际应用中JS表现出不曾预料到的诡异行为，然后很多人会避开他们，去采用其他“安全”的方法。这显然不是正确的途径。因此，本系列旨在弄清“为什么”，从书中或实际应用中遇到的困惑出发，深入理解整个JavaScript。<br>本文是<strong><em>深入理解JS</em></strong>系列的part1，从编译JS出发，知道了解什么是变量提升。<br>参考书籍：《你不知道的JavaScript》 官方链接-&gt;&gt;&gt;&gt;&gt; <a href="http://www.ituring.com.cn/book/1488" target="_blank" rel="external">http://www.ituring.com.cn/book/1488</a><br><a id="more"></a></p>
+<h1 id="编译语言JavaScript"><a href="#编译语言JavaScript" class="headerlink" title="编译语言JavaScript"></a>编译语言JavaScript</h1><p>大多数情况下，我们都会把JS描述为<strong><em>直译型</em></strong> 或<strong><em>解释型</em></strong> 语言。再加上它可以直接在浏览器中运行而无需像C++等语言一样编译，导致很多人对JS产生一种误解（以前我也是这样！）– JavaScript无需编译。这是大错特错的！带着这种误解，我们的直觉就会告诉我们，JS在运行时是从上至下顺序执行代码的，这样也就很难理解为什么会出现变量提升。所以，要深入理解变量提升，我们首先要牢牢的记住：<strong><em>JavaScript是一门编译语言</em></strong>。</p>
+<h2 id="JS编译原理"><a href="#JS编译原理" class="headerlink" title="JS编译原理"></a>JS编译原理</h2><p>我们已经知道，JS是一门编译语言了。也就是说，JS代码在运行之前需要编译。然而，JS的编译原理和过程与传统编译语言大不相同。</p>
 <ul>
-<li>fixed的包含块是浏览器窗口。</li>
-<li>relative的包含块是其自身。</li>
-<li>absolute的包含块是据其最近的、position=absolute/relative的父元素。如果没有这样的父元素，则其包含块为Body元素。</li>
+<li>传统编译语言如C++，是<strong><em>提前编译</em></strong> 的，可以简单理解为我们访问的是编译后的程序(编译-&gt;访问-&gt;运行)。我们在编写代码，编译生成编译结果，并可以将编译结果再分布式系统中移植。</li>
+<li>JS，是<strong><em>运行前编译</em></strong> 的，可以简单理解为我们访问的是未经编译的程序(访问-&gt;编译-&gt;运行)。我们编写代码，浏览器访问，进入到一个作用域后进行编译，编译后运行。</li>
+</ul>
+<h2 id="JS编译过程"><a href="#JS编译过程" class="headerlink" title="JS编译过程"></a>JS编译过程</h2><p>JS编译过程中，涉及两个协作的“好朋友”。负责编译和运行JS代码的<strong><em>JavaScript引擎</em></strong>，负责协助JavaScript引擎查找变量的<strong><em>作用域</em></strong>。<br>下面我们看看JS的编译过程。<br>程序运行过程中，进入到某个作用域-&gt;引擎处理代码进行编译-&gt;遇到变量，询问作用域，进行变量查找(可能的结果包括变量未声明报错、新变量声明、取得变量源值)-&gt;作用域中所有代码编译完毕-&gt;引擎执行编译后的代码。</p>
+<h1 id="变量提升"><a href="#变量提升" class="headerlink" title="变量提升"></a>变量提升</h1><p>对于在作用域中使用var声明的变量以及定义的function，会出现<strong><em>变量提升</em></strong> 的现象-在变量声明之间就可以使用变量。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">function init()&#123;</div><div class="line">	console.log(a);</div><div class="line">	var a = 12;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>上面的函数执行后，控制台会输出undefined(变量声明但未赋值)而不是抛出ReferenceError错误(变量未声明)。<br>如果是按照前面讲过的错误观念：”JS在运行时是从上至下顺序执行代码的”这种理解，那么在console.log时还不存在变量a的。</p>
+<p>现在按照我们在<strong><em>JS编译过程</em></strong> 中将的步骤，再来看看实际上发生了什么。</p>
+<p>编译过程实际上就是找到所有的声明，并通过作用域将其关联起来。对于上面的例子，当编译console.log(a)时，JS引擎询问了init函数的作用域是否存在变量a。用域查找发现自身中存在var a的声明，因此不会出错，仅仅是变量未赋值。</p>
+<p>有人可能会问，既然能发现var a的声明，为什么不能识别a的赋值呢？这是因为，<strong><em>在编译阶段，引擎并不执行代码</em></strong>，赋值运算实际是运行阶段的任务，因此作用域在找到var a的声明后，就不会继续进行a = 12这步赋值运算了。</p>
+<p>于是前面的代码就可以理解为编译之前的状态，而经过javascript引擎编译后直译的状态是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">function init()&#123;</div><div class="line">	var a ;</div><div class="line">	console.log(a);</div><div class="line">	a = 12;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这也就是会出现<strong><em>变量提升</em></strong> 的原因了。</p>
+<p>关于变量提升，还有以下需要注意的地方：</p>
+<ul>
+<li>var 声明的变量以及函数会出现变量提升，函数的优先级高于var</li>
+<li>let 声明的变量不存在变量提升</li>
 </ul>
 
       
@@ -361,7 +365,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/CSS/" rel="tag"># CSS</a>
+            <a href="/tags/读书笔记/" rel="tag"># 读书笔记</a>
+          
+            <a href="/tags/javascript/" rel="tag"># javascript</a>
+          
+            <a href="/tags/你不知道的JS/" rel="tag"># 你不知道的JS</a>
           
         </div>
       
@@ -374,8 +382,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/03/05/body位置下移/" rel="next" title="解决body位置下移问题">
-                <i class="fa fa-chevron-left"></i> 解决body位置下移问题
+              <a href="/2017/08/03/仿网易云音乐PC-总结Part4-VUE/" rel="next" title="仿网易云音乐PC-总结Part4(VUE 2.x)">
+                <i class="fa fa-chevron-left"></i> 仿网易云音乐PC-总结Part4(VUE 2.x)
               </a>
             
           </div>
@@ -383,10 +391,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/07/27/仿网易云音乐PC-总结Part1-HTML/" rel="prev" title="仿网易云音乐PC-总结Part1(HTML5)">
-                仿网易云音乐PC-总结Part1(HTML5) <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -502,7 +506,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#盒子模型"><span class="nav-number">1.</span> <span class="nav-text">盒子模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#浮动"><span class="nav-number">2.</span> <span class="nav-text">浮动</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#定位"><span class="nav-number">3.</span> <span class="nav-text">定位</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#编译语言JavaScript"><span class="nav-number">1.</span> <span class="nav-text">编译语言JavaScript</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JS编译原理"><span class="nav-number">1.1.</span> <span class="nav-text">JS编译原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JS编译过程"><span class="nav-number">1.2.</span> <span class="nav-text">JS编译过程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#变量提升"><span class="nav-number">2.</span> <span class="nav-text">变量提升</span></a></li></ol></div>
             
 
           </div>

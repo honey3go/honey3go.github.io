@@ -93,7 +93,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/08/03/仿网易云音乐PC-总结Part4-VUE/index.html">
 <meta property="og:site_name" content="萝三画室">
 <meta property="og:description" content="本篇是仿网易云音乐PC-总结的第四部分，Part4-VUE。本项目仅使用了VUE这一个前端框架，由于其简单易用，具有十分友好的文档，使新手如我也可以直接上手。本文主要总结在项目过程中遇过的问题和使用心得，全部官方文档请戳https://cn.vuejs.org/v2/guide/仿网易云音乐PC全部项目请戳-&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; https://github.com/love3">
-<meta property="og:updated_time" content="2017-08-03T14:50:41.441Z">
+<meta property="og:updated_time" content="2017-08-06T07:51:03.092Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="仿网易云音乐PC-总结Part4(VUE 2.x)">
 <meta name="twitter:description" content="本篇是仿网易云音乐PC-总结的第四部分，Part4-VUE。本项目仅使用了VUE这一个前端框架，由于其简单易用，具有十分友好的文档，使新手如我也可以直接上手。本文主要总结在项目过程中遇过的问题和使用心得，全部官方文档请戳https://cn.vuejs.org/v2/guide/仿网易云音乐PC全部项目请戳-&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; https://github.com/love3">
@@ -345,7 +345,7 @@
 <li><p>然后进入项目文件件夹，安装依赖项</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install</div></pre></td></tr></table></figure>
 </li>
-<li><p>安装vue-router和vue-resource模块</p>
+<li><p>安装vue-router和vue-resource模块(可选)<br>vue-router和vue-resource是官方提供的扩展，分别用于配置路由和处理http请求，可根据实际情况选择是否安装。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cnpm install vue-router vue-resource --save</div></pre></td></tr></table></figure>
 </li>
 <li><p>安装完成后，启动项目</p>
@@ -357,7 +357,7 @@
 <li>关于修改配置文件<br>项目默认使用8080端口，如果已被占用，可以进入config-&gt;index.js中修改配置文件使用其他端口。</li>
 </ol>
 <h3 id="打包项目"><a href="#打包项目" class="headerlink" title="打包项目"></a>打包项目</h3><p>项目开发完成后，进入项目文件夹输入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm run build</div></pre></td></tr></table></figure></p>
-<p>将项目打包，打包成功后会生成dist文件夹，这个文件夹里的文件就是最终的成果。把文件夹里面的内容而不是整个dist文件夹部署到服务器上就OK辣。</p>
+<p>将项目打包，打包成功后会生成dist文件夹，这个文件夹里的文件就是最终的成果，它部署到服务器上就OK辣。</p>
 <h2 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h2><p>项目的目录结构如所示。我们需要关注的是src目录、static目录和index.html。</p>
 <ul>
 <li>src文件夹是项目源码目录，其中初始包括三个文件夹和两个文件：<ul>
@@ -408,6 +408,49 @@
 </ul>
 <h1 id="methods"><a href="#methods" class="headerlink" title="methods"></a>methods</h1><p>methods是一个对象，以键值对的形式存储所在组件中的方法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;</div><div class="line">export default &#123;</div><div class="line">	methods:&#123;</div><div class="line">	    addAT:function()&#123;</div><div class="line">	      if (this.cmtContent.length &lt; this.maxlength)&#123;</div><div class="line">	        this.cmtContent += &quot;@&quot;;</div><div class="line">	      &#125;</div><div class="line">	    &#125;,</div><div class="line">	    tabShowMore:function()&#123;</div><div class="line">	      this.songs.isShowMore = !this.songs.isShowMore;</div><div class="line">	    &#125;,</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
 <p>这里需要注意的是，methods中的方法必须以属性名:函数的形式定义，不能使用箭头函数。因为箭头函数会将this指针绑定到函数定义时所在的作用域。在方法内部可以使用箭头函数。</p>
+<h1 id="钩子函数"><a href="#钩子函数" class="headerlink" title="钩子函数"></a>钩子函数</h1><p>贯穿一个vue实例全生命周期的有以下钩子函数，它们的作用就是在不同阶段执行某些操作。</p>
+<ul>
+<li><p>beforeCreate<br>vue实例创建后立即执行这个钩子函数，此时数据和事件都没有被初始化。也就是说，这里无法直接访问data、methods等。<br>这个钩子里比较适合写loading和http请求(本项目使用vue-resource)。因为http请求是异步的，通常请求返回时已经vue实例已经created了，可以直接访问data和methods等属性和方法。为了稳妥以及避免造成混乱，还是建议把http请求写在created钩子中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;</div><div class="line">export default &#123;</div><div class="line">    beforeCreate:function()&#123;</div><div class="line">      var result = this.result;//错误，此时result未初始化，无法访问到</div><div class="line"></div><div class="line">      this.$http.get(&apos;http://123.206.211.77:33333/api/v1/index/detail&apos;)</div><div class="line">        .then(response =&gt; &#123;</div><div class="line">          this.result = response.data;//正确，http请求正常返回后，通常result已被初始化，可以访问到</div><div class="line">        &#125;)</div><div class="line">        .catch(response =&gt; &#123;</div><div class="line">          console.log(response)</div><div class="line">        &#125;);</div><div class="line">    &#125;,</div><div class="line">&#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p>created<br>数据、事件等属性和方法初始化完毕，但DOM并未生成，el属性不存在。在这里可以直接访问data和methods等，但无法获取DOM元素。<br>这个钩子里比较适合写Loading结束、http请求、一些初始化操作。</p>
+</li>
+<li>beforeMount<br>模板挂载之前，el属性存在，但并未挂载，仅仅是“占坑”。</li>
+<li>mounted<br>模板挂载之后，el属性存在。<br>这个钩子可以配合this.$nextTick实现依赖DOM的操作，如监听事件等。</li>
+<li>beforeUpdate<br>组件更新之前执行</li>
+<li>updates<br>组件更新之后执行</li>
+<li>beforeDestory<br>组件销毁前执行，常用确认是否执行销毁动作。</li>
+<li>destoryed<br>组件销毁后执行，常用于收尾清除数据。</li>
+<li>activated<br>针对keep-alive，组件被激活时执行</li>
+<li>deactivated<br>针对keep-alive，组件被移除时执行</li>
+</ul>
+<h1 id="条件渲染-v-if-vs-v-show"><a href="#条件渲染-v-if-vs-v-show" class="headerlink" title="条件渲染 v-if vs v-show"></a>条件渲染 v-if vs v-show</h1><p>v-if和v-show都是控制DOM元素是否渲染的。他们存在以下区别：</p>
+<ul>
+<li>v-if在条件为假时，不去渲染元素；v-show始终渲染，仅仅是通过设置display属性来控制元素的显示和隐藏</li>
+<li>v-if 可以写在template标签内控制整个模板的渲染与否，v-show不可以，只能写在template标签的子元素中</li>
+<li>v-if 可以与v-else、v-else-if联合使用；v-show不可以</li>
+</ul>
+<p>综上，v-if适用于运行时条件不太可能改变的场景，比如：异步请求数据，在数据返回之后渲染页面时使用v-if更好；v-show适合可能频繁切换元素的显示和隐藏的场景，比如hover。</p>
+<h1 id="computed属性-vs-watch属性"><a href="#computed属性-vs-watch属性" class="headerlink" title="computed属性 vs watch属性"></a>computed属性 vs watch属性</h1><ul>
+<li>computed属性<br>简单说，一个computed属性是依赖于data中一个或几个数据“计算”得到的。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;</div><div class="line">export default &#123;</div><div class="line">  data () &#123;</div><div class="line">    return &#123;</div><div class="line">        others: [&#123; num: 5, name: &quot;title&quot;&#125;],</div><div class="line">    &#125;</div><div class="line">  &#125;,</div><div class="line">  computed:&#123;</div><div class="line">    cmtFrontMore:function()&#123;</div><div class="line">      return this.others[0].num&gt;2;</div><div class="line">    &#125;,</div><div class="line">  &#125;,</div><div class="line">&#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>computed属性是响应式的。这里的响应式有以下含义：</p>
+<ol>
+<li>computed属性跟随其依赖的变化而变化。如上栗，computed属性cmtFrontMore是依赖于data中的others属性的，others变化也会触发cmtFrontMore的变化。</li>
+<li>默认情况下computed属性的变化只会由其依赖的变化触发，任何在computed属性外部试图更改属性都会被拒绝。如果想实现这一的效果，则需要为属性提供set方法。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;</div><div class="line">export default &#123;</div><div class="line">  data () &#123;</div><div class="line">    return &#123;</div><div class="line">        others: [&#123; num: 5, name: &quot;title&quot;&#125;],</div><div class="line">    &#125;</div><div class="line">  &#125;,</div><div class="line">  computed:&#123;</div><div class="line">    cmtFrontMore:&#123;</div><div class="line">        get: function()&#123;</div><div class="line">            return this.others[0].num === 2;</div><div class="line">        &#125;,</div><div class="line">        set: function(newVal)&#123;</div><div class="line">            if (newVal)&#123;</div><div class="line">                this.others[0].num = 2;</div><div class="line">            &#125; else &#123;</div><div class="line">                this.others[0].num = 5;</div><div class="line">            &#125; </div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;,</div><div class="line">&#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>这样，this.others[0].num变化会引起cmtFrontMore变化；this.cmtFrontMore变化也会触发this.others[0].num变化。</p>
+<ul>
+<li>watch属性<br>watch属性是一种观测并相应数据变化的属性。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;</div><div class="line">export default &#123;</div><div class="line">  data () &#123;</div><div class="line">    return &#123;</div><div class="line">        others: [&#123; num: 5, name: &quot;title&quot;&#125;],</div><div class="line">        cmtFrontMore: false,</div><div class="line">    &#125;</div><div class="line">  &#125;,</div><div class="line">  watch:&#123;</div><div class="line">    others: function(newVal,oldVal)&#123;</div><div class="line">      if (newVal[0].num === 2)&#123;</div><div class="line">        this.cmtFrontMore = true;</div><div class="line">      &#125;</div><div class="line">    &#125;,</div><div class="line">  &#125;,</div><div class="line">&#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>如上栗，当others属性发生变化，则执行watch中others对应的函数。</p>
+<ul>
+<li>比较<br>大多数情况下，computed属性更适合，但是在执行异步操作或开销较大的操作时，就需要使用watch了。可以理解为，computed属性是要返回一个依赖于某个数据变化而变化的数据，而watch属性是要在发现某个数据变化后，dosomething。</li>
+</ul>
+<h1 id="this-nextTick"><a href="#this-nextTick" class="headerlink" title="this.$nextTick"></a>this.$nextTick</h1><p>Vue 异步执行DOM更新。也就是说，当你更改了一个响应式数据，它所涉及的组件并不会立即重新渲染。数据更改触发DOM更新的流程是：<br><strong><em>数据更改-&gt;执行完其它同步命令-&gt;DOM更新。</em></strong><br>因此，在数据更改后试图立即操作更新后的DOM会失败，此刻DOM还未更新呢！<br>为了解决这个问题，我们可以使用this.$nextTick(callback)。在数据更改后立刻使用this.$nextTick()，会在DOM更新后立即执行其中的回调函数。</p>
 
       
     </div>
@@ -457,6 +500,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/06/深入理解JS-part1-J编译和变量提升/" rel="prev" title="深入理解JS-part1-编译和变量提升">
+                深入理解JS-part1-编译和变量提升 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -526,7 +573,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -537,7 +584,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -572,7 +619,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#使用VUE"><span class="nav-number">1.</span> <span class="nav-text">使用VUE</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置环境"><span class="nav-number">1.1.</span> <span class="nav-text">配置环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装node-js"><span class="nav-number">1.1.1.</span> <span class="nav-text">安装node.js</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装vue-cli"><span class="nav-number">1.1.2.</span> <span class="nav-text">安装vue-cli</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#新建项目"><span class="nav-number">1.1.3.</span> <span class="nav-text">新建项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#打包项目"><span class="nav-number">1.1.4.</span> <span class="nav-text">打包项目</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目结构"><span class="nav-number">1.2.</span> <span class="nav-text">项目结构</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#组件结构"><span class="nav-number">2.</span> <span class="nav-text">组件结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#data"><span class="nav-number">3.</span> <span class="nav-text">data</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#props"><span class="nav-number">4.</span> <span class="nav-text">props</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#methods"><span class="nav-number">5.</span> <span class="nav-text">methods</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#使用VUE"><span class="nav-number">1.</span> <span class="nav-text">使用VUE</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置环境"><span class="nav-number">1.1.</span> <span class="nav-text">配置环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装node-js"><span class="nav-number">1.1.1.</span> <span class="nav-text">安装node.js</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装vue-cli"><span class="nav-number">1.1.2.</span> <span class="nav-text">安装vue-cli</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#新建项目"><span class="nav-number">1.1.3.</span> <span class="nav-text">新建项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#打包项目"><span class="nav-number">1.1.4.</span> <span class="nav-text">打包项目</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目结构"><span class="nav-number">1.2.</span> <span class="nav-text">项目结构</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#组件结构"><span class="nav-number">2.</span> <span class="nav-text">组件结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#data"><span class="nav-number">3.</span> <span class="nav-text">data</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#props"><span class="nav-number">4.</span> <span class="nav-text">props</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#methods"><span class="nav-number">5.</span> <span class="nav-text">methods</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#钩子函数"><span class="nav-number">6.</span> <span class="nav-text">钩子函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#条件渲染-v-if-vs-v-show"><span class="nav-number">7.</span> <span class="nav-text">条件渲染 v-if vs v-show</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#computed属性-vs-watch属性"><span class="nav-number">8.</span> <span class="nav-text">computed属性 vs watch属性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#this-nextTick"><span class="nav-number">9.</span> <span class="nav-text">this.$nextTick</span></a></li></ol></div>
             
 
           </div>
