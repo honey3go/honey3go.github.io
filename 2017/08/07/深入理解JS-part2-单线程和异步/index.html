@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="CSS," />
+  <meta name="keywords" content="读书笔记,javascript," />
 
 
 
@@ -87,21 +87,16 @@
 
 
 
-<meta name="description" content="问题背景实现两个div，其中一个随滚轮滚动，效果如下。">
+<meta name="description" content="本文是深入理解JS系列的part2，详述JS单线程执行和异步操作的实现。JS单线程执行的意思是，同一时刻，总是只有一个线程在执行JS代码。但我们又发现，Ajax请求和setInterval等不都是异步操作吗？如果是单线程执行，怎么会有异步操作呢？异步操作一定是两个以上线程共同完成的啊？带着这个疑惑，我们从JS引擎和浏览器线程开始说起。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="解决body位置下移问题">
-<meta property="og:url" content="http://yoursite.com/2017/03/05/body位置下移/index.html">
+<meta property="og:title" content="深入理解JS-part2-单线程、异步和setInterval">
+<meta property="og:url" content="http://yoursite.com/2017/08/07/深入理解JS-part2-单线程和异步/index.html">
 <meta property="og:site_name" content="萝三画室">
-<meta property="og:description" content="问题背景实现两个div，其中一个随滚轮滚动，效果如下。">
-<meta property="og:image" content="http://omcbpoa4a.bkt.clouddn.com/1.png">
-<meta property="og:image" content="http://omcbpoa4a.bkt.clouddn.com/2.png">
-<meta property="og:image" content="http://omcbpoa4a.bkt.clouddn.com/3.png">
-<meta property="og:image" content="http://omcbpoa4a.bkt.clouddn.com/4.png">
-<meta property="og:updated_time" content="2017-08-01T13:12:37.197Z">
+<meta property="og:description" content="本文是深入理解JS系列的part2，详述JS单线程执行和异步操作的实现。JS单线程执行的意思是，同一时刻，总是只有一个线程在执行JS代码。但我们又发现，Ajax请求和setInterval等不都是异步操作吗？如果是单线程执行，怎么会有异步操作呢？异步操作一定是两个以上线程共同完成的啊？带着这个疑惑，我们从JS引擎和浏览器线程开始说起。">
+<meta property="og:updated_time" content="2017-08-07T14:06:00.151Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="解决body位置下移问题">
-<meta name="twitter:description" content="问题背景实现两个div，其中一个随滚轮滚动，效果如下。">
-<meta name="twitter:image" content="http://omcbpoa4a.bkt.clouddn.com/1.png">
+<meta name="twitter:title" content="深入理解JS-part2-单线程、异步和setInterval">
+<meta name="twitter:description" content="本文是深入理解JS系列的part2，详述JS单线程执行和异步操作的实现。JS单线程执行的意思是，同一时刻，总是只有一个线程在执行JS代码。但我们又发现，Ajax请求和setInterval等不都是异步操作吗？如果是单线程执行，怎么会有异步操作呢？异步操作一定是两个以上线程共同完成的啊？带着这个疑惑，我们从JS引擎和浏览器线程开始说起。">
 
 
 
@@ -129,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/03/05/body位置下移/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/08/07/深入理解JS-part2-单线程和异步/"/>
 
 
 
 
 
-  <title> 解决body位置下移问题 | 萝三画室 </title>
+  <title> 深入理解JS-part2-单线程、异步和setInterval | 萝三画室 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -252,7 +247,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/05/body位置下移/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/07/深入理解JS-part2-单线程和异步/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="LOLISuri">
@@ -276,7 +271,7 @@
             
             
               
-                解决body位置下移问题
+                深入理解JS-part2-单线程、异步和setInterval
               
             
           </h1>
@@ -291,8 +286,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-05T20:00:43+08:00">
-                2017-03-05
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-07T15:48:32+08:00">
+                2017-08-07
               </time>
             
 
@@ -327,15 +322,28 @@
       
 
       
-        <h1 id="问题背景"><a href="#问题背景" class="headerlink" title="问题背景"></a>问题背景</h1><p>实现两个div，其中一个随滚轮滚动，效果如下。<br><img src="http://omcbpoa4a.bkt.clouddn.com/1.png" alt="图1-正常情况"><br><a id="more"></a><br>上图是正常情况，下图是滚轮滚动时的情况。<br><img src="http://omcbpoa4a.bkt.clouddn.com/2.png" alt="图2-滚轮滚动"></p>
-<h1 id="实现过程"><a href="#实现过程" class="headerlink" title="实现过程"></a>实现过程</h1><h2 id="首先添加两个普通的div"><a href="#首先添加两个普通的div" class="headerlink" title="首先添加两个普通的div"></a>首先添加两个普通的div</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;body&gt;</div><div class="line">    &lt;div id=&quot;header&quot;&gt;我是header&lt;/div&gt;</div><div class="line">    &lt;div id=&quot;main&quot;&gt;我是main&lt;/div&gt;</div><div class="line">&lt;/body&gt;</div></pre></td></tr></table></figure>
-<p>为了显示清楚,设置div的背景颜色。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;style type=&quot;text/css&quot;&gt;</div><div class="line">body&#123;</div><div class="line">    margin: 0;</div><div class="line">   &#125;</div><div class="line">#header&#123;</div><div class="line">    background: pink;</div><div class="line">   &#125;</div><div class="line">#main&#123;</div><div class="line">    background: green; </div><div class="line">    height: 1000px;</div><div class="line">   &#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure></p>
-<p>这样看上去与图1一致，但无法实现图2的效果。</p>
-<h2 id="将header固定在视窗顶部"><a href="#将header固定在视窗顶部" class="headerlink" title="将header固定在视窗顶部"></a>将header固定在视窗顶部</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#header&#123;</div><div class="line">    background: pink;</div><div class="line">    /*由于下文fixed定位使元素脱离正常文档流，如果不指定width，则其值自适应子元素宽度*/</div><div class="line">    width: 100%;</div><div class="line">    position:fixed;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>此时发现，main被header盖住了,如图3.<br><img src="http://omcbpoa4a.bkt.clouddn.com/3.png" alt="图3"><br>原因是fixed使header元素脱离了正常文档流，相当于本来是第二个元素的main元素变成了第一个元素，占据了body首行位置。</p>
-<h2 id="让main元素露出来"><a href="#让main元素露出来" class="headerlink" title="让main元素露出来"></a>让main元素露出来</h2><p>为了让main露出来，我马上想到的是通过设置它的margin-top。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#main&#123;</div><div class="line">    background: green; </div><div class="line">    height: 1000px;</div><div class="line">    margin-top:21px;/*留出header宽度*/</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>然而结果并非我想要的.<br><img src="http://omcbpoa4a.bkt.clouddn.com/4.png" alt="图4"><br>不但main没露出来，连header的位置都下移了！查看元素位置发现body元素也下移了21px!<br>这个问题是由一个原则造成的。我们知道，正常文档流中，子元素的外边界（margin）应与父元素的内边界（padding）对齐。但“如果父元素的第一个子元素存在非0的margin，则父元素与子元素之间以内边界对齐”。这就造成了body和main的padding重合，效果就如图四。<br>4放弃margin，改成padding<br>知道了错误原因，我们就可以对症下药了。只要将main的margin设为0，上述“”中的原则便不适用了，main的margin依然与body的padding对齐。再通过增加main的padding-top使其内容区移动到header的位置外，main中的内容就可以全部显示出来了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#main&#123;</div><div class="line">    background: green; </div><div class="line">    height: 1000px;</div><div class="line">    padding-top:21px;/*留出header宽度*/</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>Done！<br>原则很简单，但很多时候都不记得。<br>最后再重述一下导致本例问题出现的原则：“如果父元素的第一个子元素存在非0的margin，则父元素与子元素之间以内边界对齐”。</p>
+        <p>本文是<strong><em>深入理解JS</em></strong>系列的part2，详述JS单线程执行和异步操作的实现。JS单线程执行的意思是，同一时刻，总是只有一个线程在执行JS代码。但我们又发现，Ajax请求和setInterval等不都是异步操作吗？如果是单线程执行，怎么会有异步操作呢？异步操作一定是两个以上线程共同完成的啊？带着这个疑惑，我们从JS引擎和浏览器线程开始说起。</p>
+<a id="more"></a>
+<h1 id="JS是单线程执行的"><a href="#JS是单线程执行的" class="headerlink" title="JS是单线程执行的"></a>JS是单线程执行的</h1><p>在本系列文章part1部分我们知道，浏览器中的JS引擎负责编译和运行javascript代码。JS是单线程执行的，就是说同一时刻内只会有一段代码在JS引擎内运行。</p>
+<h1 id="浏览器是多线程的"><a href="#浏览器是多线程的" class="headerlink" title="浏览器是多线程的"></a>浏览器是多线程的</h1><p>一般而言，浏览器在运行时常驻三个线程：</p>
+<ul>
+<li>JS引擎线程：负责执行js代码</li>
+<li>GUI渲染线程：负责渲染页面</li>
+<li>事件队列线程：异步代码队列</li>
+</ul>
+<p>其中，JS引擎线程是主线程，它和GUI渲染线程同时只有一个线程在运行，另一个线程被挂起。js涉及页面交互，可能引发页面重绘，重绘工作要等到js引擎空闲时运行。事件队列是异步代码执行之前的排队等候区。主线程执行到异步代码时，会将异步事件推入事件队列中排队，js引擎空闲时，会按顺序从队列中提取事件并执行。</p>
+<p>因此，<strong><em>单线程指的是JS引擎同一时刻只能执行一段代码，是语言行为；异步操作的实现是由多线程的浏览器中的js引擎和事件队列共同完成，是浏览器行为。</em></strong></p>
+<p>另外，由JS引擎线程和GUI渲染线程互斥可以知道，js导致页面重绘实际上也是异步的，代码中改变DOM之后页面并不会立刻更新。这就可以理解vue中的this.$nextTick()出现的原因了，<a href="https://honey3go.github.io/2017/08/03/%E4%BB%BF%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90PC-%E6%80%BB%E7%BB%93Part4-VUE/#more" target="_blank" rel="external">详见vue总结</a>。</p>
+<h1 id="异步实际上还是同步"><a href="#异步实际上还是同步" class="headerlink" title="异步实际上还是同步"></a>异步实际上还是同步</h1><p>理解了单线程和异步之后，我们发现，其实此处的异步其实还是同步，它只是将代码执行的时间推迟到了js引擎空闲时，并没有同时多线程运行js代码。下面举个栗子完整的看一下异步事件执行流程。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">(()=&gt;&#123;</div><div class="line">	console.log(&quot;a&quot;);</div><div class="line">    setTimeout(()=&gt;&#123;</div><div class="line">    	console.log(&quot;b&quot;)</div><div class="line">    &#125;, 1000);</div><div class="line">    console.log(&quot;c&quot;);</div><div class="line">&#125;)()</div></pre></td></tr></table></figure></p>
+<p>我们发现运行后控制台依次输出a、c、b。<br>js引擎的工作流程是这样的：<br>进入作用域-&gt;执行同步代码输出a-&gt;向下遇见异步代码，不执行，设定在js引擎空闲后1秒将其推入事件队列-&gt;向下执行同步代码输出c，此时js引擎已处于空闲状态-&gt;1秒后异步事件推入事件队列-&gt;js引擎空闲，执行异步事件。</p>
+<p>从这个过程中我们看到，在进入一个作用域并开始运行js代码时，js引擎从上至下按顺序执行代码。遇到同步代码直接执行；遇到异步代码，则会在作用域内所有同步代码执行完毕后（也就是js引擎空闲时），将其推入事件队列，再按顺序执行异步事件。</p>
+<p>为什么说是执行完所有同步代码才会执行异步代码呢？我们将上面setTimeout中的时间间隔改为0，发现输出顺序并没有改变。这个技巧可以用来改变代码执行顺序。</p>
+<h1 id="setTimeout和setInterval的真实意义"><a href="#setTimeout和setInterval的真实意义" class="headerlink" title="setTimeout和setInterval的真实意义"></a>setTimeout和setInterval的真实意义</h1><p>很多人会将setTimeout和setInterval错误地理解为：xx秒之后执行事件。而它们真正的含义是：<strong><em>在js引擎空闲后xx秒，将异步事件推入事件队列。</em></strong>这二者的差别是很大的。通常情况下js执行时间很短看不出区别，但如果在同步代码耗时较长或事件队列前面有其他异步任务时，错误的理解就会造成意料之外的行为。</p>
+<p>那么也就不难理解，setTimeout和setInterval中的时间间隔只是表示大致时间，最终到底是就多久后才执行异步事件是不能准确确定的。比如2秒后js引擎才空闲、比如异步队列中，它前面有其他耗时的异步事件…..</p>
+<p>下面要说的就是我曾经犯过的白痴错误，裱自己已示警示- -|||<br>以下代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">(()=&gt;&#123;</div><div class="line">	console.log(0，new Date())</div><div class="line">    </div><div class="line">	for (let i = 1;i&lt;5;i++)&#123;</div><div class="line">		setInterval(function()&#123;</div><div class="line">			console.log(i,new Date())</div><div class="line">		&#125;,2000)</div><div class="line">        console.log(i)</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;)()</div></pre></td></tr></table></figure></p>
+<p>我的错误的想法，会将输出结果猜想为：0,1,2,3,4,5，两个相邻输出的时间间隔为2秒。<br>然而通过本文我们知道，实际输出是0,1,2,3,4,5，0和1之间相隔2秒，1-5几乎是同时输出。<br>在这里我犯了两个错误：异步理解错误、setInterval理解错误……</p>
+<p>所以说学习真的不能想当然呀╮(╯▽╰)╭，多研究理解才是解决问题的正确途径♪(^^∇^^*)。</p>
+<p>——本节完——</p>
 
       
     </div>
@@ -359,7 +367,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/CSS/" rel="tag"># CSS</a>
+            <a href="/tags/读书笔记/" rel="tag"># 读书笔记</a>
+          
+            <a href="/tags/javascript/" rel="tag"># javascript</a>
           
         </div>
       
@@ -372,15 +382,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2017/08/06/深入理解JS-part1-编译和变量提升/" rel="next" title="深入理解JS-part1-编译和变量提升">
+                <i class="fa fa-chevron-left"></i> 深入理解JS-part1-编译和变量提升
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/03/05/盒子模型，浮动，定位总结/" rel="prev" title="盒子模型，浮动，定位总结">
-                盒子模型，浮动，定位总结 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -496,7 +506,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#问题背景"><span class="nav-number">1.</span> <span class="nav-text">问题背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现过程"><span class="nav-number">2.</span> <span class="nav-text">实现过程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#首先添加两个普通的div"><span class="nav-number">2.1.</span> <span class="nav-text">首先添加两个普通的div</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#将header固定在视窗顶部"><span class="nav-number">2.2.</span> <span class="nav-text">将header固定在视窗顶部</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#让main元素露出来"><span class="nav-number">2.3.</span> <span class="nav-text">让main元素露出来</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JS是单线程执行的"><span class="nav-number">1.</span> <span class="nav-text">JS是单线程执行的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#浏览器是多线程的"><span class="nav-number">2.</span> <span class="nav-text">浏览器是多线程的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#异步实际上还是同步"><span class="nav-number">3.</span> <span class="nav-text">异步实际上还是同步</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#setTimeout和setInterval的真实意义"><span class="nav-number">4.</span> <span class="nav-text">setTimeout和setInterval的真实意义</span></a></li></ol></div>
             
 
           </div>
