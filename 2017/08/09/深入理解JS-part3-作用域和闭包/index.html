@@ -1,0 +1,739 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="读书笔记,javascript,你不知道的JS," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://o3sw4xojp.qnssl.com/paper_airplane.png?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="本文是深入理解JS系列的part3，我们要讨论的是javscript中的一个十分重要的概念：闭包。闭包是这门语言中的特点和难点，借助闭包我们可以实现很多高级应用。闭包是和作用域紧紧结合起来的，因此在讨论闭包之前，我们简单的介绍一下javascript的作用域。
+参考书籍：《你不知道的JavaScript》">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入理解JS-part3-作用域和闭包">
+<meta property="og:url" content="http://yoursite.com/2017/08/09/深入理解JS-part3-作用域和闭包/index.html">
+<meta property="og:site_name" content="萝三画室">
+<meta property="og:description" content="本文是深入理解JS系列的part3，我们要讨论的是javscript中的一个十分重要的概念：闭包。闭包是这门语言中的特点和难点，借助闭包我们可以实现很多高级应用。闭包是和作用域紧紧结合起来的，因此在讨论闭包之前，我们简单的介绍一下javascript的作用域。
+参考书籍：《你不知道的JavaScript》">
+<meta property="og:updated_time" content="2017-08-09T15:07:38.679Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="深入理解JS-part3-作用域和闭包">
+<meta name="twitter:description" content="本文是深入理解JS系列的part3，我们要讨论的是javscript中的一个十分重要的概念：闭包。闭包是这门语言中的特点和难点，借助闭包我们可以实现很多高级应用。闭包是和作用域紧紧结合起来的，因此在讨论闭包之前，我们简单的介绍一下javascript的作用域。
+参考书籍：《你不知道的JavaScript》">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/08/09/深入理解JS-part3-作用域和闭包/"/>
+
+
+
+
+
+  <title> 深入理解JS-part3-作用域和闭包 | 萝三画室 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">萝三画室</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle">向死而生</p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/09/深入理解JS-part3-作用域和闭包/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="LOLISuri">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="https://o3sw4xojp.qnssl.com/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="萝三画室">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="萝三画室" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                深入理解JS-part3-作用域和闭包
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-09T20:34:24+08:00">
+                2017-08-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文是<strong><em>深入理解JS</em></strong>系列的part3，我们要讨论的是javscript中的一个十分重要的概念：闭包。闭包是这门语言中的特点和难点，借助闭包我们可以实现很多高级应用。闭包是和作用域紧紧结合起来的，因此在讨论闭包之前，我们简单的介绍一下javascript的作用域。</p>
+<p>参考书籍：<a href="http://www.ituring.com.cn/book/1488" target="_blank" rel="external">《你不知道的JavaScript》</a><br><a id="more"></a></p>
+<h1 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h1><p>首先，什么是作用域？简单来讲，一个作用域就是一个范围，在这个范围之内声明的变量就是局部变量。局部变量只在这个范围内存在，在范围之外无法访问。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">function init()&#123;</div><div class="line"> 	var a = 12;</div><div class="line">&#125;</div><div class="line">a//ReferenceError</div></pre></td></tr></table></figure></p>
+<p>上面代码中init函数中声明的变量a，只存在于init函数的作用域中，在init函数外部访问变量a，会抛出ReferenceError错误（变量未声明）。</p>
+<h2 id="在ES6之前，javascript只有两种作用域"><a href="#在ES6之前，javascript只有两种作用域" class="headerlink" title="在ES6之前，javascript只有两种作用域"></a>在ES6之前，javascript只有两种作用域</h2><ul>
+<li>全局作用域<br>全局作用于是顶级作用域，在全局作用域中声明的对象，都是全局对象。</li>
+<li>函数作用域<br>定义一个function(){}也就定义了一个作用域，作用域以{}包裹。</li>
+</ul>
+<p>如果你使用过c++等其他语言，会认为for循环、if语句中声明的都是局部变量，这是因为这些语言本身是具有块级作用域的，被{}包裹的就是一个新的作用域。而在javascript中并非如此。</p>
+<p>由于javascript只有全局作用域和函数作用域，即使在for循环和if语句中声明了新变量，这些变量的作用域也不限于循环体，而是函数体。实际上，js中for循环或if语句中声明的变量，与在它们外部声明的变量并无差异，同样也会出现<a href="https://honey3go.github.io/2017/08/06/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3JS-part1-%E7%BC%96%E8%AF%91%E5%92%8C%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87/" target="_blank" rel="external">变量提升</a>现象。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function init()&#123;</div><div class="line">	if(true)&#123;</div><div class="line">		var a = 12;</div><div class="line">    &#125;</div><div class="line">    console.log(a);  //12</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="ES6引入了第三种作用域"><a href="#ES6引入了第三种作用域" class="headerlink" title="ES6引入了第三种作用域"></a>ES6引入了第三种作用域</h2><ul>
+<li>块级作用域</li>
+</ul>
+<p>ES6的let和const命令，为当前所处的环境增加了块级作用域。简单来说，let或const声明的变量，在包裹它的第一层{}之外无法被访问到。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">function init()&#123;</div><div class="line">	if (true)&#123;</div><div class="line">		if (true)&#123;</div><div class="line">            let a = 12;</div><div class="line">            const b = 13;</div><div class="line">            var c = 14;</div><div class="line">        &#125;</div><div class="line">        a//ReferenceError</div><div class="line">        b//ReferenceError</div><div class="line">        c//14</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="作用域可嵌套"><a href="#作用域可嵌套" class="headerlink" title="作用域可嵌套"></a>作用域可嵌套</h2><p>js中作用域可嵌套，嵌套的多个作用域形成了作用域链。</p>
+<p>首先思考一个最最基本的事实：定义在全局作用域中的变量，可以在任何位置被访问到。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var a = 12;</div><div class="line"></div><div class="line">function init()&#123;</div><div class="line">	var b = 13;</div><div class="line">	console.log(a);</div><div class="line">&#125;</div><div class="line"></div><div class="line">init();//12</div><div class="line">console.log(b)//ReferenceError</div></pre></td></tr></table></figure></p>
+<p>上面的栗子中，变量a和函数init是定义在全局作用域中的全局对象，变量b是定义在init函数作用域中的局部变量。同时，init函数作用域嵌套在全局作用域中。</p>
+<p>执行init函数后，控制台输出12，说明在init函数作用域内可以访问它上一级的全局作用域；而在全局作用域执行console.log(b)发现抛出ReferenceError，这说明全局作用域不可以访问到它下一级的init函数作用域。</p>
+<p>这个最简单的栗子体现出<strong><em>作用域可嵌套，内层作用域可访问外层，外层作用域不可以访问内层</em></strong>。</p>
+<p>接下来我们看进阶一点的栗子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">var a = 12;</div><div class="line"></div><div class="line">function init()&#123;</div><div class="line">     var b = 13;</div><div class="line"></div><div class="line">     function add()&#123;</div><div class="line">     	var a = 7;</div><div class="line">        console.log(a+b);</div><div class="line">     &#125;</div><div class="line">     add();</div><div class="line">&#125;</div><div class="line"></div><div class="line">init();//20</div></pre></td></tr></table></figure></p>
+<p>执行init函数后，控制台输出20。<br>上面的栗子中，全局作用域中定义了变量a和函数init，函数init的作用域中定义了变量b和函数add，函数add中定义了另一个变量a。作用域的嵌套关系：add-&gt;init-&gt;全局作用域。</p>
+<p>由输出结果我们发现两个事实：</p>
+<ul>
+<li>add函数内可以访问到其外层作用域init中的变量b</li>
+<li>最终console.log(a+b)中的a，引用的是定义在add函数作用域中的变量a，并非全局变量a</li>
+</ul>
+<p>第一个事实我们基于前面的论述可以理解。第二个事实告诉我们，在引用变量时，js采取就近原则，从当前作用域开始，逐步向外层作用域查找变量，到全局作用域为止。</p>
+<p>因此，作用域的嵌套关系就形成了一个单向的作用域链。本栗中在add函数作用域内就找到了变量a，因此就取得了这个a，不再继续沿着作用域链查找。</p>
+<p>我们可以将js作用域的这个特点简单描述为：<strong><em>如果作用域 a 定义在作用域 b 中，则在作用域 a 中可以访问作用域 b的对象</em></strong>。</p>
+<p>理解了这个特点之后我们几乎就明白闭包是什么回事了–因为这正是闭包产生的原因。</p>
+<h1 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h1><h2 id="什么是闭包"><a href="#什么是闭包" class="headerlink" title="什么是闭包"></a>什么是闭包</h2><p>很多文章会将上一节最后一个栗子当做闭包，但其实并不是真正的闭包，或者说没有确切使用闭包。<br>下面我们看看真正的闭包是什么样的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">function init()&#123;</div><div class="line">	var b =13;</div><div class="line">    </div><div class="line">     function add()&#123;</div><div class="line">     	var a = 7;</div><div class="line"> 		console.log(a+b)</div><div class="line"> 	&#125;</div><div class="line">    return add;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">var closure = init();</div><div class="line">closure();//20</div></pre></td></tr></table></figure></p>
+<p>本栗和前栗最终都是在控制台输出了20。注意到，前栗在init函数中定义add函数，并且在init函数的作用域内执行了add。而本栗并没有在init函数中执行add函数，而是将add函数做为init函数的返回值。在执行var closure = init();后，closure被赋值为add函数。然后执行closure();实际就是在执行add();。</p>
+<p>看到这里我们是不是发现了神马奇怪的现象？没错，add函数竟然被全局作用域访问到！这完全违背了作用域链的原则。<br>除此之外还有更神奇的一点：在执行var closure = init();后，通常情况下它的整个作用域内部(局部变量)都会被销毁，然后再由引擎中的垃圾回收期自动回收并释放init曾使用的内存空间。然而我们在执行完这局之后，继续执行closure();，发现他依然可以访问到init函数作用域中的局部变量b。</p>
+<p>以上两个神奇的正是闭包的特点。那么我们来对闭包下个定义：<strong><em>如果将一个函数被传递到其定义时的作用域之外运行，则它会持有对这个作用域的引用。这个函数和定义时所在的作用域就构成了闭包。</em></strong></p>
+<p>基于此，我们就知道为啥我说前栗不算闭包了，因为前栗并未将add传递出去，add依然在定义时所在的作用域内执行。</p>
+<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><ul>
+<li>保存状态/缓存<br>闭包更抽象点讲，就是带了状态的函数。他将定义时所在的作用域保存在内存中，作用域中的变量就得以保留。</li>
+<li>封装私有变量<br>如上栗中的局部变量b，在外部我们无法通过init函数直接访问，但是可以通过闭包来访问。</li>
+</ul>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ul>
+<li>由于闭包不会释放作用域，大量使用闭包会导致页面性能下降，并可能导致内存泄漏。因此请适度使用闭包并及时删除无用的局部变量</li>
+<li>闭包可以在定义时所在的作用域外改变局部变量的值。在应用场景2下，不要轻易改变局部变量的值。</li>
+</ul>
+<h1 id="经典的for循环题"><a href="#经典的for循环题" class="headerlink" title="经典的for循环题"></a>经典的for循环题</h1><p>很多人可能看过这道题或是实际遇到过这个问题：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function init()&#123;</div><div class="line">	for(var i = 1; i&lt;6;i++)&#123;</div><div class="line">    	setTimeout(function output()&#123;</div><div class="line">        	console.log(i);</div><div class="line">        &#125;, i*1000)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<ul>
+<li>请问init函数的执行结果是什么？<br>答案是：控制台每秒一次输出6。</li>
+<li>如何实现控制台每秒一次输出1-5？<br>答案是：看下面讨论O(∩_∩)O</li>
+</ul>
+<p>这道题涵盖的知识点包括异步、作用域和闭包。异步复习<a href="https://honey3go.github.io/" target="_blank" rel="external">这里</a>。</p>
+<h2 id="原函数的执行过程"><a href="#原函数的执行过程" class="headerlink" title="原函数的执行过程"></a>原函数的执行过程</h2><p>首先分析下原函数的执行过程。</p>
+<ul>
+<li>声明init函数的局部变量i并赋值为1.</li>
+<li>开始for循环</li>
+<li>i&lt;6,true</li>
+<li>待同步代码执行完毕后1秒将output函数推入异步队列。</li>
+<li>i++,i=2</li>
+<li>i&lt;6,true</li>
+<li>待同步代码执行完毕后2秒将output函数推入异步队列。</li>
+<li>i++,i=3</li>
+<li>……</li>
+<li>i++,i=6</li>
+<li>i&lt;6,false，结束for循环</li>
+<li>结束执行init但未释放</li>
+<li>1秒后向异步队列推入output</li>
+<li>执行output(i=6)</li>
+<li>… …</li>
+</ul>
+<p>发现输出6的原因了吗？</p>
+<ul>
+<li>init函数中只有一个变量i,每次循环后i自加1</li>
+<li>根据异步原理，for循环全部执行完后才会执行output</li>
+<li>output执行时，变量i已经变为6了</li>
+</ul>
+<h2 id="解题方法"><a href="#解题方法" class="headerlink" title="解题方法"></a>解题方法</h2><p>为循环中的每个异步都创建一个闭包，用来保存变量i的状态<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">function init()&#123;</div><div class="line">	for(var i = 1; i&lt;6;i++)&#123;</div><div class="line">    	(function(j)&#123;</div><div class="line">            setTimeout(function output()&#123;</div><div class="line">        		console.log(j);</div><div class="line">        	&#125;, j*1000)</div><div class="line">        &#125;)(i)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>我们在for循环内定义了立即执行函数，它具有一个参数j用于保存i，每次循环都是一个新的立即执行函数。以一次循环为例,进入循环体后首先执行立即执行函数，并将当前i值赋值给立即执行函数的参数j。等到这个output函数执行时，保留对j的引用。这样就将i的状态保存到j中了。</p>
+<p>所以这道题的解题思路是，为异步函数外部增加一个作用域，作用域中的局部变量保存当前i的值。在异步函数运行时，可以访问这个值。</p>
+<p>用ES6还可以这么写<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function init()&#123;</div><div class="line">	for(let i = 1; i&lt;6;i++)&#123;</div><div class="line">    	setTimeout(function output()&#123;</div><div class="line">        	console.log(i);</div><div class="line">        &#125;, i*1000)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>本质是let相当于创建一个块级作用域，并且let用于for循环内计数时，每次迭代都会重新声明，重新声明后的变量的初始值是上一次迭代结束时的值。可以理解为，let用于for循环，每次的i都不是一个i，这样异步函数执行时访问的就是各自对应的i了。</p>
+<p>——本节完——</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/读书笔记/" rel="tag"># 读书笔记</a>
+          
+            <a href="/tags/javascript/" rel="tag"># javascript</a>
+          
+            <a href="/tags/你不知道的JS/" rel="tag"># 你不知道的JS</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/07/深入理解JS-part2-单线程、异步和setInterval/" rel="next" title="深入理解JS-part2-单线程、异步和setInterval">
+                <i class="fa fa-chevron-left"></i> 深入理解JS-part2-单线程、异步和setInterval
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://o3sw4xojp.qnssl.com/avatar.jpg"
+               alt="LOLISuri" />
+          <p class="site-author-name" itemprop="name">LOLISuri</p>
+          <p class="site-description motion-element" itemprop="description">进击的程序媛</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#作用域"><span class="nav-number">1.</span> <span class="nav-text">作用域</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#在ES6之前，javascript只有两种作用域"><span class="nav-number">1.1.</span> <span class="nav-text">在ES6之前，javascript只有两种作用域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ES6引入了第三种作用域"><span class="nav-number">1.2.</span> <span class="nav-text">ES6引入了第三种作用域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#作用域可嵌套"><span class="nav-number">1.3.</span> <span class="nav-text">作用域可嵌套</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#闭包"><span class="nav-number">2.</span> <span class="nav-text">闭包</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是闭包"><span class="nav-number">2.1.</span> <span class="nav-text">什么是闭包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用场景"><span class="nav-number">2.2.</span> <span class="nav-text">应用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注意事项"><span class="nav-number">2.3.</span> <span class="nav-text">注意事项</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#经典的for循环题"><span class="nav-number">3.</span> <span class="nav-text">经典的for循环题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#原函数的执行过程"><span class="nav-number">3.1.</span> <span class="nav-text">原函数的执行过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解题方法"><span class="nav-number">3.2.</span> <span class="nav-text">解题方法</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LOLISuri</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

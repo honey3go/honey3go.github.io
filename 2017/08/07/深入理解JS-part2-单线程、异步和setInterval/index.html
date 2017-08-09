@@ -90,10 +90,10 @@
 <meta name="description" content="本文是深入理解JS系列的part2，详述JS单线程执行和异步操作的实现。JS单线程执行的意思是，同一时刻，总是只有一个线程在执行JS代码。但我们又发现，Ajax请求和setInterval等不都是异步操作吗？如果是单线程执行，怎么会有异步操作呢？异步操作一定是两个以上线程共同完成的啊？带着这个疑惑，我们从JS引擎和浏览器线程开始说起。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="深入理解JS-part2-单线程、异步和setInterval">
-<meta property="og:url" content="http://yoursite.com/2017/08/07/深入理解JS-part2-单线程和异步/index.html">
+<meta property="og:url" content="http://yoursite.com/2017/08/07/深入理解JS-part2-单线程、异步和setInterval/index.html">
 <meta property="og:site_name" content="萝三画室">
 <meta property="og:description" content="本文是深入理解JS系列的part2，详述JS单线程执行和异步操作的实现。JS单线程执行的意思是，同一时刻，总是只有一个线程在执行JS代码。但我们又发现，Ajax请求和setInterval等不都是异步操作吗？如果是单线程执行，怎么会有异步操作呢？异步操作一定是两个以上线程共同完成的啊？带着这个疑惑，我们从JS引擎和浏览器线程开始说起。">
-<meta property="og:updated_time" content="2017-08-07T14:06:00.151Z">
+<meta property="og:updated_time" content="2017-08-09T13:06:23.588Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入理解JS-part2-单线程、异步和setInterval">
 <meta name="twitter:description" content="本文是深入理解JS系列的part2，详述JS单线程执行和异步操作的实现。JS单线程执行的意思是，同一时刻，总是只有一个线程在执行JS代码。但我们又发现，Ajax请求和setInterval等不都是异步操作吗？如果是单线程执行，怎么会有异步操作呢？异步操作一定是两个以上线程共同完成的啊？带着这个疑惑，我们从JS引擎和浏览器线程开始说起。">
@@ -124,7 +124,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/08/07/深入理解JS-part2-单线程和异步/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/08/07/深入理解JS-part2-单线程、异步和setInterval/"/>
 
 
 
@@ -247,7 +247,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/07/深入理解JS-part2-单线程和异步/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/07/深入理解JS-part2-单线程、异步和setInterval/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="LOLISuri">
@@ -382,8 +382,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/08/06/深入理解JS-part1-编译和变量提升/" rel="next" title="深入理解JS-part1-编译和变量提升">
-                <i class="fa fa-chevron-left"></i> 深入理解JS-part1-编译和变量提升
+              <a href="/2017/08/07/深入理解JS-part2-单线程和异步/" rel="next" title="深入理解JS-part2-单线程、异步和setInterval">
+                <i class="fa fa-chevron-left"></i> 深入理解JS-part2-单线程、异步和setInterval
               </a>
             
           </div>
@@ -392,8 +392,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/08/07/深入理解JS-part2-单线程、异步和setInterval/" rel="prev" title="深入理解JS-part2-单线程、异步和setInterval">
-                深入理解JS-part2-单线程、异步和setInterval <i class="fa fa-chevron-right"></i>
+              <a href="/2017/08/09/深入理解JS-part3-作用域和闭包/" rel="prev" title="深入理解JS-part3-作用域和闭包">
+                深入理解JS-part3-作用域和闭包 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
