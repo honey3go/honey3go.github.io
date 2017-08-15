@@ -1,0 +1,800 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="读书笔记,javascript,深入理解JS,JavaScript高级程序设计-第三版," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://o3sw4xojp.qnssl.com/paper_airplane.png?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="本文是深入理解JS系列的part5。在实际应用中，我们经常发现typeof和instanceof的表现和我们的预期并不一致，其实这就是因为JS数据类型带来的问题。那么我们从JS的基础概念-数据类型开始，探讨JS中的基本数据类型、基本包装类型、引用类型这三个数据类型的概念和内容，以及对应于typeof、instanceof的不同表现。希望通过这篇文章，我们能够清晰的分辨出变量的类型，并且在合理的应用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入理解JS-part5-数据类型和typeof、instanceof">
+<meta property="og:url" content="http://yoursite.com/2017/08/15/深入理解JS-part5-数据类型和typeof、instanceof/index.html">
+<meta property="og:site_name" content="萝三画室">
+<meta property="og:description" content="本文是深入理解JS系列的part5。在实际应用中，我们经常发现typeof和instanceof的表现和我们的预期并不一致，其实这就是因为JS数据类型带来的问题。那么我们从JS的基础概念-数据类型开始，探讨JS中的基本数据类型、基本包装类型、引用类型这三个数据类型的概念和内容，以及对应于typeof、instanceof的不同表现。希望通过这篇文章，我们能够清晰的分辨出变量的类型，并且在合理的应用">
+<meta property="og:image" content="https://o3sw4xojp.qnssl.com/part5_1.png">
+<meta property="og:image" content="https://o3sw4xojp.qnssl.com/part5_2.png">
+<meta property="og:image" content="https://o3sw4xojp.qnssl.com/part5_3.png">
+<meta property="og:image" content="https://o3sw4xojp.qnssl.com/part5_4.png">
+<meta property="og:image" content="https://o3sw4xojp.qnssl.com/part5_5.png">
+<meta property="og:updated_time" content="2017-08-15T14:15:09.299Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="深入理解JS-part5-数据类型和typeof、instanceof">
+<meta name="twitter:description" content="本文是深入理解JS系列的part5。在实际应用中，我们经常发现typeof和instanceof的表现和我们的预期并不一致，其实这就是因为JS数据类型带来的问题。那么我们从JS的基础概念-数据类型开始，探讨JS中的基本数据类型、基本包装类型、引用类型这三个数据类型的概念和内容，以及对应于typeof、instanceof的不同表现。希望通过这篇文章，我们能够清晰的分辨出变量的类型，并且在合理的应用">
+<meta name="twitter:image" content="https://o3sw4xojp.qnssl.com/part5_1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/08/15/深入理解JS-part5-数据类型和typeof、instanceof/"/>
+
+
+
+
+
+  <title> 深入理解JS-part5-数据类型和typeof、instanceof | 萝三画室 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">萝三画室</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle">向死而生</p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/15/深入理解JS-part5-数据类型和typeof、instanceof/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="LOLISuri">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="https://o3sw4xojp.qnssl.com/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="萝三画室">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="萝三画室" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                深入理解JS-part5-数据类型和typeof、instanceof
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-15T20:03:09+08:00">
+                2017-08-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文是<strong><em>深入理解JS</em></strong>系列的part5。在实际应用中，我们经常发现typeof和instanceof的表现和我们的预期并不一致，其实这就是因为JS数据类型带来的问题。那么我们从JS的基础概念-数据类型开始，探讨JS中的<strong><em>基本数据类型</em></strong>、<strong><em>基本包装类型</em></strong>、<strong><em>引用类型</em></strong>这三个数据类型的概念和内容，以及对应于typeof、instanceof的不同表现。希望通过这篇文章，我们能够清晰的分辨出变量的类型，并且在合理的应用场景下使用typeof和instanceof。本文在原理部分描述的有些细碎和混乱，大家可以直接看标题中带<strong><em>干货</em></strong>的章节记住结论，或者先看带<strong><em>干货</em></strong>的章节再回头看原理部分，这样理解起来更顺畅:-D</p>
+<p>参考书籍：JavaScript高级程序设计-第三版   Nicholas C·Zakas </p>
+<a id="more"></a>
+<h1 id="数据类型概述"><a href="#数据类型概述" class="headerlink" title="数据类型概述"></a>数据类型概述</h1><p>JavaScript一共包括6种数据类型：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">序号</th>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">Undefined</td>
+<td style="text-align:center">undefined</td>
+<td>如果一个<strong><em>变量声明但未赋值</em></strong>，那么这个变量就是undefined。当然也可以直接显示初始化变量var a = undefined，但这样并没有什么必要。</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">Null</td>
+<td style="text-align:center">null</td>
+<td>表示一个空的对象指针，通常用于初始化一个在未来保存object的变量。</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">Boolean</td>
+<td style="text-align:center">true/false</td>
+<td>JS中所有其他类型的值都可以通过转换，变成boolean类型对应的值</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">Number</td>
+<td style="text-align:center">整型数值/浮点型数值/NaN/Infinity/-Infinity</td>
+<td>JS中所有其他类型的值都可以通过转换，变成Number类型对应的值</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:center">String</td>
+<td style="text-align:center">字符串</td>
+<td>JS中所有其他类型的值都可以通过转换，变成String类型对应的值</td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td style="text-align:center">Object</td>
+<td style="text-align:center">集合</td>
+<td>是一组数据和功能的集合，JS中每个对象最终都是Object类型的<strong><em>实例</em></strong></td>
+</tr>
+</tbody>
+</table>
+<p>在JS的世界里，你见到的所有值，最终都是上述六种数据类型之一。</p>
+<h1 id="基本数据类型和复杂数据类型"><a href="#基本数据类型和复杂数据类型" class="headerlink" title="基本数据类型和复杂数据类型"></a>基本数据类型和复杂数据类型</h1><p>基本数据类型和复杂数据类型是JS数据类型的一种分类方式。</p>
+<ul>
+<li>基本数据类型(5种)：Undefined、Null、Boolean、Number、String，它们是简单数据的表示。</li>
+<li>复杂数据类型(1种)：Object，它是一组数据和功能的集合，同时还包含了其他子类型如function、array等。</li>
+</ul>
+<p><img src="https://o3sw4xojp.qnssl.com/part5_1.png" alt="part5_1.png"></p>
+<p>我们经常听到一种说法是”JS中万物皆是对象”，这是一种偏哲学的浪漫说法，其实在严格的语言概念上并不是正确的。上面5种<strong><em>基本数据类型本身并不是对象</em></strong>，Object的子类型是对象(这点的详细描述参见下文)。</p>
+<h1 id="引用类型和基本包装类型"><a href="#引用类型和基本包装类型" class="headerlink" title="引用类型和基本包装类型"></a>引用类型和基本包装类型</h1><p>引用类型的值是引用类型的一个实例，能够通过new操作符创建变量的类型，就是引用类型。比如我们使用new操作符初始化一个对象obj：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var obj = new Object();</div><div class="line">obj.name = &quot;LoliSuri&quot;;</div><div class="line">obj.age = 18;</div></pre></td></tr></table></figure></p>
+<p>这实际上调用了构造函数Object，创建了Object类型的一个新实例，再把实例的地址赋给了变量obj。</p>
+<p>通过上面的栗子其实我们知道：</p>
+<h2 id="Object是引用类型"><a href="#Object是引用类型" class="headerlink" title="Object是引用类型"></a>Object是引用类型</h2><p>除了通过new操作符创建Object对象这种方式，其实还有一种更简单的方式：对象字面量表示法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var obj = &#123;</div><div class="line">	name: &quot;LoliSuri&quot;,</div><div class="line">    age: 18</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这种方法与new方法创建的对象是完全一样的。</p>
+<h2 id="String、Number、Boolean也是引用类型"><a href="#String、Number、Boolean也是引用类型" class="headerlink" title="String、Number、Boolean也是引用类型"></a>String、Number、Boolean也是引用类型</h2><p>前面我说过，<strong><em>基本数据类型</em></strong>不是对象，一个属于基本数据类型的变量，仅仅是简单的数据表示，而不应该支持任何操作。<br>然而我们知道，例如String类型的变量，我们可以获取它的长度、复制、获取指定位置的某个字符等等…<br>这就的因为，String类型也是引用类型，JS对这个类型做了个性化的包装，使得它区别于一般的基本数据类型，具有特殊的行为。Number和Boolean也是如此。</p>
+<h3 id="new操作符创建的变量，是对象"><a href="#new操作符创建的变量，是对象" class="headerlink" title="new操作符创建的变量，是对象"></a>new操作符创建的变量，是对象</h3><p>引用类型可以通过new操作符显示的创建变量，通过new创建的String、Number、Boolean是对象，它支持substring、contact等操作。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var msg = new String(&quot;I am a string&quot;);</div><div class="line">var sub = mag.substring(2);//am a string</div></pre></td></tr></table></figure></p>
+<h3 id="字面量表示法创建的对象，不是对象"><a href="#字面量表示法创建的对象，不是对象" class="headerlink" title="字面量表示法创建的对象，不是对象"></a>字面量表示法创建的对象，不是对象</h3><p>当我们用字面量表示法来创建一个属于基本数据类型的变量时，它同样支持各种操作。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var msg = &quot;I am a string&quot;;</div><div class="line">var sub = mag.substring(2);//am a string</div></pre></td></tr></table></figure></p>
+<p>这里的原始值”I am a string”是一个不可变的字面量，而不是对象。我们之所以能够对变量msg做各种操作，其实是因为JS引擎自动把字面量转换成了String对象，所以可以访问属性和方法。</p>
+<p>那么由字面量表示法创建的变量经由JS引擎转换才成为String对象，这就带来了一点和new方法创建的String对象在表现上的不同点，不同点体现在类型判断上（后面我们会说到）。</p>
+<h2 id="简单数据类型中的引用类型就是基本包装类型"><a href="#简单数据类型中的引用类型就是基本包装类型" class="headerlink" title="简单数据类型中的引用类型就是基本包装类型"></a>简单数据类型中的引用类型就是基本包装类型</h2><p>也就是是说，String、Number、Boolean就是基本包装类型。它的完整概念就是，JS对这三个简单数据类型做了一些包装，使他们具有其别于其他两种简单数据类型的对应的特殊行为。</p>
+<h1 id="数据类型总结（纯干货）"><a href="#数据类型总结（纯干货）" class="headerlink" title="数据类型总结（纯干货）"></a>数据类型总结（纯干货）</h1><p>以上就是关于JS数据类型分类的全部内容。前面文字叙述会有些乱，下面我们总结一张表，就一目了然了。</p>
+<p><img src="https://o3sw4xojp.qnssl.com/part5_2.png" alt="part5_2.png"></p>
+<p>再来一句话描述JS数据类型：</p>
+<ul>
+<li>JS共有6种数据类型，包括Undefined、Null、String、Number、Boolean、Object</li>
+<li>Object类型是复杂数据类型，其余5种是简单数据类型</li>
+<li>简单数据类型中，String、Number、Boolean是基本包装类型</li>
+<li>基本包装类型与复杂数据类型是引用类型</li>
+</ul>
+<p>再再来一句话描述引用类型的特点：</p>
+<ul>
+<li>复杂数据类型中，通过new操作符和字面量方法创建的变量都是对象</li>
+<li>基本包装类型中，通过new操作符创建的变量是对象，通过对象字面量方法创建的变量是字面量，通过JS引擎转换才成为对象</li>
+</ul>
+<p>下节将的内容里面，就包括基本包装类型中，通过不同方式方法创建的变量在表现上的一点区别。</p>
+<h1 id="判断数据类型"><a href="#判断数据类型" class="headerlink" title="判断数据类型"></a>判断数据类型</h1><p>我们知道在JS中，typeof和instanceof用于判断变量的类型。</p>
+<ul>
+<li>typeof判断变量属于哪种数据类型</li>
+<li>instanceof判断变量是那种数据类型的实例</li>
+</ul>
+<p>从上面的定义我们就可以猜出这两种方法的应用场景了：typeof用于检测变量的数据类型，instance用于检测引用类型，判断对象属于哪个类型的实例（对象）。</p>
+<h2 id="typeof"><a href="#typeof" class="headerlink" title="typeof"></a>typeof</h2><h3 id="检测使用字面量表示法创建的变量"><a href="#检测使用字面量表示法创建的变量" class="headerlink" title="检测使用字面量表示法创建的变量"></a>检测使用字面量表示法创建的变量</h3><p>考虑以下代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">var origin = &#123;</div><div class="line">	undef: undefined,</div><div class="line">	nul: null,</div><div class="line">	bool: true,</div><div class="line">	num: 1,</div><div class="line">	str: &quot;haha&quot;,</div><div class="line">	obj:&#123;&#125; </div><div class="line">&#125;;</div><div class="line"></div><div class="line">(() =&gt; &#123;</div><div class="line">	for (let key in origin)&#123;</div><div class="line">		let value = origin[key];</div><div class="line">		console.log(key, value, typeof value);</div><div class="line">	&#125;</div><div class="line">&#125;)();</div></pre></td></tr></table></figure></p>
+<p>我们创建一个变量origin，它的成员包括6种数据类型。然后遍历origin，输出每个成员的键名、值以及typeof检测的类型。控制台输出结果如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">undef undefined undefined</div><div class="line">nul null object</div><div class="line">bool true boolean</div><div class="line">num 1 number</div><div class="line">str haha string</div><div class="line">obj Object &#123;&#125; object</div></pre></td></tr></table></figure></p>
+<p>我们发现，使用typeof检测数据类型，除了null检测出奇怪的Object之外，其余5种类型都能被正确检测出来。其实null这个是js设计中的一个bug，不同的变量在底层表示为二进制，js中二进制前三位都为0的话就会被判别我为object类型，而null的二进制表示都是0，因此typeof null === object。</p>
+<p>那么我们如何判断一个变量的类型是否为Null呢？我们可以绕过typeof，直接利用全等运算符判断即可。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var a = null;</div><div class="line">a === null;//true</div></pre></td></tr></table></figure></p>
+<p>Object类型包括一些子类型，function、RegExp、Array、Date等(Date只能通过new来创建对象，这里就不列了)。下面我们来检测一下这些变量的类型：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">var origin = &#123;</div><div class="line">	func: function ()&#123;&#125;,</div><div class="line">	arr: [],</div><div class="line">	reg: /\d/,</div><div class="line">&#125;;</div><div class="line"></div><div class="line">(() =&gt; &#123;</div><div class="line">	for (let key in origin)&#123;</div><div class="line">		let value = origin[key];</div><div class="line">		console.log(key, value, typeof value);</div><div class="line">	&#125;</div><div class="line">&#125;)();</div></pre></td></tr></table></figure></p>
+<p>控制台输出结果如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">func function ()&#123;&#125; function</div><div class="line">arr [] object</div><div class="line">reg /\d/ object</div></pre></td></tr></table></figure></p>
+<p>我们发现，除了funtion类型是个特例返回function类型外，其它子类型均返回object。</p>
+<h3 id="检测使用字new操作符创建的变量"><a href="#检测使用字new操作符创建的变量" class="headerlink" title="检测使用字new操作符创建的变量"></a>检测使用字new操作符创建的变量</h3><p>通过前面的讲解我们已经知道，new操作符创建变量的过程就是执行一个构造函数，创建一个实例，这个实例就是一个对象。我们也知道只有引用类型才能使用new操作符创建对象。因此下面的代码只包括引用类型：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">var origin = &#123;</div><div class="line">	bool: new Boolean(true),</div><div class="line">	num: new Number(1),</div><div class="line">	str: new String(&quot;haha&quot;),</div><div class="line">	obj: new Object()</div><div class="line">&#125;;</div><div class="line"></div><div class="line">(() =&gt; &#123;</div><div class="line">	for (let key in origin)&#123;</div><div class="line">		let value = origin[key];</div><div class="line">		console.log(key, value, typeof value);</div><div class="line">	&#125;</div><div class="line">&#125;)();</div></pre></td></tr></table></figure></p>
+<p>控制台输出类型<strong><em>全部是Object</em></strong>。<br>这就是上一节所提到的，基本包装类型中，通过不同方式方法创建的变量在表现上的一点区别。这个区别就体现在typeof检测数据类型上面。</p>
+<p>那么对于Object的子类型，就并没有这个情况。通过字面量表示法和new操作符创建的变量，执行typeof都会返回object，但是typeof function还依然是function。</p>
+<h3 id="typeof返回值总结（纯干货）"><a href="#typeof返回值总结（纯干货）" class="headerlink" title="typeof返回值总结（纯干货）"></a>typeof返回值总结（纯干货）</h3><p>通过前面的试验，我们又可以总结一张清晰的图：</p>
+<p><img src="https://o3sw4xojp.qnssl.com/part5_3.png" alt="part5_2.png"></p>
+<p>通过这张图，我们就可以知道为啥前面说<strong><em>对于基本包装类型，字面量表示法创建的对象，不是对象</em></strong>。因为typeof并没有返回object。</p>
+<h2 id="instanceof"><a href="#instanceof" class="headerlink" title="instanceof"></a>instanceof</h2><p>instanceof用于检测对象属于哪个数据类型的实例。结合前面讲的内容我们可以猜测到，instanceof只适用于引用类型（new操作符生成的实例）。</p>
+<h3 id="检测使用字面量表示法创建的变量-1"><a href="#检测使用字面量表示法创建的变量-1" class="headerlink" title="检测使用字面量表示法创建的变量"></a>检测使用字面量表示法创建的变量</h3><p>考虑以下代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">var origin = &#123;</div><div class="line">	bool: true,</div><div class="line">	num: 1,</div><div class="line">	str: &quot;haha&quot;,</div><div class="line">	obj:&#123;&#125; </div><div class="line">&#125;;</div><div class="line"></div><div class="line">(() =&gt; &#123;</div><div class="line">	for (let key in origin)&#123;</div><div class="line">		let value = origin[key];</div><div class="line">		console.log(key, value, value instanceof Boolean,value instanceof Number,value instanceof String,value instanceof Object);</div><div class="line">	&#125;</div><div class="line">&#125;)();</div></pre></td></tr></table></figure></p>
+<p>控制台输出<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">bool true false false false false</div><div class="line">num 1 false false false false</div><div class="line">str haha false false false false</div><div class="line">obj Object &#123;&#125; false false false true</div></pre></td></tr></table></figure></p>
+<p>相信你已经猜到这个结果了：</p>
+<ul>
+<li>基本包装类型使用字面量表示法生成的变量，不属于任何类型的实例。</li>
+<li>Object类型使用字面量表示法生成的变量，属于Object类型的实例。</li>
+</ul>
+<p>接下来再看看Object的子类型：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">var origin = &#123;</div><div class="line">	func: function ()&#123;&#125;,</div><div class="line">	arr: [],</div><div class="line">	reg: /\d/,</div><div class="line">&#125;;</div><div class="line">(() =&gt; &#123;</div><div class="line">	for (let key in origin)&#123;</div><div class="line">		let value = origin[key];</div><div class="line">		console.log(key, value, value instanceof Function,value instanceof Array,value instanceof RegExp,value instanceof Object);</div><div class="line">	&#125;</div><div class="line">&#125;)();</div></pre></td></tr></table></figure></p>
+<p>控制台输出：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">func function ()&#123;&#125; true false false true</div><div class="line">arr [] false true false true</div><div class="line">/\d/ false false true true</div></pre></td></tr></table></figure></p>
+<p>结果说明：</p>
+<ul>
+<li>Object类型的子类型，使用字面量表示法生成的变量，属于他对应子类型的实例，也属于Object类型的实例。</li>
+</ul>
+<h3 id="检测使用字new操作符创建的变量-1"><a href="#检测使用字new操作符创建的变量-1" class="headerlink" title="检测使用字new操作符创建的变量"></a>检测使用字new操作符创建的变量</h3><p>考虑以下代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">var origin = &#123;</div><div class="line">	bool: new Boolean(true),</div><div class="line">	num: new Number(1),</div><div class="line">	str: new String(&quot;haha&quot;),</div><div class="line">	obj: new Object() </div><div class="line">&#125;;</div><div class="line"></div><div class="line">(() =&gt; &#123;</div><div class="line">	for (let key in origin)&#123;</div><div class="line">		let value = origin[key];</div><div class="line">		console.log(key, value, value instanceof Boolean,value instanceof Number,value instanceof String,value instanceof Object);</div><div class="line">	&#125;</div><div class="line">&#125;)();</div></pre></td></tr></table></figure></p>
+<p>控制台输出：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">bool Boolean &#123;[[PrimitiveValue]]: true&#125; true false false true</div><div class="line">num Number &#123;[[PrimitiveValue]]: 1&#125; false true false true</div><div class="line">str String &#123;0: &quot;h&quot;, 1: &quot;a&quot;, 2: &quot;h&quot;, 3: &quot;a&quot;, length: 4, [[PrimitiveValue]]: &quot;haha&quot;&#125; false false true true</div><div class="line">obj Object &#123;&#125; false false false true</div></pre></td></tr></table></figure></p>
+<p>结果说明：</p>
+<ul>
+<li>基本包装类型使用new操作符生成的变量，属于他对应类型的实例，也属于Object类型的实例。</li>
+<li>Object类型使用new操作符生成的变量，属于Object类型的实例。</li>
+</ul>
+<p>那么对于Object的子类型(想必你也猜到了)。new操作符创建的变量，属于他对应子类型的实例，也属于Object类型的实例。</p>
+<h3 id="instanceof返回值总结（纯干货）"><a href="#instanceof返回值总结（纯干货）" class="headerlink" title="instanceof返回值总结（纯干货）"></a>instanceof返回值总结（纯干货）</h3><p>又是干货时间：</p>
+<p><img src="https://o3sw4xojp.qnssl.com/part5_4.png" alt="part5_4.png"></p>
+<p>于是这里也可以看出来<strong>对于基本包装类型，字面量表示法创建的对象，不是对象*</strong>。<br>而且我们发现，对于new操作符创建的引用类型，它既是自身类型的实例，也是Object类型的实例。这是因为，Object类型是最基础的类型，其他引用类型都是从Object基础上扩展出来的，涉及到<strong><em>原型链和原型继承</em></strong>的理论，这个我们会在深入理解JS系列的后面将。</p>
+<h3 id="自己定义构造函数（加餐）"><a href="#自己定义构造函数（加餐）" class="headerlink" title="自己定义构造函数（加餐）"></a>自己定义构造函数（加餐）</h3><p>前面我们说过，new操作符的其实就是通过调用构造函数，创建一个实例对象。那么我们来试试DIY。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var Own = function()&#123;&#125;;</div><div class="line">console.log(Own instanceof Own,Own instanceof Function,Own instanceof Object);</div><div class="line">var entity = new Own();</div><div class="line">console.log(entity instanceof Own,entity instanceof Function,entity instanceof Object);</div></pre></td></tr></table></figure></p>
+<p>我们首先定义了一个空函数，然后把地址赋给变量Own。<br>然后通过new操作符，创造了一个Own的实例对象，并把对象的地址赋给变量entity。<br>控制台输出结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">false true true</div><div class="line">true false true</div></pre></td></tr></table></figure></p>
+<p>这个栗子可以让我们更好的理解new操作符的原理，以及instanceof更扩展的用途。它不仅可以检测JS基本的类型，还可以检测自定义的对象。至于为啥entity不属于Funtion的实例，这样是涉及到<strong><em>原型链和原型继承</em></strong>的理论，请期待后续文章。</p>
+<h1 id="本文汇总干货"><a href="#本文汇总干货" class="headerlink" title="本文汇总干货"></a>本文汇总干货</h1><p>一张图说明JS数据类型，以及各类型在不同创建方式下类型检测的不同表现。在实际应用中，如果对typeof和instanceof的使用产生不确定的想法，那么就回来看看这张表吧，相信他可以解决你的问题:-D</p>
+<p><img src="https://o3sw4xojp.qnssl.com/part5_5.png" alt="part5_5.png"></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/读书笔记/" rel="tag"># 读书笔记</a>
+          
+            <a href="/tags/javascript/" rel="tag"># javascript</a>
+          
+            <a href="/tags/深入理解JS/" rel="tag"># 深入理解JS</a>
+          
+            <a href="/tags/JavaScript高级程序设计-第三版/" rel="tag"># JavaScript高级程序设计-第三版</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/11/深入理解JS-part4-回调/" rel="next" title="深入理解JS-part4-回调函数">
+                <i class="fa fa-chevron-left"></i> 深入理解JS-part4-回调函数
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://o3sw4xojp.qnssl.com/avatar.jpg"
+               alt="LOLISuri" />
+          <p class="site-author-name" itemprop="name">LOLISuri</p>
+          <p class="site-description motion-element" itemprop="description">进击的程序媛</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数据类型概述"><span class="nav-number">1.</span> <span class="nav-text">数据类型概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基本数据类型和复杂数据类型"><span class="nav-number">2.</span> <span class="nav-text">基本数据类型和复杂数据类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#引用类型和基本包装类型"><span class="nav-number">3.</span> <span class="nav-text">引用类型和基本包装类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Object是引用类型"><span class="nav-number">3.1.</span> <span class="nav-text">Object是引用类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#String、Number、Boolean也是引用类型"><span class="nav-number">3.2.</span> <span class="nav-text">String、Number、Boolean也是引用类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#new操作符创建的变量，是对象"><span class="nav-number">3.2.1.</span> <span class="nav-text">new操作符创建的变量，是对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字面量表示法创建的对象，不是对象"><span class="nav-number">3.2.2.</span> <span class="nav-text">字面量表示法创建的对象，不是对象</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简单数据类型中的引用类型就是基本包装类型"><span class="nav-number">3.3.</span> <span class="nav-text">简单数据类型中的引用类型就是基本包装类型</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据类型总结（纯干货）"><span class="nav-number">4.</span> <span class="nav-text">数据类型总结（纯干货）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#判断数据类型"><span class="nav-number">5.</span> <span class="nav-text">判断数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#typeof"><span class="nav-number">5.1.</span> <span class="nav-text">typeof</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#检测使用字面量表示法创建的变量"><span class="nav-number">5.1.1.</span> <span class="nav-text">检测使用字面量表示法创建的变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检测使用字new操作符创建的变量"><span class="nav-number">5.1.2.</span> <span class="nav-text">检测使用字new操作符创建的变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#typeof返回值总结（纯干货）"><span class="nav-number">5.1.3.</span> <span class="nav-text">typeof返回值总结（纯干货）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#instanceof"><span class="nav-number">5.2.</span> <span class="nav-text">instanceof</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#检测使用字面量表示法创建的变量-1"><span class="nav-number">5.2.1.</span> <span class="nav-text">检测使用字面量表示法创建的变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检测使用字new操作符创建的变量-1"><span class="nav-number">5.2.2.</span> <span class="nav-text">检测使用字new操作符创建的变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#instanceof返回值总结（纯干货）"><span class="nav-number">5.2.3.</span> <span class="nav-text">instanceof返回值总结（纯干货）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自己定义构造函数（加餐）"><span class="nav-number">5.2.4.</span> <span class="nav-text">自己定义构造函数（加餐）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#本文汇总干货"><span class="nav-number">6.</span> <span class="nav-text">本文汇总干货</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LOLISuri</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
