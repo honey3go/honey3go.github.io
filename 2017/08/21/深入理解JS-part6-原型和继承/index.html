@@ -1,0 +1,702 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="读书笔记,javascript,你不知道的JS,深入理解JS,JavaScript高级程序设计-第三版," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://o3sw4xojp.qnssl.com/paper_airplane.png?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="本文是深入理解JS系列的part6，我们要开始研究的是JS的一个区别于其他很多语言的特点：原型、原型链和继承。虽然ES6提供了更简洁优雅的方法来实现继承，但是这不过是语法糖，实现继承的原理是没有变化的。并且我认为原型和继承属于JS中比较难懂的点，也是被广泛使用的点。实际上我们无时不刻的用到了JS的原型和继承，只是没有发觉。深入理解原型和继承的原理，我们才会更好的理解和运用它们。So, let’s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入理解JS-part6-原型和继承">
+<meta property="og:url" content="http://yoursite.com/2017/08/21/深入理解JS-part6-原型和继承/index.html">
+<meta property="og:site_name" content="萝三画室">
+<meta property="og:description" content="本文是深入理解JS系列的part6，我们要开始研究的是JS的一个区别于其他很多语言的特点：原型、原型链和继承。虽然ES6提供了更简洁优雅的方法来实现继承，但是这不过是语法糖，实现继承的原理是没有变化的。并且我认为原型和继承属于JS中比较难懂的点，也是被广泛使用的点。实际上我们无时不刻的用到了JS的原型和继承，只是没有发觉。深入理解原型和继承的原理，我们才会更好的理解和运用它们。So, let’s">
+<meta property="og:image" content="https://o3sw4xojp.qnssl.com/part6_1.png">
+<meta property="og:image" content="https://o3sw4xojp.qnssl.com/part6_2.png">
+<meta property="og:image" content="https://o3sw4xojp.qnssl.com/part6_3.png">
+<meta property="og:image" content="https://o3sw4xojp.qnssl.com/part6_4.png">
+<meta property="og:image" content="https://o3sw4xojp.qnssl.com/part6_5.png">
+<meta property="og:image" content="https://o3sw4xojp.qnssl.com/part6_6.png">
+<meta property="og:updated_time" content="2017-08-21T14:51:06.607Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="深入理解JS-part6-原型和继承">
+<meta name="twitter:description" content="本文是深入理解JS系列的part6，我们要开始研究的是JS的一个区别于其他很多语言的特点：原型、原型链和继承。虽然ES6提供了更简洁优雅的方法来实现继承，但是这不过是语法糖，实现继承的原理是没有变化的。并且我认为原型和继承属于JS中比较难懂的点，也是被广泛使用的点。实际上我们无时不刻的用到了JS的原型和继承，只是没有发觉。深入理解原型和继承的原理，我们才会更好的理解和运用它们。So, let’s">
+<meta name="twitter:image" content="https://o3sw4xojp.qnssl.com/part6_1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/08/21/深入理解JS-part6-原型和继承/"/>
+
+
+
+
+
+  <title> 深入理解JS-part6-原型和继承 | 萝三画室 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">萝三画室</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle">向死而生</p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/21/深入理解JS-part6-原型和继承/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="LOLISuri">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="https://o3sw4xojp.qnssl.com/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="萝三画室">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="萝三画室" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                深入理解JS-part6-原型和继承
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-21T20:25:54+08:00">
+                2017-08-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文是<strong><em>深入理解JS</em></strong>系列的part6，我们要开始研究的是JS的一个区别于其他很多语言的特点：原型、原型链和继承。虽然ES6提供了更简洁优雅的方法来实现继承，但是这不过是语法糖，实现继承的原理是没有变化的。并且我认为原型和继承属于JS中比较难懂的点，也是被广泛使用的点。实际上我们无时不刻的用到了JS的原型和继承，只是没有发觉。深入理解原型和继承的原理，我们才会更好的理解和运用它们。So, let’s start!</p>
+<p>参考书籍：JavaScript高级程序设计-第三版, <a href="http://www.ituring.com.cn/book/1488" target="_blank" rel="external">《你不知道的JavaScript》</a><br><a id="more"></a></p>
+<h1 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h1><h2 id="当我们定义一个函数之后发生了什么"><a href="#当我们定义一个函数之后发生了什么" class="headerlink" title="当我们定义一个函数之后发生了什么"></a>当我们定义一个函数之后发生了什么</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">function Person(age)&#123;</div><div class="line">	this.age = age;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>当我们像如上代码一样定义了一个函数Person之后：</p>
+<ol>
+<li>默认为Person创建一个属性<strong><em>prototype</em></strong>，并默认指向一个新的对象。</li>
+<li>在这个默认的新对象中，有一个默认属性<strong><em>constructor</em></strong>，它指回函数自身，即Person。</li>
+</ol>
+<p>这里需要注意，Person.prototype指向的对象被称为Person的<strong><em>原型对象</em></strong>。当前Person的原型对象是默认创建的这个对象，然而我们可以改变Person.prototype的指向，这时Person的原型对象就是另外的对象了（这里先只知道这个点，后面我们会深入讲到）。</p>
+<p>用代码表现就是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">typeof (Person.prototype) === &quot;object&quot;;//true</div><div class="line">Person.prototype.constructor === Person;//true</div></pre></td></tr></table></figure></p>
+<p>用图表示就是：<br><img src="https://o3sw4xojp.qnssl.com/part6_1.png" alt="part6_1.png"></p>
+<h2 id="当我们用new操作符创建变量后发生了什么"><a href="#当我们用new操作符创建变量后发生了什么" class="headerlink" title="当我们用new操作符创建变量后发生了什么"></a>当我们用new操作符创建变量后发生了什么</h2><p>我们知道，new操作符创建变量就是一个函数调用的过程。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">function Person(age)&#123;</div><div class="line">	this.age = age;</div><div class="line">&#125;</div><div class="line"></div><div class="line">var entity1 = new Person(18);</div><div class="line">var entity2 = new Person(24);</div><div class="line"></div><div class="line">entity1.age;//18</div><div class="line">entity2.age;//24</div></pre></td></tr></table></figure></p>
+<p>当我们像如上代码一样，通过new Person(18)创建了变量entity1之后：</p>
+<ol>
+<li>创建一个新的对象</li>
+<li>这个新的对象被执行原型连接，即为它默认创建一个隐藏属性[[prototype]]，这个属性指向<strong><em>Person的原型对象</em></strong>，可以访问<strong><em>Person的原型对象</em></strong>的属性和方法。</li>
+<li>这个新的对象会绑定到Person的this，即调用了Person函数</li>
+<li>如果函数没有返回其他对象，那么new表达式中的函数调用自动返回这个新对象给entity1。</li>
+</ol>
+<p>关于第2点需要注意的是，对象的[[prototype]]属性无法通过.操作符直接访问，大多数浏览器实现了通过<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">```</div><div class="line">entity1.prototype;//undefined</div><div class="line">entity1.__proto__;//&#123;constructor:f Person(age)&#125;</div></pre></td></tr></table></figure></p>
+<p>理解了上面的4步我们就可以知道，在new一个实例对象entity1之后，entity1通过函数调用<strong><em>直接复制</em></strong> 了Person中定义的属性和方法，也可以通过原型连接<strong><em>间接引用</em></strong> 了Person的原型对象中定义的属性和方法。</p>
+<p>用图表示就是：<br><img src="https://o3sw4xojp.qnssl.com/part6_2.png" alt="part6_2.png"></p>
+<h2 id="为原型对象增加方法"><a href="#为原型对象增加方法" class="headerlink" title="为原型对象增加方法"></a>为原型对象增加方法</h2><p>原型对象也是对象，所以我们可以为它增加属性和方法。<br>当我们为Person增加sayAge方法时，如果直接在Person中增加：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">function Person(age)&#123;</div><div class="line">	this.age = age;</div><div class="line">    this.sayAge = function()&#123;</div><div class="line">    	console.log(this.age)</div><div class="line">    &#125;;</div><div class="line">&#125;</div><div class="line"></div><div class="line">var entity1 = new Person(18);</div><div class="line">var entity2 = new Person(24);</div><div class="line"></div><div class="line">entity1.age;//18</div><div class="line">entity2.age;//24</div><div class="line"></div><div class="line">entity1.sayAge();//18</div><div class="line">entity2.sayAge();//24</div></pre></td></tr></table></figure></p>
+<p>这会导致使用new创建的每个Person的实例对象都存有一份sayAge方法的副本，像下面这样：<br><img src="https://o3sw4xojp.qnssl.com/part6_3.png" alt="part6_3.png"><br>这会产生不必要的内存浪费。事实上sayAge方法并不是特例化的，它完全可以被所有实例共用。因此，我们可以将sayAge这个方法直接定义在Person的原型对象中，通过<strong><em>引用</em></strong> 的方式去访问，而不必通过<strong><em>复制</em></strong> 的方式重复创建副本。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">function Person(age)&#123;</div><div class="line">	this.age = age;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Person.prototype.sayAge = function ()&#123;</div><div class="line">    console.log(this.age)</div><div class="line">&#125;;</div><div class="line"></div><div class="line">var entity1 = new Person(18);</div><div class="line">var entity2 = new Person(24);</div><div class="line"></div><div class="line">entity1.age;//18</div><div class="line">entity2.age;//24</div><div class="line"></div><div class="line">entity1.sayAge();//18</div><div class="line">entity2.sayAge();//24</div></pre></td></tr></table></figure></p>
+<p>用图表示就是：<br><img src="https://o3sw4xojp.qnssl.com/part6_4.png" alt="part6_4.png"><br>因此，我们应该在函数中定义特例化的属性和方法，在函数的原型对象中定义非特例化的属性和方法。</p>
+<h2 id="重写原型对象"><a href="#重写原型对象" class="headerlink" title="重写原型对象"></a>重写原型对象</h2><p>本文开始的时候我们说过，<strong><em>Person的原型对象是Person.prototype指向的对象</em></strong>。Person在声明时，Person.prototype默认指向一个对象，且默认包含一个constructor属性指回Person。前一小节中，我们为Person的原型对象增加的sayAge方法就是增加到这个默认原型对象中的。那么我们还有一种选择，就是改变Person.prototype的指向，使它指向另一个对象，也就是<strong><em>重写原型对象</em></strong>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">function Person(age)&#123;</div><div class="line">	this.age = age;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Person.prototype = &#123;</div><div class="line">	sayAge: function ()&#123;</div><div class="line">    	console.log(this.age);</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line">var entity1 = new Person(18);</div><div class="line">var entity2 = new Person(24);</div><div class="line"></div><div class="line">entity1.age;//18</div><div class="line">entity2.age;//24</div><div class="line"></div><div class="line">entity1.sayAge();//18</div><div class="line">entity2.sayAge();//24</div></pre></td></tr></table></figure></p>
+<p>看起来与前一节的结果一样！——然而并不是。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Person.prototype.constructor === Person;//false</div></pre></td></tr></table></figure></p>
+<p>我们发现Person.prototype.constructor并非指向Person。这是因为，只有Person创建时的默认原型对象才会将constructor自动指回Person，当我们改变Person.prototype的指向，使它指向另一个对象时，这个新的对象并不会自动指向Person，它默认指向的是Object(后面会详细讲)。<br><img src="https://o3sw4xojp.qnssl.com/part6_5.png" alt="part6_5.png"><br>因此，当我们重写Person的原型对象时，需要手动为原型对象改变constructor的指向。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Person.prototype = &#123;</div><div class="line">	constructor: Person,</div><div class="line">	sayAge: function ()&#123;</div><div class="line">    	console.log(this.age);</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p><img src="https://o3sw4xojp.qnssl.com/part6_6.png" alt="part6_6.png"><br>然而这种方式会将constructor的属性描述符enumerable变为true（默认应为false），导致constructor属性可被枚举。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Object.getOwnPropertyDescriptor(Person.prototype,&quot;constructor&quot;);</div><div class="line">//&#123;writable: true, enumerable: true, configurable: true, value: ƒ&#125;</div></pre></td></tr></table></figure></p>
+<p>我们可以使用Object.defineProperty的方法改变constructor的指向并恢复不可枚举性。重写原型对象且无副作用的完整代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">function Person(age)&#123;</div><div class="line">	this.age = age;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Person.prototype = &#123;</div><div class="line">	sayAge: function ()&#123;</div><div class="line">    	console.log(this.age);</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">Object.defineProperty(Person.prototype, &quot;constructor&quot;, &#123;</div><div class="line">	writable: true,</div><div class="line">    enumerable: false,</div><div class="line">    configurable: true,</div><div class="line">    value: Person</div><div class="line">&#125; );</div><div class="line"></div><div class="line">var entity1 = new Person(18);</div><div class="line">var entity2 = new Person(24);</div><div class="line"></div><div class="line">entity1.age;//18</div><div class="line">entity2.age;//24</div><div class="line"></div><div class="line">entity1.sayAge();//18</div><div class="line">entity2.sayAge();//24</div><div class="line"></div><div class="line">Person.prototype.constructor === Person;//true</div></pre></td></tr></table></figure></p>
+<h2 id="关于实例与constructor属性的一点澄清"><a href="#关于实例与constructor属性的一点澄清" class="headerlink" title="关于实例与constructor属性的一点澄清"></a>关于实例与constructor属性的一点澄清</h2><p>看下面的例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var entity1 = new Person(18);</div><div class="line">entity1.constructor === Person;//true</div></pre></td></tr></table></figure></p>
+<p>本栗的现象会给人造成一种假象：实例entity1由Person初始化而来，因此它的constructor属性指向Person。</p>
+<p>实际上是：<strong><em>实例本身并不具有constructor属性，它是通过[[prototype]]连接到了Person的原型对象，访问的是原型对象的constructor属性。</em></strong></p>
+<p>通过前面的图我们也可以看出来，Person的实例连接的是Person的原型对象，跟Person本身无关。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/读书笔记/" rel="tag"># 读书笔记</a>
+          
+            <a href="/tags/javascript/" rel="tag"># javascript</a>
+          
+            <a href="/tags/你不知道的JS/" rel="tag"># 你不知道的JS</a>
+          
+            <a href="/tags/深入理解JS/" rel="tag"># 深入理解JS</a>
+          
+            <a href="/tags/JavaScript高级程序设计-第三版/" rel="tag"># JavaScript高级程序设计-第三版</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/15/深入理解JS-part5-数据类型和typeof、instanceof/" rel="next" title="深入理解JS-part5-数据类型和typeof、instanceof">
+                <i class="fa fa-chevron-left"></i> 深入理解JS-part5-数据类型和typeof、instanceof
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://o3sw4xojp.qnssl.com/avatar.jpg"
+               alt="LOLISuri" />
+          <p class="site-author-name" itemprop="name">LOLISuri</p>
+          <p class="site-description motion-element" itemprop="description">进击的程序媛</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#原型"><span class="nav-number">1.</span> <span class="nav-text">原型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#当我们定义一个函数之后发生了什么"><span class="nav-number">1.1.</span> <span class="nav-text">当我们定义一个函数之后发生了什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#当我们用new操作符创建变量后发生了什么"><span class="nav-number">1.2.</span> <span class="nav-text">当我们用new操作符创建变量后发生了什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为原型对象增加方法"><span class="nav-number">1.3.</span> <span class="nav-text">为原型对象增加方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重写原型对象"><span class="nav-number">1.4.</span> <span class="nav-text">重写原型对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于实例与constructor属性的一点澄清"><span class="nav-number">1.5.</span> <span class="nav-text">关于实例与constructor属性的一点澄清</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LOLISuri</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
