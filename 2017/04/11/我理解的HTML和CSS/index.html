@@ -1,0 +1,813 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="HTML,CSS," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://o3sw4xojp.qnssl.com/paper_airplane.png?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="这篇文章主要讲的是我理解的HTML和CSS，从一个栗子开始。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="我理解的HTML和CSS">
+<meta property="og:url" content="http://yoursite.com/2017/04/11/我理解的HTML和CSS/index.html">
+<meta property="og:site_name" content="萝三画室">
+<meta property="og:description" content="这篇文章主要讲的是我理解的HTML和CSS，从一个栗子开始。">
+<meta property="og:image" content="http://a3.qpic.cn/psb?/V14PD5E82ahHXA/*x.gEV*mQctSRi523sPb15H.FL12UCUAw4tbTSNuK5E!/b/dBkBAAAAAAAA&bo=gAKuAgAAAAADBww!&rf=viewer_4">
+<meta property="og:image" content="http://a2.qpic.cn/psb?/V14PD5E82ahHXA/xUYDA.jiTwx5HG0d8aowOQ9FbaujDPHTVExuYAXgJsI!/b/dPcAAAAAAAAA&bo=gAKuAgAAAAADAAs!&rf=viewer_4">
+<meta property="og:image" content="http://a2.qpic.cn/psb?/V14PD5E82ahHXA/LuapQiJmb4YgB1dljxY85GPhzVF824wUPj3igvGl*a4!/b/dPcAAAAAAAAA&bo=bwOAAgAAAAADAMs!&rf=viewer_4">
+<meta property="og:image" content="http://a1.qpic.cn/psb?/V14PD5E82ahHXA/HzsBEbLAfNpMzERs7e3BH25LmvhPWblkfF64jXWC9E8!/b/dEIAAAAAAAAA&bo=bwOAAgAAAAADAMs!&rf=viewer_4">
+<meta property="og:image" content="http://a2.qpic.cn/psb?/V14PD5E82ahHXA/CSrj60zQ7CJ0rJh2qTUp29EA9CS4OOKDnjw6p7SH8Mo!/b/dB4BAAAAAAAA&bo=bwOAAgAAAAADAMs!&rf=viewer_4">
+<meta property="og:image" content="http://a1.qpic.cn/psb?/V14PD5E82ahHXA/x9pCOFah*lYQASyOCiWNCIe1ZVzwe*wi8Uhm0G8ybQY!/b/dPkAAAAAAAAA&bo=iAKAAgAAAAADAC0!&rf=viewer_4">
+<meta property="og:image" content="http://a2.qpic.cn/psb?/V14PD5E82ahHXA/Tq*5Mfwhxtdgk9R2oH.FjB..W6m.xl7waTkLhVJweKY!/b/dBgBAAAAAAAA&bo=rQPHAQAAAAADAE0!&rf=viewer_4">
+<meta property="og:image" content="http://a2.qpic.cn/psb?/V14PD5E82ahHXA/.d14PFvVsfDoh29m*3fIrcsIIdP7PqNdjMPiFm5Isqs!/b/dB4BAAAAAAAA&bo=*wZaAQAAAAADAIc!&rf=viewer_4">
+<meta property="og:updated_time" content="2017-09-28T15:43:01.639Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="我理解的HTML和CSS">
+<meta name="twitter:description" content="这篇文章主要讲的是我理解的HTML和CSS，从一个栗子开始。">
+<meta name="twitter:image" content="http://a3.qpic.cn/psb?/V14PD5E82ahHXA/*x.gEV*mQctSRi523sPb15H.FL12UCUAw4tbTSNuK5E!/b/dBkBAAAAAAAA&bo=gAKuAgAAAAADBww!&rf=viewer_4">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/04/11/我理解的HTML和CSS/"/>
+
+
+
+
+
+  <title> 我理解的HTML和CSS | 萝三画室 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">萝三画室</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle">向死而生</p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/11/我理解的HTML和CSS/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="LOLISuri">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="https://o3sw4xojp.qnssl.com/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="萝三画室">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="萝三画室" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                我理解的HTML和CSS
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-11T20:21:18+08:00">
+                2017-04-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>这篇文章主要讲的是我理解的HTML和CSS，从一个栗子开始。<br><a id="more"></a></p>
+<h1 id="我是引子"><a href="#我是引子" class="headerlink" title="我是引子"></a>我是引子</h1><h2 id="当你打开浏览器，在地址栏中输入（https-www-baidu-com-）并按下回车后，发生了什么"><a href="#当你打开浏览器，在地址栏中输入（https-www-baidu-com-）并按下回车后，发生了什么" class="headerlink" title="当你打开浏览器，在地址栏中输入（https://www.baidu.com/）并按下回车后，发生了什么"></a>当你打开浏览器，在地址栏中输入（<a href="https://www.baidu.com/）并按下回车后，发生了什么" target="_blank" rel="external">https://www.baidu.com/）并按下回车后，发生了什么</a></h2><p>首先，我们的浏览器通过网络，向位于互联网另一端的百度公司的某台服务器发送了访问页面的请求。然后，服务器接到请求并作出响应，同样通过网络，将页面发送至你的浏览器，最后，我们的浏览器通过某些规则，将页面渲染在浏览器窗口中。</p>
+<p>经过这三大步，才在浏览器中看到百度搜索的页面。</p>
+<p>这个页面可以理解为一个word文档：</p>
+<ul>
+<li>右上角整齐排列了一列文字，以同样的间隔对齐</li>
+<li>百度的LOGO，搜索框，搜索按钮位于页面正中央</li>
+<li>其它信息位于页面底部，同样垂直居中<br>来看看与word不一样的特点。</li>
+</ul>
+<h2 id="你能在百度搜索页面做些什么"><a href="#你能在百度搜索页面做些什么" class="headerlink" title="你能在百度搜索页面做些什么"></a>你能在百度搜索页面做些什么</h2><p>在打开的百度搜索页面你会发现：</p>
+<ul>
+<li>在搜索框中可以输入文字</li>
+<li>鼠标左键点击空白区域时，不能在搜索框中输入文字；点击搜索框可以继续输入</li>
+<li>点击【百度一下】按钮，你将会跳转到一个新页面，页面中出现一条一条的搜索结果等</li>
+</ul>
+<h2 id="在上面整个过程中，前端做了什么"><a href="#在上面整个过程中，前端做了什么" class="headerlink" title="在上面整个过程中，前端做了什么"></a>在上面整个过程中，前端做了什么</h2><ol>
+<li>为页面中的实际内容打标签（HTML）</li>
+<li>控制内容居中、间距等布局样式（CSS）</li>
+<li>与用户和服务器交互（JavaScript）</li>
+</ol>
+<p>下面来说说why&amp;what。至于how我们将在之后的章节细说。</p>
+<h3 id="HTML（超文本标记语言）"><a href="#HTML（超文本标记语言）" class="headerlink" title="HTML（超文本标记语言）"></a>HTML（超文本标记语言）</h3><p>一张静态页面可以理解为一个word文档，访问网页可以理解为从网络另一端取一个word文档到你的浏览器中查看。页面里和一般的word文档一样，包含了文字，图片，超链接等内容，文字可以标题、段落、表格等形式表现。</p>
+<p>当你新建一个word文档并输入一段文字，你会得到下面这样的结果。<br><img src="http://a3.qpic.cn/psb?/V14PD5E82ahHXA/*x.gEV*mQctSRi523sPb15H.FL12UCUAw4tbTSNuK5E!/b/dBkBAAAAAAAA&amp;bo=gAKuAgAAAAADBww!&amp;rf=viewer_4" alt="HC1"><br>然后发现输入的这段文字字字相连，完全没有层次结构。然后你会通过word自带的样式栏里的样式进行调整。<br><img src="http://a2.qpic.cn/psb?/V14PD5E82ahHXA/xUYDA.jiTwx5HG0d8aowOQ9FbaujDPHTVExuYAXgJsI!/b/dPcAAAAAAAAA&amp;bo=gAKuAgAAAAADAAs!&amp;rf=viewer_4" alt="HC2"><br>这样调整之后，不但看上去样式美观，而且扫可以一眼就可以知道很多信息。比如文章篇名岳阳楼记，作者范仲淹，文章分六段等等；而如果不加样式，我们扫一眼大概只能知道这是一段文字。这就是使用原因。<br>那么对于网页也是同样的道理，我们通过给网页中的内容加上HTML规定的标签，内容就可以按照一定的排列规则显示在浏览器中了。<br>加标签之前：<br><img src="http://a2.qpic.cn/psb?/V14PD5E82ahHXA/LuapQiJmb4YgB1dljxY85GPhzVF824wUPj3igvGl*a4!/b/dPcAAAAAAAAA&amp;bo=bwOAAgAAAAADAMs!&amp;rf=viewer_4" alt="HC3"><br>加标签之后：<br>（h1标签：一级标题；h4标签：四级标题；p标签：段落）<br><img src="http://a1.qpic.cn/psb?/V14PD5E82ahHXA/HzsBEbLAfNpMzERs7e3BH25LmvhPWblkfF64jXWC9E8!/b/dEIAAAAAAAAA&amp;bo=bwOAAgAAAAADAMs!&amp;rf=viewer_4" alt="HC4"><br>也就是说，仅仅通过为页面内容加上HTML标签，就可以让内容有一些基本的结构和格式。这样不仅看起来美观，并且可以使人或机器低成本地获得更多信息。</p>
+<h3 id="CSS（层叠样式表）"><a href="#CSS（层叠样式表）" class="headerlink" title="CSS（层叠样式表）"></a>CSS（层叠样式表）</h3><p>还是回到我们的word文档。之前我们通过word预定义好的样式，调整了文章结构。但是有些时候我们发现：</p>
+<ul>
+<li>这样基本样式还不够用，希望有一些其他的样式</li>
+<li>不同类型的内容，我们希望他们有一些相同的样式，比如所有文字都有下划线。</li>
+</ul>
+<p>在这样的场景下，我们就需要自己定义样式了。对于页面内容也是一样的道理。CSS提供了一些样式属性和该属性可选的值，通过在HTML标签的基础上指定它的属性和值，就可以为标签里的内容自行添加一些样式。比如我在标签中加上style=’text-decoration:underline’，标签包含的文字下方就出现了下划线。<br><img src="http://a2.qpic.cn/psb?/V14PD5E82ahHXA/CSrj60zQ7CJ0rJh2qTUp29EA9CS4OOKDnjw6p7SH8Mo!/b/dB4BAAAAAAAA&amp;bo=bwOAAgAAAAADAMs!&amp;rf=viewer_4" alt="HC5"><br>但CSS的好处远不限于此。细心的你可能发现了，我们刚刚为实现“每种标签内的文字都有下划线”，在每个标签里都了style=’text-decoration:underline’这段语句。这会造成大量的重复工作！那有没有一种方法可以减少工作量呢？答案是肯定的。你可以通过类选择器、标签选择器等方法，为不同类型的标签内容添加同样的样式，而不需要逐个标签写语句。比如通过将下面一段语句添加到<style></style>标签内，我们就可以为所有h1，h4，p标签内的文字加上下划线。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">h1,h4,p&#123;</div><div class="line">	text-decoration:underline</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>也就是说，通过为标签指定CSS样式，可以丰富标签中内容的样式，并且可以通过简单的方式，将不同类型的标签中相同的样式抽象出来，减少重复劳动。</p>
+<h3 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h3><p>在这里我们要和word说再见了。通过HTML和CSS，你可以使内容具备一些结构和样式。但如果止步于此，那么这个页面就真的与word没什么区别了。还记得百度搜索能做些什么吗？百度搜索页面知道在你鼠标点击搜索框的时候要显示你输入的文字、知道点击搜索按钮的时候跳转页面并且显示你可能需要的信息…这些都是word做不了，HTML+CSS也做不了的事。而这便是JavaScript的用武之地了。JavaScript这门语言，可以实现上述效果，完成页面与用户以及服务器的互动。JS是一种直译式脚本语言，是一种动态类型、弱类型的语言，并且是唯一一门所有浏览器都可以识别的语言。<br>至于为什么使用JS，我想引用DC大神的话：1.因为没有其他选择2.它真的很优秀。</p>
+<p>关于JS，要说的内容太多了，本文不再涉及。后文会简单的讲HTML和CSS。</p>
+<h1 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>互联网中的一个超媒体文档称之为一个页面，其本质就是一个文本文件，里面包含了文字、图片、音频、视频等内容。HTML（超文本标记语言）通过标记符号来标记要显示的网页中的各个部分，之后浏览器就知道如何显示标记中的内容。借助HTML书写的文档被称为一个HTML文件，以htm或.html为扩展名。</p>
+<h2 id="书写方式"><a href="#书写方式" class="headerlink" title="书写方式"></a>书写方式</h2><p>HTML文件是一种文本文件，可以使用任何能够生成TXT类型源文件的文本编辑器来产生它，只用修改文件后缀即可。</p>
+<h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">元素：</div><div class="line">&lt;h1&gt;我是一级标题&lt;/h1&gt;</div><div class="line">HTML元素通常都是成对出现的，如&lt;tag&gt;content&lt;/tag&gt;。即，以&lt;tag&gt;为开始，&lt;/tag&gt;为结束，中间包裹内容。比如上面的语句想表达文字是一级标题。</div><div class="line">这样，浏览器会以h1元素的格式将“我是一级标题”这段文字渲染出来。</div><div class="line">也有不成对出现的情况，如&lt;br/&gt;元素。除了之外还有一个规则：如果标签内不包含任何内容，可以将元素简写为&lt;tag/&gt;。即：&lt;h1&gt;&lt;/h1&gt;在中间不包括内容的条件下可以简写为&lt;h1/&gt;。</div><div class="line">元素可以设置属性。属性一般写在开始元素内，以属性名/值的形式出现，多个属性以空格分隔。如：&lt;h1 name=‘tile’  id=‘title’&gt;我是标题&lt;/h1&gt;。</div><div class="line">注释：</div><div class="line">&lt;!--注释内容--&gt;</div><div class="line">包含在&lt;!--  --&gt;之间的内容会被认为是注释，可以插入在任意位置</div></pre></td></tr></table></figure>
+<h3 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h3><p>一个HTML文件以html开头，以/html结尾，其整体上分为两部分：头部内容和主题内容。</p>
+<ul>
+<li>头部内容被head元素包裹，包含的标记是页面的标题、序言、说明等内容，它本身不作为内容来显示，但影响网页显示的效果。</li>
+<li><p>主体内容被body元素包裹，包含的是网页中实际显示的内容。<br><img src="http://a1.qpic.cn/psb?/V14PD5E82ahHXA/x9pCOFah*lYQASyOCiWNCIe1ZVzwe*wi8Uhm0G8ybQY!/b/dPkAAAAAAAAA&amp;bo=iAKAAgAAAAADAC0!&amp;rf=viewer_4" alt="HC7"><br>如上图例子，我们发现HTML文件的结构是这样的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">        &lt;meta&gt;</div><div class="line">        &lt;title&gt;&lt;/title&gt;</div><div class="line">        &lt;link&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">        &lt;h1&gt;&lt;/h1&gt;</div><div class="line">        &lt;p&gt;&lt;/p&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p>html元素中包含了head元素和body元素</p>
+</li>
+<li>head元素中，meta说明了字符集；title中的内容是网页标题；link中引用了外部文件。</li>
+<li>body元素中，h1内的文字被渲染成了一级标题，p标签内中的文字被渲染为段落。</li>
+</ul>
+<h2 id="常用标签"><a href="#常用标签" class="headerlink" title="常用标签"></a>常用标签</h2><ul>
+<li>头部内容<br>头部内容描述的是HTML文件的说明性内容，如：标题、引用资源、元数据等等。<ul>
+<li>head  定义文档信息</li>
+<li>title  定义文档标题</li>
+<li>meta  定义文档中的元数据</li>
+<li>link  定义了引入的外部资源</li>
+<li>style  定义了文档的样式</li>
+<li>script  定义了客户端脚本</li>
+</ul>
+</li>
+</ul>
+<p>每个元素的具体属性和描述参见<a href="http://www.runoob.com/tags/tag-meta.html。" target="_blank" rel="external">http://www.runoob.com/tags/tag-meta.html。</a></p>
+<ul>
+<li>主体内容<br>主体内容是真实显示在页面中的内容。<ul>
+<li>body    定义文档的主体</li>
+<li>div 一般用于包裹其它标签</li>
+<li>h1~h6    1-6级标题</li>
+<li>p    段落</li>
+<li>strong    强调，对文本加粗</li>
+<li>img    图片</li>
+<li>a    超链接</li>
+<li>ul、ol    无序列表、有序列表，列表项以</li><li>标记</li>
+<li>li    无序列表、有序列表中的列表项</li>
+<li>form    创建供用户输入的表单。</li>
+<li>input 允许用户输入数据，单行</li>
+<li>textarea    允许用户输入数据，多行</li>
+<li>button    按钮</li>
+</ul>
+</li>
+</ul>
+<p>每个元素的具体属性和描述参见<a href="http://www.runoob.com/tags/tag-meta.html。" target="_blank" rel="external">http://www.runoob.com/tags/tag-meta.html。</a></p>
+<h2 id="元素类型"><a href="#元素类型" class="headerlink" title="元素类型"></a>元素类型</h2><h3 id="块级元素和行内元素"><a href="#块级元素和行内元素" class="headerlink" title="块级元素和行内元素"></a>块级元素和行内元素</h3><p>根据占位情况，可将HTML元素分为块级元素和行内元素。</p>
+<ul>
+<li>块级元素(block)<br>一个块级元素在页面中独占一行。也就是说，无论一个块级元素的上一个同级元素是什么类型，在何处结束，它都会另起一行；无论一个块级元素的下一个同级元素是什么类型，下一个元素都会另起一行。常用的块级元素有：div、p、ul、ol、li、form等。</li>
+<li>行内元素(inline)<br>与块级元素相反，一个行内元素不会在页面中独占一行。常用的内联元素有：a、img、strong、br等。</li>
+</ul>
+<p>块级元素和行内元素在样式上还有其他区别，此处不表，请见CSS章节。</p>
+<h3 id="替换元素和非替换元素"><a href="#替换元素和非替换元素" class="headerlink" title="替换元素和非替换元素"></a>替换元素和非替换元素</h3><p>根据显示内容的方式，可将HTML元素分为替换元素和非替换元素。</p>
+<ul>
+<li><p>替换元素<br>元素本身没有实际内容，浏览器会根据元素的标签和属性，来决定元素的具体显示内容，不同的属性将导致不同的渲染结果。常用的替换元素包括img、input、textarea等。比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;input type=’password’&gt;，用户输入的内容渲染到页面上变为实心黑点，一般用于输入密码；</div><div class="line">&lt;input type=’button’&gt;，这个元素将变为一个按钮。</div></pre></td></tr></table></figure>
+</li>
+<li><p>非替换元素<br>与替换元素相反，非替换将内容直接告诉浏览器，将其显示出来。</p>
+</li>
+</ul>
+<h2 id="Web语义化"><a href="#Web语义化" class="headerlink" title="Web语义化"></a>Web语义化</h2><p>HTML的作用就是用HTML元素对文档做标记，使文档内容具有基本的结构和样式，并且更易于理解。HTML元素大部分是自带语义的。比如我们约定，h1中的内容是一级标题，p中的内容是一段段落，a中包含了跳转链接等等。在编写HTML文件，组织页面内容时，我们应该尽量遵照这些约定去使用元素。比如，我可以用p标签来包含一段标题内容，这不会带来任何语法上的错误，但是这样会增加解读成本：这样的内容换了其他人或机器去查看，可能不会第一时间明白这是文章的标题。所以，为了方便解读和维护，我们在学习和使用HTML元素时，应该尽量让“标题就是标题，段落就是段落”。这也就是Web语义化了。</p>
+<h1 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h1><h2 id="概述-1"><a href="#概述-1" class="headerlink" title="概述"></a>概述</h2><p>通过HTML元素，我们给页面内容添加标签，使内容具有了初步的结构和样式。然而在实际应用中，我们可能面临许多复杂的应用场景，单纯的通过HTML标签来实现可能开销很大甚至不能满足需求。这时我们可以通过CSS层叠样式表来为文档内容定义更丰富的样式。</p>
+<h2 id="书写方式-1"><a href="#书写方式-1" class="headerlink" title="书写方式"></a>书写方式</h2><h3 id="语法-1"><a href="#语法-1" class="headerlink" title="语法"></a>语法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">主体：</div><div class="line">键：值；</div><div class="line">CSS层叠样式，表顾名思义，本质上它是一张“表”。赋予元素CSS样式，就是找到“表”中样式的名称（键），然后指定这个键所支持的值。也就是说，CSS样式是以键值对的形式书写的。如：为元素指定background:red;后，该元素的背景就会被渲染为红色。</div><div class="line">注释：</div><div class="line">单行注释用//，多行注释用/*我是注释内容*/。</div></pre></td></tr></table></figure>
+<h3 id="形式"><a href="#形式" class="headerlink" title="形式"></a>形式</h3><p>在页面中，有三种形式让我们定义CSS样式：内联样式、内部样式、外部样式。</p>
+<ol>
+<li>内联样式<br>内联样式，就是直接将CSS样式写在标签中。每个HTML标签都有style属性用于写入CSS样式。如：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;p style=“background:red;color:white;”&gt;我是内容&lt;/p&gt;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>此元素的背景为红色，文字为白色。</p>
+<ol>
+<li>内部样式<br>内部样式，就是将多个CSS样式写在的style标签中。style标签是HTML为CSS提供的样式标签。如：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line">p &#123;</div><div class="line">  background:red;</div><div class="line">  color:white;</div><div class="line">&#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>这同样实现了p运输背景为红色，文字为白色。不过需要注意的是，例子中的写法会对所有p元素生效，这涉及到CSS选择器的问题，此处不表，详见CSS选择器章节。</p>
+<ol>
+<li>外部样式<br>前面两种样式是直接写在HTML文档里的，外部样式是将样式另写入一个文件，然后在HTML页面的head中，通过link标签引入。外部样式的写法，同内部样式的写法一样（不加style标签），然后以.css为后缀保存文件。<br><img src="http://a2.qpic.cn/psb?/V14PD5E82ahHXA/Tq*5Mfwhxtdgk9R2oH.FjB..W6m.xl7waTkLhVJweKY!/b/dBgBAAAAAAAA&amp;bo=rQPHAQAAAAADAE0!&amp;rf=viewer_4" alt="HC8"><br>上图的例子包括了全部三种定义CSS的形式。<br>由于外部样式可以避免在HTML页面中写入大量样式语句，一般采用以外部样式为主，内部和内联样式为辅的形式比较多。</li>
+</ol>
+<h2 id="CSS选择器"><a href="#CSS选择器" class="headerlink" title="CSS选择器"></a>CSS选择器</h2><p>为元素指定CSS样式的第一步是选择元素，第二步的写入样式键值对。上面三种形式，内联样式直接写在元素标签内，选择的元素就是这个元素；内部样式和外部样式则都需要通过样式选择器确认样式所作用的元素。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;</div><div class="line"> p&#123;</div><div class="line">  background:red;</div><div class="line">color:white;</div><div class="line">&#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure></p>
+<p>其中，p就是一个样式选择器，它选择的是：所有p元素。<br>在实际工程中，不同类型的元素、非亲元素都可能具有相同的样式。对于这种情况，我们通常将这些元素抽象成一个类(class)，然后通过类来指定样式。如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;p class=’we’&gt;&lt;/p&gt;</div><div class="line">&lt;h1 class=’we’&gt;&lt;/h1&gt;</div><div class="line">&lt;style&gt;</div><div class="line">  .we&#123;</div><div class="line">  background:red;</div><div class="line">&#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure></p>
+<p>这样，具有” class=’we’”的元素背景都是红色。<br>全部选择器参见：<a href="http://www.runoob.com/cssref/css-selectors.html" target="_blank" rel="external">http://www.runoob.com/cssref/css-selectors.html</a></p>
+<h2 id="样式优先级"><a href="#样式优先级" class="headerlink" title="样式优先级"></a>样式优先级</h2><p>我们知道，为元素指定样式有三种形式。三种形式可以共存，并且指定的键值可以重复，但是最终该样式只能按照其中一种情况进行渲染。比如：对于下面一个p元素：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;link href=&quot;/css/common.css&quot; rel=&quot;stylesheet&quot;&gt;&lt;!--p&#123;color:blue;&#125;--&gt;</div><div class="line">&lt;style&gt;</div><div class="line">#te&#123;</div><div class="line">  color:red;</div><div class="line">&#125;</div><div class="line">&lt;/style&gt;</div><div class="line">&lt;p id=’te’ style=’color:black’&gt;我是什么颜色&lt;/p&gt;</div></pre></td></tr></table></figure></p>
+<p>元素中的文字会被渲染成哪种颜色？<br>答案是黑色。<br>当样式重复时，判断样式优先级的原则是：具体、就近。</p>
+<ul>
+<li>具体<br>具体指的是这个元素选择器能选择或定位到的元素的粒度。比如，一个元素的id是唯一的，通过id选择器只能定位到具有这个id的那个元素；一个类可以运用到多个元素上，通过类选择器能定位到具有这个类的一群元素；标签是最粗略的，标签选择器选择的是同一类标签，等等。从这个角度我们会发现，选择器的粒度<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">id&lt;class&lt;tag，选择器指定属性的优先级（权重）id&gt;class&gt;tag。</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>那么当一个元素的某个属性通过这三种方式都定义过，最后会选择粒度最小，也就是优先级最高的那个进行渲染。关于选择器优先级（权重），可以按下表进行相加计算。</p>
+<ul>
+<li>就近<br>如果出现计算后权重相同的情况，则根据他们与该元素之间的距离来确定最终赢家。<br>注意：如果需要指定一个样式不论在上面情况下都具有最高优先级，可以在样式后紧跟! iportant。这样浏览器永远按照这条样式进行渲染。<br>另外需要明确的一点，只对重复的样式考虑优先级，而不会应用到重复样式的选择器的其他没有重复的样式。</li>
+</ul>
+<h2 id="盒模型"><a href="#盒模型" class="headerlink" title="盒模型"></a>盒模型</h2><p>盒模型是需要重点理解的概念。首先要明确，在HTML文档中，所有元素都是以矩形形式存在的。比如，下面例子中，页面主体包括一个div元素，div元素中有两个p元素。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;body&gt;</div><div class="line">    &lt;div&gt;</div><div class="line">        &lt;p style=&quot;display:inline&quot;&gt;我是内容&lt;/p&gt;&lt;!—p元素以被更改为行内元素—&gt;</div><div class="line">        &lt;p style=&quot;display:inline&quot;&gt;我是内容&lt;/p&gt;&lt;!—p元素以被更改为行内元素—&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">&lt;/body&gt;</div></pre></td></tr></table></figure></p>
+<p><img src="http://a2.qpic.cn/psb?/V14PD5E82ahHXA/.d14PFvVsfDoh29m*3fIrcsIIdP7PqNdjMPiFm5Isqs!/b/dB4BAAAAAAAA&amp;bo=*wZaAQAAAAADAIc!&amp;rf=viewer_4" alt="HC9"><br>对于p元素：<br>Width:红框宽度，height:红框高度,但是在HTML页面中，该元素的实际宽度是黑色虚线框的宽度。即：元素实际宽度=width+padding+border+margin。<br>对于p元素的父元素div：<br>Width:黑色虚线框宽度，height:黑色虚线框高度。这里可以发现，父元素的width就是一行中子元素的实际宽度。<br>小tip：<br>padding可理解为内容区，background渲染内容区，不会渲染margin。<br>盒模型就是实际内容被width+padding+border+margin一层层矩形包括起来，一个HTML元素实际上就是一个矩形盒子。</p>
+<h2 id="Float-position布局"><a href="#Float-position布局" class="headerlink" title="Float/position布局"></a>Float/position布局</h2><p>一个HTML页面中，窗体自上而下分成一行行，并在每行中按从左至右的顺序排放元素，这就是正常文档流。为元素指定float和position的某些值，会使得元素脱离正常文档流，也就是将元素从普通的布局排版中拿走。具体情况在下文详述。</p>
+<h3 id="float"><a href="#float" class="headerlink" title="float"></a>float</h3><p>float:left/right/none</p>
+<p>float属性可取的值有left、right、none(默认)。如果为一个元素指定了float:left;则其想左移动直到碰见父元素的左边框或另一个向左浮动元素的右边框。</p>
+<p>Tips:</p>
+<ul>
+<li>float:left/rigth会改变元素类型为行内元素</li>
+<li>float:left/rigth会使元素脱离正常文档流，其他元素（盒子）会无视这个元素，但其他盒子内的文本依然会为这个元素让出位置，环绕在周围</li>
+<li>如果子元素为浮动元素，可能导致父元素不能被撑开（高度为0）。原因是浮动元素脱离正常文档流，虽然它与父元素依然存在父子关系，但是父元素会无视它在页面上的位置，导致父元素误以为自己没有孩子，高度就为0。此时有三种方法还原父元素的高度：<ol>
+<li>显示指定父元素的height</li>
+<li>为父元素添加一个lastChild，并lastChild的CSS属性指定为clear:both</li>
+<li>为父元素添加一个CSS样式overflow:hidden</li>
+</ol>
+</li>
+</ul>
+<h3 id="position"><a href="#position" class="headerlink" title="position"></a>position</h3><p>position:relative/absolute/fixed/none</p>
+<p>position属性可取的值有relative、absolute、fixed、none(默认)。Position元素会有一个元素作为它的包含块。为元素指定position属性后，还需指定相对于其包含块的上下左右(top、bottom、left、right)四个方向的偏移量，如top:20px;left:10%;表示定位元素的上边框距离包含块上边框20像素，定位元素的左边框距离包含块左边框为包含款宽度的10%。</p>
+<ol>
+<li>relative<br>relative相对定位不会使元素脱离正常文档流，其包含块是自己本身。也就是说，{position:relative; top:20px;left:10%;}表示元素向下偏移20像素，向右偏移自身宽度的10%。</li>
+<li>absolute<br>absolute绝对定位会使元素脱离正常文档流，其包含块是据其最近的、position=absolute/relative的父元素。如果没有这样的父元素，则其包含块为body元素。</li>
+<li>fixed<br>Fixed固定定位会使元素脱离正常文档流，其包含块是浏览器窗口。Fixed元素将不会随着滚动条移动。</li>
+</ol>
+<p>Tips:<br>定位元素可能会在页面上出现重叠压盖情况，这时可以用z-index属性指定优先级，z-index值越大的元素越位于上层。Body元素的z-index值为0，将z-index设置为负数会导致元素鼠标属性无法识别和触发，应尽量避免使用负值z-index。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/HTML/" rel="tag"># HTML</a>
+          
+            <a href="/tags/CSS/" rel="tag"># CSS</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/05/盒子模型，浮动，定位总结/" rel="next" title="盒子模型，浮动，定位总结">
+                <i class="fa fa-chevron-left"></i> 盒子模型，浮动，定位总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/27/仿网易云音乐PC-总结Part1-HTML/" rel="prev" title="仿网易云音乐PC-总结Part1(HTML5)">
+                仿网易云音乐PC-总结Part1(HTML5) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://o3sw4xojp.qnssl.com/avatar.jpg"
+               alt="LOLISuri" />
+          <p class="site-author-name" itemprop="name">LOLISuri</p>
+          <p class="site-description motion-element" itemprop="description">进击的程序媛</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#我是引子"><span class="nav-number">1.</span> <span class="nav-text">我是引子</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#当你打开浏览器，在地址栏中输入（https-www-baidu-com-）并按下回车后，发生了什么"><span class="nav-number">1.1.</span> <span class="nav-text">当你打开浏览器，在地址栏中输入（https://www.baidu.com/）并按下回车后，发生了什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#你能在百度搜索页面做些什么"><span class="nav-number">1.2.</span> <span class="nav-text">你能在百度搜索页面做些什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在上面整个过程中，前端做了什么"><span class="nav-number">1.3.</span> <span class="nav-text">在上面整个过程中，前端做了什么</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HTML（超文本标记语言）"><span class="nav-number">1.3.1.</span> <span class="nav-text">HTML（超文本标记语言）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSS（层叠样式表）"><span class="nav-number">1.3.2.</span> <span class="nav-text">CSS（层叠样式表）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScript"><span class="nav-number">1.3.3.</span> <span class="nav-text">JavaScript</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTML"><span class="nav-number">2.</span> <span class="nav-text">HTML</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">2.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#书写方式"><span class="nav-number">2.2.</span> <span class="nav-text">书写方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#语法"><span class="nav-number">2.2.1.</span> <span class="nav-text">语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结构"><span class="nav-number">2.2.2.</span> <span class="nav-text">结构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用标签"><span class="nav-number">2.3.</span> <span class="nav-text">常用标签</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#元素类型"><span class="nav-number">2.4.</span> <span class="nav-text">元素类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#块级元素和行内元素"><span class="nav-number">2.4.1.</span> <span class="nav-text">块级元素和行内元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#替换元素和非替换元素"><span class="nav-number">2.4.2.</span> <span class="nav-text">替换元素和非替换元素</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Web语义化"><span class="nav-number">2.5.</span> <span class="nav-text">Web语义化</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CSS"><span class="nav-number">3.</span> <span class="nav-text">CSS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述-1"><span class="nav-number">3.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#书写方式-1"><span class="nav-number">3.2.</span> <span class="nav-text">书写方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#语法-1"><span class="nav-number">3.2.1.</span> <span class="nav-text">语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#形式"><span class="nav-number">3.2.2.</span> <span class="nav-text">形式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSS选择器"><span class="nav-number">3.3.</span> <span class="nav-text">CSS选择器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#样式优先级"><span class="nav-number">3.4.</span> <span class="nav-text">样式优先级</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#盒模型"><span class="nav-number">3.5.</span> <span class="nav-text">盒模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Float-position布局"><span class="nav-number">3.6.</span> <span class="nav-text">Float/position布局</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#float"><span class="nav-number">3.6.1.</span> <span class="nav-text">float</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#position"><span class="nav-number">3.6.2.</span> <span class="nav-text">position</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LOLISuri</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

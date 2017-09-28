@@ -1,0 +1,691 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="总结,商品房网签平台,HTML," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://o3sw4xojp.qnssl.com/paper_airplane.png?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="最近完成了一个小项目的演示DEMO，用于商品房网上签约。平台设计两种用户角色：开发商和房地产管理部门。对于开发商用户，提供合同模板的增删改查；合同的增删改查、提交、打印；合同状态查询统计、单个楼盘统计表、用户管理功能。对于房地产管理部门，提供合同状态查询统计、合同审批、用户管理功能。项目前端采用vue + vuex + vue router + vue resource + elementUI +">
+<meta property="og:type" content="article">
+<meta property="og:title" content="商品房网签平台-总结Part1(HTML)">
+<meta property="og:url" content="http://yoursite.com/2017/09/17/商品房网签平台-总结Part1-HTML/index.html">
+<meta property="og:site_name" content="萝三画室">
+<meta property="og:description" content="最近完成了一个小项目的演示DEMO，用于商品房网上签约。平台设计两种用户角色：开发商和房地产管理部门。对于开发商用户，提供合同模板的增删改查；合同的增删改查、提交、打印；合同状态查询统计、单个楼盘统计表、用户管理功能。对于房地产管理部门，提供合同状态查询统计、合同审批、用户管理功能。项目前端采用vue + vuex + vue router + vue resource + elementUI +">
+<meta property="og:image" content="http://a3.qpic.cn/psb?/V14PD5E82ahHXA/58sYbP0fkrx5X9o509rktaGiOG0Sme0A46OzG*Xp15g!/b/dEQAAAAAAAAA&bo=gAIEAwAAAAARB7U!&rf=viewer_4">
+<meta property="og:updated_time" content="2017-09-28T15:43:01.810Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="商品房网签平台-总结Part1(HTML)">
+<meta name="twitter:description" content="最近完成了一个小项目的演示DEMO，用于商品房网上签约。平台设计两种用户角色：开发商和房地产管理部门。对于开发商用户，提供合同模板的增删改查；合同的增删改查、提交、打印；合同状态查询统计、单个楼盘统计表、用户管理功能。对于房地产管理部门，提供合同状态查询统计、合同审批、用户管理功能。项目前端采用vue + vuex + vue router + vue resource + elementUI +">
+<meta name="twitter:image" content="http://a3.qpic.cn/psb?/V14PD5E82ahHXA/58sYbP0fkrx5X9o509rktaGiOG0Sme0A46OzG*Xp15g!/b/dEQAAAAAAAAA&bo=gAIEAwAAAAARB7U!&rf=viewer_4">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/09/17/商品房网签平台-总结Part1-HTML/"/>
+
+
+
+
+
+  <title> 商品房网签平台-总结Part1(HTML) | 萝三画室 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">萝三画室</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle">向死而生</p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/17/商品房网签平台-总结Part1-HTML/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="LOLISuri">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="https://o3sw4xojp.qnssl.com/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="萝三画室">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="萝三画室" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                商品房网签平台-总结Part1(HTML)
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-17T14:28:51+08:00">
+                2017-09-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>最近完成了一个小项目的演示DEMO，用于商品房网上签约。平台设计两种用户角色：开发商和房地产管理部门。对于开发商用户，提供合同模板的增删改查；合同的增删改查、提交、打印；合同状态查询统计、单个楼盘统计表、用户管理功能。对于房地产管理部门，提供合同状态查询统计、合同审批、用户管理功能。项目前端采用vue + vuex + vue router + vue resource + elementUI + Less,后端采用C#调用WebService提供数据服务（内网服务）。</p>
+<p>这一系列总结主要想整理的是，在项目过程中使用的新方法、思路、以及遇到的坑，包括HTML5、CSS、ES6、VUE四个部分。本篇是商品房网签平台项目总结的Part1-HTML，讲的是在做移动端适配时遇到的屏幕尺寸问题，以及HTML5新增的本地存储。<br>全部项目请戳-&gt;&gt;&gt;&gt;&gt; <a href="https://github.com/honey3go/realEstate" target="_blank" rel="external">https://github.com/honey3go/realEstate</a><br><a id="more"></a></p>
+<h1 id="HTML-—-viewport"><a href="#HTML-—-viewport" class="headerlink" title="HTML — viewport"></a>HTML — viewport</h1><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>做这个项目刚开始做移动端适配的时候就遇到了问题：明明做了媒体查询，但是页面还是没有按照期待的一样刚好填充整个屏幕，而是实际尺寸比屏幕尺寸宽了不少。后来发现，我是没搞清楚移动端的viewport概念。默认的移动端viewport宽度并不等于屏幕的宽度，通常都比屏幕宽度宽。我们来看下面这张图：<br><img src="http://a3.qpic.cn/psb?/V14PD5E82ahHXA/58sYbP0fkrx5X9o509rktaGiOG0Sme0A46OzG*Xp15g!/b/dEQAAAAAAAAA&amp;bo=gAIEAwAAAAARB7U!&amp;rf=viewer_4" alt="hh"><br>布局viewport就是默认viewport，媒体查询中的宽度属性也指的是布局viewport的宽度。因此，我们的网页填充的就是这个区域，而他的宽度可能远大于屏幕宽度（此处可以简单这么理解，欲知原理，请看下一小节）。此时我们只能在可见viewport范围内看到布局viewport的一部分内容，其他部分需要横向滑动屏幕才能看到。这显然是很差的用户体验，我们的理想viewport是等于可见viewport的，这时没有横向滚动轴，用户不需要横向滑动屏幕直接可以在浏览到全部内容。</p>
+<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>那么如何让布局viewport的宽度=可见viewport的宽度即屏幕宽度呢？<br>在HTML的head标签中加入：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot; /&gt;</div></pre></td></tr></table></figure></p>
+<p>它的作用是将当前的布局viewport宽度设置为屏幕宽度。其中“width=device-width”和”initial-scale=1”的作用是一样的，只是单一方法不能兼容所有浏览器的情况，两种方法配合可以完美实现。</p>
+<h2 id="所以到底为啥布局viewport！-屏幕宽度？这里是原因"><a href="#所以到底为啥布局viewport！-屏幕宽度？这里是原因" class="headerlink" title="所以到底为啥布局viewport！== 屏幕宽度？这里是原因"></a>所以到底为啥布局viewport！== 屏幕宽度？这里是原因</h2><p>这里其实是物理像素和逻辑像素的问题了。</p>
+<p>物理像素是屏幕能分辨的最小单元格，它是屏幕固有的硬件能力。同样的尺寸的屏幕，它的物理像素可能是不一致的。像素越多，显示的细节越精细，显示效果越清晰。<br>逻辑像素是与物理像素无关的，一个逻辑像素在任意设备屏幕上都占据相同的空间。也就是说，不同的手机，如果逻辑像素一致，那么他们的屏幕尺寸也是一致的。</p>
+<p>可以粗暴的理解为，逻辑像素决定了屏幕尺寸大小，物理像素决定了屏幕的清晰度。这就可以理解为啥我们去商场看电视或者手机的时候，会发现同样大小的设备，清晰度会不一样了。比方说对于两个逻辑像素都是300x600的手机，一个物理像素也是300x600，一个物理像素是600x1200，那么肯定是后者清晰，因为后者相当于一个逻辑像素中包含了4个物理像素。</p>
+<p>那么我们回头来看viewport。默认情况下，viewport的宽度是基于物理像素的宽度，也就是上面的600x1200。我们通过加入meta标签，其实就是将viewport的宽度重新定义为基于逻辑像素的宽度。</p>
+<p>so, that’s all~</p>
+<h1 id="web本地存储"><a href="#web本地存储" class="headerlink" title="web本地存储"></a>web本地存储</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>这个项目是个单页应用，涉及到很多路由跳转的情况。项目中我们使用了带参的路由跳转并且隐藏参数，也使用了Vuex管理多个组件共享的状态。后来遇到的一个情况是多个嵌套路由传值，这样通过带参路由跳转和props显得啰嗦，Vuex又没有必要，于是我就想到了尝试使用web本地存储来传参。</p>
+<h2 id="web-storage"><a href="#web-storage" class="headerlink" title="web storage"></a>web storage</h2><p>HTML5新增的两种本地存储方式：localStorage 和 sessionStorage。</p>
+<p>他们都可以将数据保存在本地，区别只是在于localStorage存储没有时间限制，sessionStorage存储基于会话，会话关闭（在浏览器中关闭窗口）的时候数据自动删除。</p>
+<h2 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h2><p>localStorage和sessionStorage的方法相同，都是炒鸡简单：</p>
+<ul>
+<li>保存数据：localStorage.setItem(key,value);</li>
+<li>读取数据：localStorage.getItem(key);</li>
+<li>删除单个数据：localStorage.removeItem(key);</li>
+<li>删除所有数据：localStorage.clear();</li>
+<li>得到某个索引的key：localStorage.key(index);</li>
+</ul>
+<p>注意：存储对象的时候需要将对象转化成字符串</p>
+<h2 id="web-storage-VS-cookie"><a href="#web-storage-VS-cookie" class="headerlink" title="web storage VS cookie"></a>web storage VS cookie</h2><p>在web storage出现以前，本地存储使用的是cookie。但是这里就有几个问题了：</p>
+<ol>
+<li>cookie有长度、数量、时间、跨域限制</li>
+<li>cookie会传给服务器，而一些本地存储的数据通常是不需要与服务器交互的，这就造成了浪费并且可能影响网站性能</li>
+</ol>
+<p>私认为web storage的出现就是为了解决这个问题。有了web storage，我们可以把需要跟服务器通讯的数据保存到cookie，如用户输入的用户名和密码等；不需要与服务器通讯的数据利用web storage存储，让他们各司其职。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/总结/" rel="tag"># 总结</a>
+          
+            <a href="/tags/商品房网签平台/" rel="tag"># 商品房网签平台</a>
+          
+            <a href="/tags/HTML/" rel="tag"># HTML</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/21/深入理解JS-part6-原型和继承/" rel="next" title="深入理解JS-part6-原型和继承">
+                <i class="fa fa-chevron-left"></i> 深入理解JS-part6-原型和继承
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/18/商品房网签平台-总结Part2-HTML - CSS/" rel="prev" title="商品房网签平台-总结Part2(CSS3)">
+                商品房网签平台-总结Part2(CSS3) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://o3sw4xojp.qnssl.com/avatar.jpg"
+               alt="LOLISuri" />
+          <p class="site-author-name" itemprop="name">LOLISuri</p>
+          <p class="site-description motion-element" itemprop="description">进击的程序媛</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#HTML-—-viewport"><span class="nav-number">1.</span> <span class="nav-text">HTML — viewport</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题"><span class="nav-number">1.1.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决方法"><span class="nav-number">1.2.</span> <span class="nav-text">解决方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#所以到底为啥布局viewport！-屏幕宽度？这里是原因"><span class="nav-number">1.3.</span> <span class="nav-text">所以到底为啥布局viewport！== 屏幕宽度？这里是原因</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#web本地存储"><span class="nav-number">2.</span> <span class="nav-text">web本地存储</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">2.1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#web-storage"><span class="nav-number">2.2.</span> <span class="nav-text">web storage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用方法"><span class="nav-number">2.3.</span> <span class="nav-text">常用方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#web-storage-VS-cookie"><span class="nav-number">2.4.</span> <span class="nav-text">web storage VS cookie</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LOLISuri</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

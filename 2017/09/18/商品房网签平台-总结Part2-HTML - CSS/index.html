@@ -1,0 +1,691 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="总结,商品房网签平台,css," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://o3sw4xojp.qnssl.com/paper_airplane.png?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="本篇是商品房网签平台总结系列的Part2-CSS，内容包括box-sizing、媒体查询。全部项目请戳-&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; https://github.com/honey3go/realEstate">
+<meta property="og:type" content="article">
+<meta property="og:title" content="商品房网签平台-总结Part2(CSS3)">
+<meta property="og:url" content="http://yoursite.com/2017/09/18/商品房网签平台-总结Part2-HTML - CSS/index.html">
+<meta property="og:site_name" content="萝三画室">
+<meta property="og:description" content="本篇是商品房网签平台总结系列的Part2-CSS，内容包括box-sizing、媒体查询。全部项目请戳-&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; https://github.com/honey3go/realEstate">
+<meta property="og:image" content="https://o3sw4xojp.qnssl.com/part2_1.png">
+<meta property="og:image" content="https://o3sw4xojp.qnssl.com/part2_2.png">
+<meta property="og:updated_time" content="2017-09-28T15:43:00.892Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="商品房网签平台-总结Part2(CSS3)">
+<meta name="twitter:description" content="本篇是商品房网签平台总结系列的Part2-CSS，内容包括box-sizing、媒体查询。全部项目请戳-&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; https://github.com/honey3go/realEstate">
+<meta name="twitter:image" content="https://o3sw4xojp.qnssl.com/part2_1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/09/18/商品房网签平台-总结Part2-HTML - CSS/"/>
+
+
+
+
+
+  <title> 商品房网签平台-总结Part2(CSS3) | 萝三画室 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">萝三画室</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle">向死而生</p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/18/商品房网签平台-总结Part2-HTML - CSS/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="LOLISuri">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="https://o3sw4xojp.qnssl.com/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="萝三画室">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="萝三画室" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                商品房网签平台-总结Part2(CSS3)
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-18T22:09:35+08:00">
+                2017-09-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本篇是商品房网签平台总结系列的Part2-CSS，内容包括box-sizing、媒体查询。<br>全部项目请戳-&gt;&gt;&gt;&gt;&gt; <a href="https://github.com/honey3go/realEstate" target="_blank" rel="external">https://github.com/honey3go/realEstate</a><br><a id="more"></a></p>
+<h1 id="box-sizing"><a href="#box-sizing" class="headerlink" title="box-sizing"></a>box-sizing</h1><p>之前在仿网易云音乐PC的时候，就发现了box-sizing这个属性，但是没有深入研究。后来在element ui中发现了这个属性的大量使用，然后又去看了bootstrap发现也是如此，这回彻底引起了我的注意。这个不起眼的属性，会让你的布局思路更清晰，在自适应或响应式布局中用处灰常大。</p>
+<p>box-sizing是CSS3新增的属性，它可以重新定义盒模型。我们知道，在默认的盒模型中，元素的width和height是指内容区的宽高，不包括padding、border和margin，元素实际宽度=width+左右padding+左右border+左右margin，高度同理。然而通过设置box-sizing:border-box，我们可以将width设置为border以内的全部宽度，此时元素的实际宽度=width+左右margin。</p>
+<h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><p>box-sizing: content-box | border-box | inherit;</p>
+<h2 id="栗子"><a href="#栗子" class="headerlink" title="栗子"></a>栗子</h2><p>我们将html和body元素的宽高调整为浏览器窗口的宽高，然后新建一个div元素，赋值padding 50px,100%的宽和50%的高。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>Examples<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span><span class="undefined"></span></div><div class="line">	html, body&#123;</div><div class="line">		height: 100%;</div><div class="line">		margin: 0;</div><div class="line">	&#125;</div><div class="line">	.inner&#123;</div><div class="line">		padding: 50px;</div><div class="line">		width: 100%;</div><div class="line">		height: 50%;</div><div class="line">		background: #13CE66;	</div><div class="line">	&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"inner"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>效果：<br><img src="https://o3sw4xojp.qnssl.com/part2_1.png" alt="part2_1.png"><br>我们看到，body的width*height是900x600.8，div是900x300.4。注意横向已经出现滚动条。</p>
+<p>然后我们使用box-sizing属性，将其设置为border-box，然后我们发现：<br><img src="https://o3sw4xojp.qnssl.com/part2_2.png" alt="part2_2.png"><br>div的width*height变为800x200。注意此次并没有滚动条，div的width+padding刚好等于body元素的width。</p>
+<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><p>box-sizing可以用来做什么呢？<br>box-sizing提供了一种优雅的方式在自适应布局和响应式布局。</p>
+<h3 id="自适应高度"><a href="#自适应高度" class="headerlink" title="自适应高度"></a>自适应高度</h3><p>对于传统的方法，实现一个padding固定、width自适应、实际宽度等于父元素width的div很容易：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">div&#123;</div><div class="line">	padding: 0 10px;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>然而应用在高度上却并不简单，原因是高度不会自动填满父元素，并且纵向的margin、border、padding，当以百分比定义时，它相对的是父元素的width而不是height。<br>常用的解决办法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">.parent&#123;</div><div class="line">	position:relative;</div><div class="line">    height:100px;</div><div class="line">&#125;</div><div class="line">.child&#123;</div><div class="line">	position: absolute;</div><div class="line">    top:0;</div><div class="line">    bottom:0;</div><div class="line">    padding: 0 10px;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这种方法的原理是利用绝对定位，强行将子元素的顶部和底部与父元素对齐。<br>下面让我们看看利用box-sizing的解决方式:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">.parent&#123;</div><div class="line">	height:100px;</div><div class="line">&#125;</div><div class="line">.child&#123;</div><div class="line">    box-sizing:border-box;</div><div class="line">    height:100%;</div><div class="line">    padding: 10px 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>是不是优雅多了？并且不需要使用绝对定位产生脱离文档流的元素。</p>
+<h3 id="在bootstrap和element-ui中的应用"><a href="#在bootstrap和element-ui中的应用" class="headerlink" title="在bootstrap和element ui中的应用"></a>在bootstrap和element ui中的应用</h3><p>bootstrap和element ui都是栅格式布局系统，他们的实现思路也是一致的：<br>将整个页面中的一行横向等分为12个格子（element ui是24个），元素的宽度是相对于格子计算的。比如一行中并排包含两个元素，他们的宽度比是1：3，那么在bootstrap中，他们的宽度就是一个占3个格子的宽度，一个占9个格子的宽度。</p>
+<p>除了栅格布局系统，其他很多元素也用到了box-sizing这个属性。</p>
+<p>我猜想利用box-sizing的原因是：</p>
+<ol>
+<li>元素的实际宽度只与页面宽度有关，用户手动改变元素padding或border时，不会影响到元素的实际宽度，这样使得布局表现更稳定。</li>
+<li>IE6以前的默认盒子模型就是padding+border+width，可能是考虑到了兼容问题。</li>
+</ol>
+<h1 id="媒体查询-media"><a href="#媒体查询-media" class="headerlink" title="媒体查询@media"></a>媒体查询@media</h1><p>媒体查询可以针对不同的媒体类型、不同的屏幕尺寸设置定义不同的样式。我理解的媒体查询就像一个针对CSS样式的if语句，当条件满足XXXX时，应用PPPP样式。<br>媒体查询主要应用于响应式布局中，对不同屏幕大小应用不同的样式。它也可以应用在其他场景上，比如打印页面。</p>
+<h2 id="语法-1"><a href="#语法-1" class="headerlink" title="语法"></a>语法</h2><p>@media mediatype and|not|only (media feature) {<br>    CSS-Code;<br>}</p>
+<h2 id="应用-1"><a href="#应用-1" class="headerlink" title="应用"></a>应用</h2><p>本次的项目有打印页面的需求，也要求做移动端APP，因此我们在这两个方向上用了媒体查询。</p>
+<h3 id="打印页面"><a href="#打印页面" class="headerlink" title="打印页面"></a>打印页面</h3><p>打印页面通常是打印页面的一部分而非全体，因此我们需要在打印时，显示需要打印的元素，隐藏不需要打印的元素。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">//CSS，媒体查询，打印</div><div class="line">@media print &#123; </div><div class="line">  .noprint &#123; display: none; &#125;</div><div class="line">&#125; </div><div class="line">//JS,点击按钮打印</div><div class="line">prt.onclick = function() &#123;</div><div class="line">	window.print();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>打印时需要隐藏的元素加上一个css类noprint，点击打印按钮时，这些元素就会应用noprint的样式，隐藏显示。</p>
+<h3 id="响应式页面"><a href="#响应式页面" class="headerlink" title="响应式页面"></a>响应式页面</h3><p>无论是PC端不同尺寸的浏览器窗口，还是移动端不同页面尺寸的屏幕，通过媒体查询都可以检测到。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">@media screen and (max-width: 375px) &#123;//媒体查询，宽375以下的手机</div><div class="line">  .left-warp&#123;</div><div class="line">    width: 64px;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这条媒体查询的含义是：对于屏幕宽度在375px以下的手机，具有left-wrap类的元素，其宽度是64px。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/总结/" rel="tag"># 总结</a>
+          
+            <a href="/tags/商品房网签平台/" rel="tag"># 商品房网签平台</a>
+          
+            <a href="/tags/css/" rel="tag"># css</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/17/商品房网签平台-总结Part1-HTML/" rel="next" title="商品房网签平台-总结Part1(HTML)">
+                <i class="fa fa-chevron-left"></i> 商品房网签平台-总结Part1(HTML)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/24/我看过的那些前端书们/" rel="prev" title="我看过的那些前端书们">
+                我看过的那些前端书们 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://o3sw4xojp.qnssl.com/avatar.jpg"
+               alt="LOLISuri" />
+          <p class="site-author-name" itemprop="name">LOLISuri</p>
+          <p class="site-description motion-element" itemprop="description">进击的程序媛</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#box-sizing"><span class="nav-number">1.</span> <span class="nav-text">box-sizing</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#语法"><span class="nav-number">1.1.</span> <span class="nav-text">语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#栗子"><span class="nav-number">1.2.</span> <span class="nav-text">栗子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用"><span class="nav-number">1.3.</span> <span class="nav-text">应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#自适应高度"><span class="nav-number">1.3.1.</span> <span class="nav-text">自适应高度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在bootstrap和element-ui中的应用"><span class="nav-number">1.3.2.</span> <span class="nav-text">在bootstrap和element ui中的应用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#媒体查询-media"><span class="nav-number">2.</span> <span class="nav-text">媒体查询@media</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#语法-1"><span class="nav-number">2.1.</span> <span class="nav-text">语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用-1"><span class="nav-number">2.2.</span> <span class="nav-text">应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#打印页面"><span class="nav-number">2.2.1.</span> <span class="nav-text">打印页面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#响应式页面"><span class="nav-number">2.2.2.</span> <span class="nav-text">响应式页面</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LOLISuri</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
