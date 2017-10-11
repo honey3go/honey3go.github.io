@@ -1,0 +1,765 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="javascript,读书笔记,深入理解JS,编写可维护的Javascript," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://o3sw4xojp.qnssl.com/paper_airplane.png?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="本文是《编写可维护的javascript》的读书笔记，主要讲的是如何编写易读、可维护的JS代码。作为一枚合格的程序猿，是要对自己写的代码负责任的。在实际工作中，我们很少自己从头写代码，通常更多的是维护别人的代码。如果遇见风格糟糕的代码，我们就会被搞得对着代码一头雾水，针对是一项糟糕至极的体验。己所不欲勿施于人，那么我们就需要的一项素质，就是让自己写的代码，别人不需要花很大力气去理解，不需要花很大力">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入理解JS-part8-编程风格">
+<meta property="og:url" content="http://yoursite.com/2017/10/10/深入理解JS-part8-编程风格/index.html">
+<meta property="og:site_name" content="萝三画室">
+<meta property="og:description" content="本文是《编写可维护的javascript》的读书笔记，主要讲的是如何编写易读、可维护的JS代码。作为一枚合格的程序猿，是要对自己写的代码负责任的。在实际工作中，我们很少自己从头写代码，通常更多的是维护别人的代码。如果遇见风格糟糕的代码，我们就会被搞得对着代码一头雾水，针对是一项糟糕至极的体验。己所不欲勿施于人，那么我们就需要的一项素质，就是让自己写的代码，别人不需要花很大力气去理解，不需要花很大力">
+<meta property="og:updated_time" content="2017-10-11T09:07:44.227Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="深入理解JS-part8-编程风格">
+<meta name="twitter:description" content="本文是《编写可维护的javascript》的读书笔记，主要讲的是如何编写易读、可维护的JS代码。作为一枚合格的程序猿，是要对自己写的代码负责任的。在实际工作中，我们很少自己从头写代码，通常更多的是维护别人的代码。如果遇见风格糟糕的代码，我们就会被搞得对着代码一头雾水，针对是一项糟糕至极的体验。己所不欲勿施于人，那么我们就需要的一项素质，就是让自己写的代码，别人不需要花很大力气去理解，不需要花很大力">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/10/10/深入理解JS-part8-编程风格/"/>
+
+
+
+
+
+  <title> 深入理解JS-part8-编程风格 | 萝三画室 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">萝三画室</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle">向死而生</p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/10/深入理解JS-part8-编程风格/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="LOLISuri">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="https://o3sw4xojp.qnssl.com/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="萝三画室">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="萝三画室" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                深入理解JS-part8-编程风格
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-10T20:51:02+08:00">
+                2017-10-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文是《编写可维护的javascript》的读书笔记，主要讲的是如何编写易读、可维护的JS代码。作为一枚合格的程序猿，是要对自己写的代码负责任的。在实际工作中，我们很少自己从头写代码，通常更多的是维护别人的代码。如果遇见风格糟糕的代码，我们就会被搞得对着代码一头雾水，针对是一项糟糕至极的体验。己所不欲勿施于人，那么我们就需要的一项素质，就是让自己写的代码，别人不需要花很大力气去理解，不需要花很大力气去维护。保证我们的代码，可以轻松的为人所用。那么开始吧~我们的目标是：没有蛀牙（误 </p>
+<a id="more"></a>
+<h1 id="基本格式化"><a href="#基本格式化" class="headerlink" title="基本格式化"></a>基本格式化</h1><p>本节讲的基本格式化包含一些细碎的，与语法无关的风格。适当的运用会大大增加代码的可读性。</p>
+<ol>
+<li>空行<br>空行会使代码更可读。那么什么时候更适合用空行呢？<ul>
+<li>每个流控制语句之前（for,if等）</li>
+<li>方法之间</li>
+<li>方法中的局部变量和第一条语句之间</li>
+<li>单行或多行注释之前</li>
+<li>方法内的逻辑片段之间</li>
+</ul>
+</li>
+<li>命名<br>驼峰式命名法是最常用的命名风格。<ul>
+<li>变量命名，前缀应该是名次。如：name, age</li>
+<li>函数命名，前缀应是动词。如：getName, setAge, isTrue</li>
+<li>常量命名，使用大写字母和下划线命名，诶：MAX_COUNT</li>
+<li>构造函数命名，首字母大写</li>
+<li>命名长度尽可能短，内容突出重点，避免使用无意义的命名</li>
+</ul>
+</li>
+<li>null&amp;undefined<br>null代表一个空的对象，我们应该在下列场景中使用null<ul>
+<li>初始化一个变量，这个变量以后可能赋值为一个对象</li>
+<li>和一个已经初始化的变量比较</li>
+<li>当函数的参数期望是对象时，作为参数传入</li>
+<li>当函数的返回值期望是对象时，所谓返回值传出<br>下列场景中避免使用null</li>
+<li>检测是否传入了某个参数</li>
+<li>检测一个未初始化的变量<br>简而言之，我们把null理解为一个对象，它应该作为对象的占位符使用<br>undefined代表未赋值，它的意思是这个对象已声明，但未赋值。</li>
+</ul>
+</li>
+<li>注释<br>何时使用注释？添加注释的一般原则是，让代码含义变得更清晰<ul>
+<li>难以理解的代码</li>
+<li>可能被任务是错误的代码</li>
+<li>hack代码</li>
+</ul>
+</li>
+<li><p>语句和表达式</p>
+<ul>
+<li>所有块语句都要使用花括号不能省略，推荐的花括号对齐方式：左花括号置于块语句第一句的末尾</li>
+<li>块语句首行间隔推荐在圆括号左右各加一个空格</li>
+<li>for in循环内必须使用hasownproperty检查实例属性<br>好的栗子：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">for (var prop in obj) &#123;</div><div class="line"></div><div class="line">	if (object.hasOwnProperty(prop)) &#123;</div><div class="line">    	console.log(prop);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>变量、函数和运算符</p>
+</li>
+</ol>
+<ul>
+<li>将局部变量的定义作为函数内的第一条语句</li>
+<li>将所有声明语句合并为一个语句，每个变量的初始化独占一行</li>
+<li>函数调用时，函数名和左括号之间没有空格</li>
+<li>立即调用函数的写法：(function(){}());</li>
+<li>判断相等时，推荐始终用<code>===</code>和<code>!==</code></li>
+<li>对于基本包装类型，推荐用字面量形式创建，不推荐用new的形式创建</li>
+</ul>
+<h1 id="UI层的松散耦合"><a href="#UI层的松散耦合" class="headerlink" title="UI层的松散耦合"></a>UI层的松散耦合</h1><p>对于Web页面，HTML、CSS和JS组成了UI。如果他们之间耦合太紧，那么修改一个的逻辑，也必须修改另一个的逻辑。松耦合对于代码的可维护性至关重要。我们的目标就是对其中一个部分的修改不会经常性的影响其他部分。</p>
+<ol>
+<li>将JS从CSS中抽离 — 避免在CSS中写JS表达式</li>
+<li>将CSS从JS中抽离 — 不要通过JS直接改变元素样式（如el.style.color=”red”;），使用JS操作CSS类来改变元素样式（如：el.classListadd(“redColor”)）</li>
+<li>将JS从HTML中抽离 — 尽量使用外部文件，不使用内联代码，尽量不直接在元素上挂载事件处理器</li>
+</ol>
+<h1 id="避免使用全局变量"><a href="#避免使用全局变量" class="headerlink" title="避免使用全局变量"></a>避免使用全局变量</h1><p>全局变量可能引起：命名冲突、难以测试、代码脆弱。那么如何避免使用全局变量？</p>
+<ul>
+<li>给一个未被var声明的变量赋值时，这个变量就会变为全局变量。因此，我们应该总是定义变量。对于意外的情况，可以借助代码风格检查工具来检查。</li>
+<li>只创建一个全局对象，其他的变量作为该全局变量的成员。在实际工作中，也可以每个JS文件创建一个全局变量，作为命名空间</li>
+<li>ES6中的模块系统可以支持输入输出时重命名</li>
+<li>使用立即执行函数包裹变量</li>
+</ul>
+<h1 id="事件处理"><a href="#事件处理" class="headerlink" title="事件处理"></a>事件处理</h1><ul>
+<li>将应用逻辑和事件处理的代码拆分。事件处理只负责找到应用逻辑所需要的、目标元素的属性，应用逻辑制赋值处理操作。</li>
+<li>不要分发事件对象。也就是说，在事件处理代码中，只提取应用逻辑所需要的属性，不应该把整个目标元素全部暴露出去。</li>
+</ul>
+<p>这样完成了事件和应用逻辑的解耦，应用逻辑甚至可以复用在其他场景中。</p>
+<h1 id="类型检测"><a href="#类型检测" class="headerlink" title="类型检测"></a>类型检测</h1><p>我们经常会遇到变量类型检测或者判断其是否为空。常用的类型检测方法是typeof和instanceof，不同数据类型以及对应typeof和instanceof会有不同的表现，详见<a href="https://honey3go.github.io/2017/08/15/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3JS-part5-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8Ctypeof%E3%80%81instanceof/" target="_blank" rel="external">本系列文章part5。</a></p>
+<ul>
+<li>undefined类型用typeof检测</li>
+<li>null用===检测</li>
+<li>Boolean、string、number类型，如果是通过字面量方式创建的，则用typeof检测；如果是通过new操作符创建的，则用instanceof检测</li>
+<li>Object类型用instanceof检测；其常用子类型：<ol>
+<li>function类型用typeof检测</li>
+<li>array用Array.isArray()方法检测</li>
+<li>error、date、RegExp，用instanceof检测，此处注意跨帧问题</li>
+</ol>
+</li>
+</ul>
+<p>当检测某个对象中是否存在某个属性时，使用in运算符或hasOwnProperty()方法。前者检测范围包括对象原型链，后者检测范围不包括原型链，仅判断是否是实例属性。</p>
+<h1 id="抽离配置数据"><a href="#抽离配置数据" class="headerlink" title="抽离配置数据"></a>抽离配置数据</h1><p>代码中经常会出现我们“写死”的静态值，比如URL、展示给用户的字符串、配置参数等等。这些数据可能重复出现在代码中，如果我们每次都直接将这些值赋值给变量，那么一旦发生变更，就会造成很大的修改量，还可能出现漏改情况。那么一个比较好的解决办法是：</p>
+<p>将配置数据从代码中剥离，存放在单独的文件中，实际使用时，从外部引用。文件格式可以是js，也可以是json或jsonp。</p>
+<h1 id="抛出自定义错误"><a href="#抛出自定义错误" class="headerlink" title="抛出自定义错误"></a>抛出自定义错误</h1><p>抛出自定义错误的核心思想就是：在编写代码的过程中，意识到可能发生的错误，然后将关于错误的更多信息暴露出来。我们的目的并不是防止错误，而是在错误发生时能更容易定位和调试。</p>
+<ul>
+<li>何时抛出错误？<br>JS不存在类型检查和参数检查，但我们也无需对每个函数都实现类型检测。这种做法不切实际并且会造成资源浪费。我们要做的，就是在代码中找出最可能引发错误的那个部分，并用尽可能小的代价去识别它。</li>
+<li>通过继承Error类型来创建自定义错误类型，区分浏览器错误和自己抛出的错误</li>
+</ul>
+<h1 id="浏览器嗅探"><a href="#浏览器嗅探" class="headerlink" title="浏览器嗅探"></a>浏览器嗅探</h1><p>通常有以下几种方法进行浏览器嗅探：</p>
+<ul>
+<li>用户代理检测： navigator.userAgent</li>
+<li>特性检测： 探测浏览器是否支持某个具体功能</li>
+<li>特性推断：根据一个特性的存在与否推断另一个特性的存在与否</li>
+<li>浏览器推断：根据某些特性推断浏览器类型</li>
+</ul>
+<p>浏览器可能不断更新，或者出现新型浏览器。因此如果单纯使用用户代理检测，可能会带来很多次的代码更新，也可能由于未及时更新而导致糟糕的用户体验。用户代理检测最安全的用法是检测早期版本的浏览器，比如IE8-；或者针对特定版本的浏览器。</p>
+<p>特性检测是更优雅的办法，他根据浏览器是否支持某种方法来区分之后的操作方式。</p>
+<p>避免特性推断。事实上，不应该从一个特性推断出另一个特性是否存在。这种方法逻辑薄弱，不能适应浏览器的更新和推新。</p>
+<p>避免浏览器推断。与特性推断一样，依然是逻辑和浏览器更新问题，维护性很差。</p>
+<p>因此，在浏览器嗅探时，建议尽可能的使用特性检测，这是最安全的方法；如果行不通的时候，尝试使用用户代理。避免使用特性推断与浏览器推断。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>通读此书收获不小，它提到了许多编程过程中的细节，很多细节都可能影响调试和后期维护。实现功能不是难事，易于理解、调试、维护、扩展才是难哪~~由于JS的灵活性以及客户端的千差万别，大概JS会比其他语言更需要注意这些方面。那么，希望自己可以保持良好的风格和习惯，让代码更优雅。</p>
+<p>——本节完——</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/javascript/" rel="tag"># javascript</a>
+          
+            <a href="/tags/读书笔记/" rel="tag"># 读书笔记</a>
+          
+            <a href="/tags/深入理解JS/" rel="tag"># 深入理解JS</a>
+          
+            <a href="/tags/编写可维护的Javascript/" rel="tag"># 编写可维护的Javascript</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/30/201709月记/" rel="next" title="201709月记">
+                <i class="fa fa-chevron-left"></i> 201709月记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://o3sw4xojp.qnssl.com/avatar.jpg"
+               alt="LOLISuri" />
+          <p class="site-author-name" itemprop="name">LOLISuri</p>
+          <p class="site-description motion-element" itemprop="description">进击的程序媛</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基本格式化"><span class="nav-number">1.</span> <span class="nav-text">基本格式化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#UI层的松散耦合"><span class="nav-number">2.</span> <span class="nav-text">UI层的松散耦合</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#避免使用全局变量"><span class="nav-number">3.</span> <span class="nav-text">避免使用全局变量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#事件处理"><span class="nav-number">4.</span> <span class="nav-text">事件处理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#类型检测"><span class="nav-number">5.</span> <span class="nav-text">类型检测</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#抽离配置数据"><span class="nav-number">6.</span> <span class="nav-text">抽离配置数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#抛出自定义错误"><span class="nav-number">7.</span> <span class="nav-text">抛出自定义错误</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#浏览器嗅探"><span class="nav-number">8.</span> <span class="nav-text">浏览器嗅探</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">9.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LOLISuri</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
