@@ -95,7 +95,7 @@
 <meta property="og:site_name" content="萝三画室">
 <meta property="og:description" content="本文是深入理解JS系列的part7，也是《高性能JavaScript》的读书笔记。本文基于一个正常的JS开发周期，从加载、编码、部署、测试四大方面展开讨论，力求在各个阶段提升Web应用性能。
 参考书籍：《高性能JavaScript》">
-<meta property="og:updated_time" content="2017-09-25T14:30:07.477Z">
+<meta property="og:updated_time" content="2017-09-26T14:31:32.388Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入理解JS-part7-性能优化">
 <meta name="twitter:description" content="本文是深入理解JS系列的part7，也是《高性能JavaScript》的读书笔记。本文基于一个正常的JS开发周期，从加载、编码、部署、测试四大方面展开讨论，力求在各个阶段提升Web应用性能。
@@ -344,6 +344,70 @@
 <li>首先动态加载不参与页面初始化的脚本</li>
 <li>第一步加载完成后，加载参与页面初始化的代码</li>
 </ol>
+<h1 id="编码"><a href="#编码" class="headerlink" title="编码"></a>编码</h1><h2 id="数据存取"><a href="#数据存取" class="headerlink" title="数据存取"></a>数据存取</h2><p>数据的存储位置会很大程度上影响其读取速度。JS具有四种基本数据存储位置：字面量、本地变量、数组元素和对象成员。</p>
+<ol>
+<li>字面量和局部变量的访问速度比数据元素和对象成员快<br>因此，尽量使用字面量和局部变量可以节省查找开销。</li>
+<li>变量在作用域链上的位置越深，查找开销越大。<br>因此，如果一个跨作用域的变量如果被引用一次以上，就声明一个局部变量将它保存在本地。</li>
+<li>with、try-catch、eval会在执行时临时改变作用域链，将一个全新的对象推入作用域链的首位，其它位置顺序向后推一位，这就增加原本位于作用域链上的其它变量的访问开销。<br>因此，尽量避免使用with、eval，谨慎使用try-catch</li>
+<li>闭包也是跨作用域读取数据，并且对内存也存在影响<br>因此，谨慎使用闭包</li>
+<li>位于原型链越深的对象成员，访问开销越大<br>多次访问原型链上的成员时，考虑将其保存为局部变量使用。</li>
+</ol>
+<h2 id="DOM编程"><a href="#DOM编程" class="headerlink" title="DOM编程"></a>DOM编程</h2><p>利用JS操作DOM元素，可能是对Web性能影响最大的因素了。DOM是一个独立于语言的API，它用于操作XML和HTML文档。浏览器通常将DOM和JS分离实现，二者是相互独立的。这就意味着，JS每访问一次DOM，就要付出代价产生消耗。访问次数越多，消耗就越大。</p>
+<p>还需考虑的一点是，JS对DOM的操作，可能引发重排和重绘。重排和重绘都是开销很大的操作，应该尽量减少这类过程的发生。</p>
+<p>基于以上思路，我们可以从以下几种方法提高Web性能：</p>
+<ol>
+<li>尽可能减少DOM访问次数，如需多次访问某个DOM节点，用局部变量保存改节点的引用</li>
+<li>使用节点克隆代替创建新元素</li>
+<li>DOM节点的集合参与循环时，将集合以及其length属性保存为局部变量（否则相当于每次循环都重新查询）。如果集合元素数量较多时，可将集合转换为数组存在局部环境中。</li>
+<li>选择符API包括两大类：getElement系列和querySelector系列。当需要处理大量组合查询时，querySelector系列效率更高，它使用CSS选择器作为参数，通常可以一步到位；其它情况使用getElement系列效率更高。注意querySelector系列获取的是静态集合，不会随DOM更新而变化。</li>
+<li>改变DOM元素的样式时，尽量合并所有修改一次处理，或者直接改变元素的css类。</li>
+<li>需要对DOM进行一系列操作时，可以先使元素脱离文档流，再应用各种改变，最后将修改后的元素带回文档。<br>有三种基本方法实现上述效果:<ul>
+<li>隐藏元素： display:none;-&gt;修改-&gt;display:block/….</li>
+<li>使用文档片段： document.creatDocumentFragment();-&gt;修改-&gt;appendChild();</li>
+<li>拷贝副本修改： element.cloneNode();-&gt;修改-&gt;element.parentNode.replaceChild();</li>
+</ul>
+</li>
+<li>让动画脱离文档流，如展开/折叠</li>
+<li>使用事件代理处理其子元素上触发的事件，这直接减少了DOM元素上绑定的事件处理器的数量，占用更少的内存，减轻了浏览器的负担。</li>
+</ol>
+<h2 id="算法和流程控制"><a href="#算法和流程控制" class="headerlink" title="算法和流程控制"></a>算法和流程控制</h2><p>JS代码的整体结构也是影响运行速度的主要因素之一。代码数量和运行速度并没有绝对的关系，影响速度的主要还是组织结构和具体思路。</p>
+<ol>
+<li><p>循环<br>在各种遍历方法中，只有for in循环速度明显比其他方法慢，因此追究循环的选型并没有多大意义，我们应该通过减少迭代工作量和减少迭代次数来提高性能。具体方法有：</p>
+<ul>
+<li><p>把控制条件保存为局部变量。比如for 循环中一般的控制条件是数组或对象长度，那么我们就可以将长度存为局部变量，避免在每次循环时都要获取一遍长度。如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">for( let i = 0, len = arr.length; i&lt;len; i++)&#123;</div><div class="line">	dosomething();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>倒序循环，减少控制条件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">for( let i = arr.length; i--; )&#123;</div><div class="line">	dosomething();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>减少迭代次数，具体实现参照达夫设备。</p>
+</li>
+</ul>
+</li>
+<li>条件判断<ul>
+<li>i使用if-else语句时，将最可能出现的情况放在最前面</li>
+<li>switch总是比if-else毒素更快，但需要结合具体需求觉得使用哪种方法</li>
+<li>当单个键和值存在映射关系时，可以用查找表的方式代替条件判断。</li>
+</ul>
+</li>
+<li>递归和迭代<br>浏览器的调用栈大小限制了递归算法的应用，栈溢出错误会终端其他代码的运行，此时应将递归改为迭代或者使用Memoization避免重复计算</li>
+</ol>
+<h2 id="字符串和正则表达式"><a href="#字符串和正则表达式" class="headerlink" title="字符串和正则表达式"></a>字符串和正则表达式</h2><p>高效处理字符串和正则表达式：</p>
+<ol>
+<li>数组合并（arr.join()）是最慢的字符串拼接方法之一，推荐使用+和+=代替</li>
+<li>考虑实际需求，JS原生提供了许多字符串查找方法，正则并不一定总是最好的选择</li>
+<li>关注让匹配更快失败、使用非捕获组、减小分组数量和范围、将一个复杂的正则拆分为多个</li>
+</ol>
+<h2 id="UI响应"><a href="#UI响应" class="headerlink" title="UI响应"></a>UI响应</h2><p>这里我们关注的是用户体验。让页面快速响应用户的操作，也是一个衡量性能的关键点。</p>
+<p>比如用户点击页面上的某个按钮，这个按钮被点击后悔产生样式变化，并且绑定了一个onclick事件。</p>
+<p>我们知道，JS是单线程执行的。如果在用户点击按钮的时候，JS引擎处于空闲状态，那么样式改变和Onclick事件将会立即执行；<br>如果此刻JS引擎正在运行其他代码的，那么这些事件会被推入到事件队列中，等待排在前面的事件执行完毕之后才会执行，这就产生了一个延迟。</p>
+<p>我们要做的，就是尽可能缩短这个延时，让用户觉得网页立即响应了他的操作（其实并不是）。根据研究表明，单个JS操作花费的事件不应该超过100毫秒。我们的目标就是在用户操作100毫秒之内，让页面响应用户的操作。我们的解决方案大致分为2种：</p>
+<ol>
+<li>用定时器将耗时较长的任务分割成一系列小任务。<br>通过定时器将耗时较长的同步任务分割为异步小任务，可以实现“让出时间片段”。但是注意不能过度使用定时器，多个重复的定时器同时创建可能往往会出现性能问题。</li>
+<li>Web Workers<br>Web workers创建了自己的独立线程，也就是说它可以与JS引擎线程并行运行。这样我们可以将一些不涉及到DOM更新的、耗时较大的操作放在web workers中（比如解析JSON数据），让它单独运行。</li>
+</ol>
+<p>一个Web Workers是一个独立的JS文件,它不具有全局的window属性，只有只读的navigator属性、location属性，并独有一个self对象指向自身。在网页中，我们通过通过new Worker(jsPath)新建一个worker，利用postMessage传递数据，利用onmessage事件执行收到数据后的操作。</p>
+<p>一个简单的栗子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">//网页</div><div class="line">//新建worker</div><div class="line">let worker = new Worker(&quot;parseJSON.js&quot;);</div><div class="line">//worker返回数据时执行</div><div class="line">worker.onmessage = ( ev ) =&gt; &#123;</div><div class="line">	let jsonData = ev.data;</div><div class="line">    use(jsonData);</div><div class="line">&#125;;</div><div class="line">//给worker传递数据</div><div class="line">worker.postMessage(jsonText);</div><div class="line"></div><div class="line">//worker</div><div class="line">//网页中传入数据时执行</div><div class="line">self.onmessage = ( ev ) =&gt; &#123;</div><div class="line">	let jsonText = ev.data,</div><div class="line">        jsonData = JSON.parse(jsonText);</div><div class="line">  //将数据传回网页</div><div class="line">  self.postMessage(jsonData);</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
 <p>——本节完——</p>
 
       
@@ -480,7 +544,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-count">14</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -515,7 +579,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#加载"><span class="nav-number">1.</span> <span class="nav-text">加载</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#加载"><span class="nav-number">1.</span> <span class="nav-text">加载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#编码"><span class="nav-number">2.</span> <span class="nav-text">编码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据存取"><span class="nav-number">2.1.</span> <span class="nav-text">数据存取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DOM编程"><span class="nav-number">2.2.</span> <span class="nav-text">DOM编程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#算法和流程控制"><span class="nav-number">2.3.</span> <span class="nav-text">算法和流程控制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串和正则表达式"><span class="nav-number">2.4.</span> <span class="nav-text">字符串和正则表达式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UI响应"><span class="nav-number">2.5.</span> <span class="nav-text">UI响应</span></a></li></ol></li></ol></div>
             
 
           </div>
