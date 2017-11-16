@@ -1,0 +1,685 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="vue,教程,less," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://o3sw4xojp.qnssl.com/paper_airplane.png?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="最近做的两个项目中，尝试在vue-cli中引入less进行css预处理。常用写入单文件、import引入less文件的形式使用less。然而这两种方法都无法优雅地解决不同vue组件之间的less变量共享问题。然后我就去寻找在vue中全局引用less变量的方法，看到了一篇博客解决了这个问题。本文基于这篇博客，细化了该博客中一些表达粗略的地方，简化了思考过程，同时也一并介绍了其他两种常用的使用less">
+<meta property="og:type" content="article">
+<meta property="og:title" content="教程：在vue-cli中使用less的三种方式：写入单文件、引入和全局变量">
+<meta property="og:url" content="http://yoursite.com/2017/11/16/教程-在vue-cli中使用less的三种方式：写入单组件、引入和全局变量/index.html">
+<meta property="og:site_name" content="萝三画室">
+<meta property="og:description" content="最近做的两个项目中，尝试在vue-cli中引入less进行css预处理。常用写入单文件、import引入less文件的形式使用less。然而这两种方法都无法优雅地解决不同vue组件之间的less变量共享问题。然后我就去寻找在vue中全局引用less变量的方法，看到了一篇博客解决了这个问题。本文基于这篇博客，细化了该博客中一些表达粗略的地方，简化了思考过程，同时也一并介绍了其他两种常用的使用less">
+<meta property="og:updated_time" content="2017-11-16T12:06:31.941Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="教程：在vue-cli中使用less的三种方式：写入单文件、引入和全局变量">
+<meta name="twitter:description" content="最近做的两个项目中，尝试在vue-cli中引入less进行css预处理。常用写入单文件、import引入less文件的形式使用less。然而这两种方法都无法优雅地解决不同vue组件之间的less变量共享问题。然后我就去寻找在vue中全局引用less变量的方法，看到了一篇博客解决了这个问题。本文基于这篇博客，细化了该博客中一些表达粗略的地方，简化了思考过程，同时也一并介绍了其他两种常用的使用less">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/11/16/教程-在vue-cli中使用less的三种方式：写入单组件、引入和全局变量/"/>
+
+
+
+
+
+  <title> 教程：在vue-cli中使用less的三种方式：写入单文件、引入和全局变量 | 萝三画室 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">萝三画室</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle">向死而生</p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/16/教程-在vue-cli中使用less的三种方式：写入单组件、引入和全局变量/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="LOLISuri">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="https://o3sw4xojp.qnssl.com/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="萝三画室">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="萝三画室" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                教程：在vue-cli中使用less的三种方式：写入单文件、引入和全局变量
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-16T14:01:23+08:00">
+                2017-11-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>最近做的两个项目中，尝试在vue-cli中引入less进行css预处理。常用写入单文件、import引入less文件的形式使用less。然而这两种方法都无法优雅地解决不同vue组件之间的less变量共享问题。然后我就去寻找在vue中全局引用less变量的方法，看到了<a href="https://zhuanlan.zhihu.com/p/27439821" target="_blank" rel="external">一篇博客</a>解决了这个问题。<br>本文基于这篇博客，细化了该博客中一些表达粗略的地方，简化了思考过程，同时也一并介绍了其他两种常用的使用less的方法。关于less的介绍及语法，本文不再细说，我们只讲引入vue-cli项目的方式。相信通过这篇精简的教程，我们可以在vue-cli项目中使用less更加得心应手。</p>
+<a id="more"></a>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>打开cmd，cd进入你的vue-cli项目目录，安装less及less-loader。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install less less-loader --save</div></pre></td></tr></table></figure></p>
+<p>项目中其他任何配置文件都无需修改，这些配置信息vue已经事先帮你写好了。<br>因此，在less及less-loader安装成功后，我们就可以直接在项目中使用less了</p>
+<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><h2 id="写入单组件"><a href="#写入单组件" class="headerlink" title="写入单组件"></a>写入单组件</h2><p>我们知道，在一个vue-cli项目中，一个.vue文件就可以理解为一个单组件。以vue-cli新建的默认app.vue为例，单组件的内容结构是template+script+style：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">&lt;template&gt;</div><div class="line">  &lt;div id=&quot;app&quot;&gt;</div><div class="line">    &lt;img src=&quot;./assets/logo.png&quot;&gt;</div><div class="line">    &lt;router-view/&gt;</div><div class="line">  &lt;/div&gt;</div><div class="line">&lt;/template&gt;</div><div class="line"></div><div class="line">&lt;script&gt;</div><div class="line">export default &#123;</div><div class="line">  name: &apos;app&apos;</div><div class="line">&#125;</div><div class="line">&lt;/script&gt;</div><div class="line"></div><div class="line">&lt;style&gt;</div><div class="line">#app &#123;</div><div class="line">  color: #2c3e50;</div><div class="line">&#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure></p>
+<p>其中，style标签内应写入的是该组件使用的样式（如果标签内不加scoped属性，则标签内的样式可以跨组件复用）。</p>
+<p>将less写入单组件，只需要在style标签内加上属性<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">```</div><div class="line">&lt;style lang=&apos;less&apos;&gt;</div><div class="line">@mainColor: #2c3e50;</div><div class="line"></div><div class="line">#app &#123;</div><div class="line">  color: @mainColor;</div><div class="line">&#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure></p>
+<p>使用这种方式需要注意：在单组件内定义的less变量，作用域仅限于该组件，无法跨组件使用。</p>
+<h2 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h2><p>第二种使用方式就是将样式写入.less文件，通过<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">```</div><div class="line">//GlobleLessVarables.less</div><div class="line">@mainColor: #2c3e50;</div><div class="line"></div><div class="line">//app.vue</div><div class="line">&lt;style lang=&apos;less&apos;&gt;</div><div class="line">@import &apos;./assets/GlobleLessVarables.less&apos;;</div><div class="line"></div><div class="line">#app &#123;</div><div class="line">  color: @mainColor;</div><div class="line">&#125;</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure></p>
+<p>这在一定程度上缓解了方法1带来的多组件共用less变量的问题，但是并没有从根本上解决问题。当共用的组件很多时，我们只能每个文件都import一次。这时我们就可以考虑使用全局less变量。</p>
+<h2 id="全局less变量"><a href="#全局less变量" class="headerlink" title="全局less变量"></a>全局less变量</h2><p>事实上，less的options中提供了全局变量这一选项，全局变量以key:value形式定义。打开vue-cli项目目录/build/utils.js，找到<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">```</div><div class="line">  return &#123;</div><div class="line">    css: generateLoaders(),</div><div class="line">    postcss: generateLoaders(),</div><div class="line">    less: generateLoaders(&apos;less&apos;),</div><div class="line">    sass: generateLoaders(&apos;sass&apos;, &#123; indentedSyntax: true &#125;),</div><div class="line">    scss: generateLoaders(&apos;sass&apos;),</div><div class="line">    stylus: generateLoaders(&apos;stylus&apos;),</div><div class="line">    styl: generateLoaders(&apos;stylus&apos;)</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
+<p>这里我们需要修改返回值中less的值：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">return &#123;</div><div class="line">  css: generateLoaders(),</div><div class="line">  postcss: generateLoaders(),</div><div class="line">  less: generateLoaders(&apos;less&apos;,&#123;</div><div class="line">    &apos;mainColor&apos;: &apos;#2c3e50&apos; //修改处在此，全局less变量以key:value形式定义</div><div class="line">  &#125;),</div><div class="line">  sass: generateLoaders(&apos;sass&apos;, &#123; indentedSyntax: true &#125;),</div><div class="line">  scss: generateLoaders(&apos;sass&apos;),</div><div class="line">  stylus: generateLoaders(&apos;stylus&apos;),</div><div class="line">  styl: generateLoaders(&apos;stylus&apos;)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>重启node服务器，在app.vue中就可以直接使用less变量mainColor了：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;style lang=&apos;less&apos;&gt;</div><div class="line">#app &#123;</div><div class="line">  color: @mainColor;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>为了便于维护，我们也可以将全局less变量整体写入一个.less文件，然后将其解析为一个键值对形式的对象，再传入utils.js。</p>
+<p>比如：</p>
+<ol>
+<li><p>将一些全局less变量写入GlobleLessVarables.less，存放在<strong><em>项目目录/src/assets</em></strong>文件夹中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">//项目目录/src/assets/GlobleLessVarables.less</div><div class="line">@baseHeight: 40px;</div><div class="line">@basicEdgeWidth: 2px;</div><div class="line">@tabClickHight: 5px;</div><div class="line">@contentEdge: 15px;</div><div class="line">@agentNavColor: #606060;</div></pre></td></tr></table></figure>
+</li>
+<li><p>准备一个方法，用于将less文件转换为键值对形式的对象。这里直接参考<a href="https://github.com/airyland/vux-loader/blob/master/src/libs/get-less-variables.js" target="_blank" rel="external">vux中的get-less-variables.js</a>，将以下代码存为get-less-variables.js文件，放置于<strong><em>项目目录/build</em></strong>文件夹中。</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">//项目目录/build/get-less-variables.js</div><div class="line">const fs = require(&apos;fs&apos;);</div><div class="line"></div><div class="line">module.exports = function getLessVariables(file) &#123;</div><div class="line">    var themeContent = fs.readFileSync(file, &apos;utf-8&apos;)</div><div class="line">    var variables = &#123;&#125;</div><div class="line">    themeContent.split(&apos;\n&apos;).forEach(function(item) &#123;</div><div class="line">        if (item.indexOf(&apos;//&apos;) &gt; -1 || item.indexOf(&apos;/*&apos;) &gt; -1) &#123;</div><div class="line">            return</div><div class="line">        &#125;</div><div class="line">        var _pair = item.split(&apos;:&apos;)</div><div class="line">        if (_pair.length &lt; 2) return;</div><div class="line">        var key = _pair[0].replace(&apos;\r&apos;, &apos;&apos;).replace(&apos;@&apos;, &apos;&apos;)</div><div class="line">        if (!key) return;</div><div class="line">        var value = _pair[1].replace(&apos;;&apos;, &apos;&apos;).replace(&apos;\r&apos;, &apos;&apos;).replace(/^\s+|\s+$/g, &apos;&apos;)</div><div class="line">        variables[key] = value</div><div class="line">    &#125;)</div><div class="line">    return variables</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>在utils.js中引入<br>修改utils.js：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">  //项目目录/build/utils.js</div><div class="line">  //新增</div><div class="line">  const getLessVariables = require(&apos;./get-less-variables&apos;)</div><div class="line">  //修改exports.cssLoaders的return值</div><div class="line">  return &#123;</div><div class="line">      css: generateLoaders(),</div><div class="line">      postcss: generateLoaders(),</div><div class="line">      less: generateLoaders(&apos;less&apos;,&#123;</div><div class="line">        globalVars: getLessVariables(&apos;src/assets/GlobleLessVarables.less&apos;)//修改</div><div class="line">      &#125;),</div><div class="line">      sass: generateLoaders(&apos;sass&apos;, &#123; indentedSyntax: true &#125;),</div><div class="line">      scss: generateLoaders(&apos;sass&apos;),</div><div class="line">      stylus: generateLoaders(&apos;stylus&apos;),</div><div class="line">      styl: generateLoaders(&apos;stylus&apos;)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>目前这种方法的无法实现热加载，每次更改.less文件，都需要重启node服务器才能体现变更。</p>
+<p>——本节完——</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/vue/" rel="tag"># vue</a>
+          
+            <a href="/tags/教程/" rel="tag"># 教程</a>
+          
+            <a href="/tags/less/" rel="tag"># less</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/10/深入理解JS-part8-编程风格/" rel="next" title="深入理解JS-part8-编程风格">
+                <i class="fa fa-chevron-left"></i> 深入理解JS-part8-编程风格
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://o3sw4xojp.qnssl.com/avatar.jpg"
+               alt="LOLISuri" />
+          <p class="site-author-name" itemprop="name">LOLISuri</p>
+          <p class="site-description motion-element" itemprop="description">进击的程序媛</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用"><span class="nav-number">2.</span> <span class="nav-text">使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#写入单组件"><span class="nav-number">2.1.</span> <span class="nav-text">写入单组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引入"><span class="nav-number">2.2.</span> <span class="nav-text">引入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#全局less变量"><span class="nav-number">2.3.</span> <span class="nav-text">全局less变量</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LOLISuri</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
