@@ -87,17 +87,17 @@
 
 
 
-<meta name="description" content="part2中我们已经了解一个单文件组件中的1234567891011121314&amp;lt;!--more--&amp;gt;# 写UI组件之前，一定记得划定功能范围如果是在实际项目上写UI组件，首先要注意一点就是***不要做过多的假设***。项目和项目之间UI风格差别可能非常大，你不可能一次性写好一套UI组件，靠着它走天下。然而同一个项目的风格一定是会保持一致的，所以这里我们说的不做过多假设的意思是，将UI">
+<meta name="description" content="part2中我们已经了解一个单文件组件中的script部分怎么写。那么现在我们就来实践一下，尝试写一个简单的UI组件-button。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="详解vue-从熟悉到熟练-part3-造一个简单的UI组件">
 <meta property="og:url" content="http://yoursite.com/2018/04/12/详解vue-从熟悉到熟练-part3-造一个简单的UI组件/index.html">
 <meta property="og:site_name" content="萝三画室">
-<meta property="og:description" content="part2中我们已经了解一个单文件组件中的1234567891011121314&amp;lt;!--more--&amp;gt;# 写UI组件之前，一定记得划定功能范围如果是在实际项目上写UI组件，首先要注意一点就是***不要做过多的假设***。项目和项目之间UI风格差别可能非常大，你不可能一次性写好一套UI组件，靠着它走天下。然而同一个项目的风格一定是会保持一致的，所以这里我们说的不做过多假设的意思是，将UI">
+<meta property="og:description" content="part2中我们已经了解一个单文件组件中的script部分怎么写。那么现在我们就来实践一下，尝试写一个简单的UI组件-button。">
 <meta property="og:image" content="http://yoursite.com/./pic.jpg">
-<meta property="og:updated_time" content="2018-05-14T13:17:10.000Z">
+<meta property="og:updated_time" content="2018-05-14T14:34:43.886Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="详解vue-从熟悉到熟练-part3-造一个简单的UI组件">
-<meta name="twitter:description" content="part2中我们已经了解一个单文件组件中的1234567891011121314&amp;lt;!--more--&amp;gt;# 写UI组件之前，一定记得划定功能范围如果是在实际项目上写UI组件，首先要注意一点就是***不要做过多的假设***。项目和项目之间UI风格差别可能非常大，你不可能一次性写好一套UI组件，靠着它走天下。然而同一个项目的风格一定是会保持一致的，所以这里我们说的不做过多假设的意思是，将UI">
+<meta name="twitter:description" content="part2中我们已经了解一个单文件组件中的script部分怎么写。那么现在我们就来实践一下，尝试写一个简单的UI组件-button。">
 <meta name="twitter:image" content="http://yoursite.com/./pic.jpg">
 
 
@@ -324,115 +324,25 @@
       
 
       
-        <p>part2中我们已经了解一个单文件组件中的<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&lt;!--more--&gt;</div><div class="line"># 写UI组件之前，一定记得划定功能范围</div><div class="line">如果是在实际项目上写UI组件，首先要注意一点就是***不要做过多的假设***。项目和项目之间UI风格差别可能非常大，你不可能一次性写好一套UI组件，靠着它走天下。然而同一个项目的风格一定是会保持一致的，所以这里我们说的不做过多假设的意思是，将UI组件的功能范围限定在本项目之中，做到***刚好满足需求即可***。因此在动手写一个通用组件之前，我的经验是可以和UX沟通下，确认在这个项目中，他对这个按钮设计了哪些方案。</div><div class="line"></div><div class="line"># 通用组件三剑客: props, event, slot</div><div class="line"></div><div class="line">所谓UI组件，可以理解为一类不带任何业务逻辑的，功能性组件，如按钮，按钮组，输入框，tab等等。它们应具有设计好的样式，显示一些内容，可以响应一些事件（但不处理）。在写组件之前，我们需要知道通用组件三剑客props, event, slot是做什么的。</div><div class="line"></div><div class="line">## props用于配置组件的属性</div><div class="line">part2中我们说过，vue中父组件通过props向子组件传递数据。在一个UI组件中，我们可能为它设置了某些属性，如是否禁用，颜色，类型等等。在使用时，就可以依靠props来指定属性。比如，我们对button设计了如下属性：</div><div class="line">1. disabled: boolean, 默认为false；为true时按钮被禁用，并且显示禁用样式</div><div class="line">2. type: warning/success/primary/normal/opacity，与UX沟通按钮可能的样式。选择不同的type按钮将会显示不同的样式</div><div class="line"></div><div class="line">我们是写组件时，设计了disabled, type两个属性，并且为它们提供了可选项。用户在使用这个组件时，会按照他自己的需求，通过props来指定button组件应该体现什么样式。</div></pre></td></tr></table></figure></p>
+        <p>part2中我们已经了解一个单文件组件中的script部分怎么写。那么现在我们就来实践一下，尝试写一个简单的UI组件-button。</p>
+<a id="more"></a>
+<h1 id="写UI组件之前，一定记得划定功能范围"><a href="#写UI组件之前，一定记得划定功能范围" class="headerlink" title="写UI组件之前，一定记得划定功能范围"></a>写UI组件之前，一定记得划定功能范围</h1><p>如果是在实际项目上写UI组件，首先要注意一点就是<strong><em>不要做过多的假设</em></strong>。项目和项目之间UI风格差别可能非常大，你不可能一次性写好一套UI组件，靠着它走天下。然而同一个项目的风格一定是会保持一致的，所以这里我们说的不做过多假设的意思是，将UI组件的功能范围限定在本项目之中，做到<strong><em>刚好满足需求即可</em></strong>。因此在动手写一个通用组件之前，我的经验是可以和UX沟通下，确认在这个项目中，他对这个按钮设计了哪些方案。</p>
+<h1 id="通用组件三剑客-props-event-slot"><a href="#通用组件三剑客-props-event-slot" class="headerlink" title="通用组件三剑客: props, event, slot"></a>通用组件三剑客: props, event, slot</h1><p>所谓UI组件，可以理解为一类不带任何业务逻辑的，功能性组件，如按钮，按钮组，输入框，tab等等。它们应具有设计好的样式，显示一些内容，可以响应一些事件（但不处理）。在写组件之前，我们需要知道通用组件三剑客props, event, slot是做什么的。</p>
+<h2 id="props用于配置组件的属性"><a href="#props用于配置组件的属性" class="headerlink" title="props用于配置组件的属性"></a>props用于配置组件的属性</h2><p>part2中我们说过，vue中父组件通过props向子组件传递数据。在一个UI组件中，我们可能为它设置了某些属性，如是否禁用，颜色，类型等等。在使用时，就可以依靠props来指定属性。比如，我们对button设计了如下属性：</p>
+<ol>
+<li>disabled: boolean, 默认为false；为true时按钮被禁用，并且显示禁用样式</li>
+<li>type: warning/success/primary/normal/opacity，与UX沟通按钮可能的样式。选择不同的type按钮将会显示不同的样式</li>
+</ol>
+<p>我们是写组件时，设计了disabled, type两个属性，并且为它们提供了可选项。用户在使用这个组件时，会按照他自己的需求，通过props来指定button组件应该体现什么样式。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line">//button组件</div><div class="line">&lt;template&gt;</div><div class="line">  &lt;div class=&quot;btn-wrapper&quot;&gt;</div><div class="line">    &lt;button :class=&quot;buttonClass&quot;</div><div class="line">            :disabled=&quot;disabled&quot;&gt;</div><div class="line">    &lt;/button&gt;</div><div class="line">  &lt;/div&gt;</div><div class="line">&lt;/template&gt;</div><div class="line"></div><div class="line">&lt;script&gt;</div><div class="line">  const buttonTypes = [&apos;warning&apos;, &apos;success&apos;, &apos;primary&apos;, &apos;normal&apos;, &apos;opacity&apos;];</div><div class="line"></div><div class="line">  export default &#123;</div><div class="line">    props: &#123;</div><div class="line">      type: &#123;</div><div class="line">        validator(value) &#123;</div><div class="line">          return buttonTypes.includes(value);</div><div class="line">        &#125;,</div><div class="line">        default: &apos;normal&apos;,</div><div class="line">      &#125;,</div><div class="line">      disabled: &#123;</div><div class="line">        type: Boolean,</div><div class="line">        default: false,</div><div class="line">      &#125;,</div><div class="line">    &#125;,</div><div class="line">    computed: &#123;</div><div class="line">      buttonClass() &#123;</div><div class="line">        const disabledStyle = &#123; &apos;button-disabled&apos;: this.disabled &#125;;</div><div class="line">        const basicStyle = `button button-$&#123;this.type&#125;`;</div><div class="line">        return [basicStyle, disabledStyle];</div><div class="line">      &#125;,</div><div class="line">    &#125;,</div><div class="line">  &#125;;</div><div class="line">&lt;/script&gt;</div><div class="line">//在父组件中使用button组件</div><div class="line">&lt;template&gt;</div><div class="line">  &lt;div class=&quot;btn-wrapper&quot;&gt;</div><div class="line">    &lt;v-button disabled type=&quot;success&quot; /&gt;</div><div class="line">  &lt;/div&gt;</div><div class="line">&lt;/template&gt;</div><div class="line"></div><div class="line">&lt;script&gt;</div><div class="line">	import button from &apos;./button&apos;;</div><div class="line"></div><div class="line">	export default &#123;</div><div class="line">		components: &#123;</div><div class="line">			&apos;v-button&apos;: button,</div><div class="line">		&#125;,</div><div class="line">	&#125;;</div><div class="line"></div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+<p>如上，假设我们在父组件中就会得到一个被禁用的success按钮。</p>
+<h2 id="event是UI组件向父组件传递的通知"><a href="#event是UI组件向父组件传递的通知" class="headerlink" title="event是UI组件向父组件传递的通知"></a>event是UI组件向父组件传递的通知</h2><p>props是从父到子的，相反从子到父就要用到event了。event用于告知父组件，发生了什么事情。</p>
+<p>要知道我们自定义的组件并不像原生HTML标签一样默认绑定了onclick等事件，对于我们自定义的vue组件，其上绑定的所有事件都来自于自组件的提交（emit）。</p>
+<p>举个栗子，比如对于button，我们最关心的事情就是click事件。在button被用户点击之后，它需要通知父组件“我被点击了哦”，然后在父组件监听到事件后，再去做一些事情。在这里要注意，为了复用，UI组件上不涉及任何业务逻辑的。比如对于click事件，button组件本身并不关系自己被点击之后会有什么后续操作，它只需要将click这件事传递到父组件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div></pre></td><td class="code"><pre><div class="line">//button组件</div><div class="line">&lt;template&gt;</div><div class="line">  &lt;div class=&quot;btn-wrapper&quot;&gt;</div><div class="line">    &lt;button :class=&quot;buttonClass&quot;</div><div class="line">            :disabled=&quot;disabled&quot;</div><div class="line">            @click=&quot;handleClickButton&quot;&gt;</div><div class="line">    &lt;/button&gt;</div><div class="line">  &lt;/div&gt;</div><div class="line">&lt;/template&gt;</div><div class="line"></div><div class="line">&lt;script&gt;</div><div class="line">  const buttonTypes = [&apos;warning&apos;, &apos;success&apos;, &apos;primary&apos;, &apos;normal&apos;, &apos;opacity&apos;];</div><div class="line"></div><div class="line">  export default &#123;</div><div class="line">    props: &#123;</div><div class="line">      type: &#123;</div><div class="line">        validator(value) &#123;</div><div class="line">          return buttonTypes.includes(value);</div><div class="line">        &#125;,</div><div class="line">        default: &apos;normal&apos;,</div><div class="line">      &#125;,</div><div class="line">      disabled: &#123;</div><div class="line">        type: Boolean,</div><div class="line">        default: false,</div><div class="line">      &#125;,</div><div class="line">    &#125;,</div><div class="line">    computed: &#123;</div><div class="line">      buttonClass() &#123;</div><div class="line">        const disabledStyle = &#123; &apos;button-disabled&apos;: this.disabled &#125;;</div><div class="line">        const basicStyle = `button button-$&#123;this.type&#125;`;</div><div class="line">        return [basicStyle, disabledStyle];</div><div class="line">      &#125;,</div><div class="line">    &#125;,</div><div class="line">    methods: &#123;</div><div class="line">      handleClickButton() &#123;</div><div class="line">        this.$emit(&apos;click&apos;);//提交事件‘click&apos;</div><div class="line">      &#125;,</div><div class="line">    &#125;,</div><div class="line">  &#125;;</div><div class="line">&lt;/script&gt;</div><div class="line">//在父组件中使用button组件</div><div class="line">&lt;template&gt;</div><div class="line">  &lt;div class=&quot;btn-wrapper&quot;&gt;</div><div class="line">    &lt;v-button disabled type=&quot;success&quot; @click=doSomeThing/&gt;</div><div class="line">  &lt;/div&gt;</div><div class="line">&lt;/template&gt;</div><div class="line"></div><div class="line">&lt;script&gt;</div><div class="line">  import button from &apos;./button&apos;;</div><div class="line"></div><div class="line">  export default &#123;</div><div class="line">    components: &#123;</div><div class="line">      &apos;v-button&apos;: button,</div><div class="line">    &#125;,</div><div class="line">    methods: &#123;</div><div class="line">      doSomeThing() &#123;</div><div class="line">        //do something...</div><div class="line">      &#125;,</div><div class="line">    &#125;,</div><div class="line">  &#125;;</div><div class="line"></div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<p>我们监听了子组件中button的click事件，当被点击的时候执行handleClickButton，他做的唯一一件事就是将‘click’事件提交（emit）给父组件（同时可以传参）。然后，我们在父组件中监听‘click’，当被点击的时候执行doSomeThing。<br>这样，就完成了从子到父的通信。</p>
+<h2 id="slot是插槽，用于为父组件中用户自定义的内容做占位。"><a href="#slot是插槽，用于为父组件中用户自定义的内容做占位。" class="headerlink" title="slot是插槽，用于为父组件中用户自定义的内容做占位。"></a>slot是插槽，用于为父组件中用户自定义的内容做占位。</h2><p>比如对一个原生的<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">对于我们在上一节定义的button组件，这样写将不会把文字传递到子组件。在父组件中使用button组件时，button里面的文字上位于父组件作用域中的，子组件会无视它（关于组件作用域的说明，详见官方文档）。 </div><div class="line"></div><div class="line">那么根据前面所讲，我们可以借助props将文字传递到子组件中。</div></pre></td></tr></table></figure></p>
 <p>//button组件</p>
-<template><br>  <div class="btn-wrapper"><br>    <button :class="buttonClass" :disabled="disabled"><br>    </button><br>  </div><br></template>
-
-<script>
-  const buttonTypes = ['warning', 'success', 'primary', 'normal', 'opacity'];
-
-  export default {
-    props: {
-      type: {
-        validator(value) {
-          return buttonTypes.includes(value);
-        },
-        default: 'normal',
-      },
-      disabled: {
-        type: Boolean,
-        default: false,
-      },
-    },
-    computed: {
-      buttonClass() {
-        const disabledStyle = { 'button-disabled': this.disabled };
-        const basicStyle = `button button-${this.type}`;
-        return [basicStyle, disabledStyle];
-      },
-    },
-  };
-</script>
-//在父组件中使用button组件
-<template>
-  <div class="btn-wrapper">
-    <v-button disabled type="success">
-  </v-button></div>
-</template>
-
-<script>
-    import button from './button';
-
-    export default {
-        components: {
-            'v-button': button,
-        },
-    };
-
-</script>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">如上，假设我们在父组件中就会得到一个被禁用的success按钮。</div><div class="line"></div><div class="line">## event是UI组件向父组件传递的通知</div><div class="line">props是从父到子的，相反从子到父就要用到event了。event用于告知父组件，发生了什么事情。</div><div class="line"></div><div class="line">要知道我们自定义的组件并不像原生HTML标签一样默认绑定了onclick等事件，对于我们自定义的vue组件，其上绑定的所有事件都来自于自组件的提交（emit）。</div><div class="line"></div><div class="line">举个栗子，比如对于button，我们最关心的事情就是click事件。在button被用户点击之后，它需要通知父组件“我被点击了哦”，然后在父组件监听到事件后，再去做一些事情。在这里要注意，为了复用，UI组件上不涉及任何业务逻辑的。比如对于click事件，button组件本身并不关系自己被点击之后会有什么后续操作，它只需要将click这件事传递到父组件。</div></pre></td></tr></table></figure>
-<p>//button组件</p>
-<template><br>  <div class="btn-wrapper"><br>    <button :class="buttonClass" :disabled="disabled" @click="handleClickButton"><br>    </button><br>  </div><br></template>
-
-<script>
-  const buttonTypes = ['warning', 'success', 'primary', 'normal', 'opacity'];
-
-  export default {
-    props: {
-      type: {
-        validator(value) {
-          return buttonTypes.includes(value);
-        },
-        default: 'normal',
-      },
-      disabled: {
-        type: Boolean,
-        default: false,
-      },
-    },
-    computed: {
-      buttonClass() {
-        const disabledStyle = { 'button-disabled': this.disabled };
-        const basicStyle = `button button-${this.type}`;
-        return [basicStyle, disabledStyle];
-      },
-    },
-    methods: {
-      handleClickButton() {
-        this.$emit('click');//提交事件‘click'
-      },
-    },
-  };
-</script>
-//在父组件中使用button组件
-<template>
-  <div class="btn-wrapper">
-    <v-button disabled type="success" @click="doSomeThing/">
-  </v-button></div>
-</template>
-
-<script>
-  import button from './button';
-
-  export default {
-    components: {
-      'v-button': button,
-    },
-    methods: {
-      doSomeThing() {
-        //do something...
-      },
-    },
-  };
-
-</script>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">我们监听了子组件中button的click事件，当被点击的时候执行handleClickButton，他做的唯一一件事就是将‘click’事件提交（emit）给父组件（同时可以传参）。然后，我们在父组件中监听‘click’，当被点击的时候执行doSomeThing。</div><div class="line">这样，就完成了从子到父的通信。</div><div class="line"></div><div class="line">## slot是插槽，用于为父组件中用户自定义的内容做占位。</div><div class="line">比如对一个原生的```&lt;button&gt;```标签，我们会这样写```&lt;button&gt;我是按钮&lt;/button&gt;```，这样生成一个带有‘我是按钮’文字的按钮。</div><div class="line">对于我们在上一节定义的button组件，这样写将不会把文字传递到子组件。在父组件中使用button组件时，button里面的文字上位于父组件作用域中的，子组件会无视它（关于组件作用域的说明，详见官方文档）。 </div><div class="line"></div><div class="line">那么根据前面所讲，我们可以借助props将文字传递到子组件中。</div></pre></td></tr></table></figure>
-
-//button组件
-<template>
-  <button></button>
-</template>
+<template><br>  <button></button><br></template>
 
 <script>
   export default {
@@ -639,7 +549,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-count">18</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -674,7 +584,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简单UI组件的总结"><span class="nav-number">1.</span> <span class="nav-text">简单UI组件的总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#写UI组件之前，一定记得划定功能范围"><span class="nav-number">1.</span> <span class="nav-text">写UI组件之前，一定记得划定功能范围</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#通用组件三剑客-props-event-slot"><span class="nav-number">2.</span> <span class="nav-text">通用组件三剑客: props, event, slot</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#props用于配置组件的属性"><span class="nav-number">2.1.</span> <span class="nav-text">props用于配置组件的属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#event是UI组件向父组件传递的通知"><span class="nav-number">2.2.</span> <span class="nav-text">event是UI组件向父组件传递的通知</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#slot是插槽，用于为父组件中用户自定义的内容做占位。"><span class="nav-number">2.3.</span> <span class="nav-text">slot是插槽，用于为父组件中用户自定义的内容做占位。</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#简单UI组件的总结"><span class="nav-number">3.</span> <span class="nav-text">简单UI组件的总结</span></a></li></ol></div>
             
 
           </div>
