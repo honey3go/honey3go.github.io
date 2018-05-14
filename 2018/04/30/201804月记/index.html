@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="读书笔记,javascript,你不知道的JS," />
+  <meta name="keywords" content="月记也是月季," />
 
 
 
@@ -87,16 +87,16 @@
 
 
 
-<meta name="description" content="本系列深入理解JS是对JavaScript这门语言中一些比较特殊和难懂的点做的说明和总结。JavaScript被认为是一门简单易用的语音，它具有许多负责的概念和原理，但却魔术般的使用一种看起来很简单的方法体现出来，这也使得很多开发者仅仅停留在能够使用的层面上，而未曾真正的深入理解其中的原理。这样的知其然而不知其所以然，会导致在实际应用中JS表现出不曾预料到的诡异行为，然后很多人会避开他们，去采用其">
+<meta name="description" content="工作三月刚刚下了Iot项目，在清明节假假期前赶回了武汉，然后就开始了将近两周的beach生活。在沙滩上晒太阳还是比较无聊的，没有卡没有砖，需要自己给自己找事情做。刚好趁着没有新项目，我就好好总结了一下上个项目的收获和体验。并且由于项目里中重度使用了vue，因此也计划开一个vue系列的博客，以不同于官方文档的角度，从实际使用出发来介绍vue的一些比较好的实践。在刚写完系列第三篇博客之后，我就被安排到">
 <meta property="og:type" content="article">
-<meta property="og:title" content="深入理解JS-part1-编译和变量提升">
-<meta property="og:url" content="http://yoursite.com/2017/08/06/深入理解JS-part1-J编译和变量提升/index.html">
+<meta property="og:title" content="201804月记">
+<meta property="og:url" content="http://yoursite.com/2018/04/30/201804月记/index.html">
 <meta property="og:site_name" content="萝三画室">
-<meta property="og:description" content="本系列深入理解JS是对JavaScript这门语言中一些比较特殊和难懂的点做的说明和总结。JavaScript被认为是一门简单易用的语音，它具有许多负责的概念和原理，但却魔术般的使用一种看起来很简单的方法体现出来，这也使得很多开发者仅仅停留在能够使用的层面上，而未曾真正的深入理解其中的原理。这样的知其然而不知其所以然，会导致在实际应用中JS表现出不曾预料到的诡异行为，然后很多人会避开他们，去采用其">
-<meta property="og:updated_time" content="2017-08-06T10:12:43.556Z">
+<meta property="og:description" content="工作三月刚刚下了Iot项目，在清明节假假期前赶回了武汉，然后就开始了将近两周的beach生活。在沙滩上晒太阳还是比较无聊的，没有卡没有砖，需要自己给自己找事情做。刚好趁着没有新项目，我就好好总结了一下上个项目的收获和体验。并且由于项目里中重度使用了vue，因此也计划开一个vue系列的博客，以不同于官方文档的角度，从实际使用出发来介绍vue的一些比较好的实践。在刚写完系列第三篇博客之后，我就被安排到">
+<meta property="og:updated_time" content="2018-05-10T06:56:56.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="深入理解JS-part1-编译和变量提升">
-<meta name="twitter:description" content="本系列深入理解JS是对JavaScript这门语言中一些比较特殊和难懂的点做的说明和总结。JavaScript被认为是一门简单易用的语音，它具有许多负责的概念和原理，但却魔术般的使用一种看起来很简单的方法体现出来，这也使得很多开发者仅仅停留在能够使用的层面上，而未曾真正的深入理解其中的原理。这样的知其然而不知其所以然，会导致在实际应用中JS表现出不曾预料到的诡异行为，然后很多人会避开他们，去采用其">
+<meta name="twitter:title" content="201804月记">
+<meta name="twitter:description" content="工作三月刚刚下了Iot项目，在清明节假假期前赶回了武汉，然后就开始了将近两周的beach生活。在沙滩上晒太阳还是比较无聊的，没有卡没有砖，需要自己给自己找事情做。刚好趁着没有新项目，我就好好总结了一下上个项目的收获和体验。并且由于项目里中重度使用了vue，因此也计划开一个vue系列的博客，以不同于官方文档的角度，从实际使用出发来介绍vue的一些比较好的实践。在刚写完系列第三篇博客之后，我就被安排到">
 
 
 
@@ -124,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/08/06/深入理解JS-part1-J编译和变量提升/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/04/30/201804月记/"/>
 
 
 
 
 
-  <title> 深入理解JS-part1-编译和变量提升 | 萝三画室 </title>
+  <title> 201804月记 | 萝三画室 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -247,7 +247,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/06/深入理解JS-part1-J编译和变量提升/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/30/201804月记/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="LOLISuri">
@@ -271,7 +271,7 @@
             
             
               
-                深入理解JS-part1-编译和变量提升
+                201804月记
               
             
           </h1>
@@ -286,8 +286,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-06T15:25:03+08:00">
-                2017-08-06
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-30T22:13:09+08:00">
+                2018-04-30
               </time>
             
 
@@ -322,26 +322,29 @@
       
 
       
-        <p>本系列<strong><em>深入理解JS</em></strong>是对JavaScript这门语言中一些比较特殊和难懂的点做的说明和总结。JavaScript被认为是一门简单易用的语音，它具有许多负责的概念和原理，但却魔术般的使用一种看起来很简单的方法体现出来，这也使得很多开发者仅仅停留在能够使用的层面上，而未曾真正的深入理解其中的原理。这样的知其然而不知其所以然，会导致在实际应用中JS表现出不曾预料到的诡异行为，然后很多人会避开他们，去采用其他“安全”的方法。这显然不是正确的途径。因此，本系列旨在弄清“为什么”，从书中或实际应用中遇到的困惑出发，深入理解整个JavaScript。<br>本文是<strong><em>深入理解JS</em></strong>系列的part1，从编译JS出发，知道了解什么是变量提升。<br>参考书籍：《你不知道的JavaScript》 官方链接-&gt;&gt;&gt;&gt;&gt; <a href="http://www.ituring.com.cn/book/1488" target="_blank" rel="external">http://www.ituring.com.cn/book/1488</a><br><a id="more"></a></p>
-<h1 id="编译语言JavaScript"><a href="#编译语言JavaScript" class="headerlink" title="编译语言JavaScript"></a>编译语言JavaScript</h1><p>大多数情况下，我们都会把JS描述为<strong><em>直译型</em></strong> 或<strong><em>解释型</em></strong> 语言。再加上它可以直接在浏览器中运行而无需像C++等语言一样编译，导致很多人对JS产生一种误解（以前我也是这样！）– JavaScript无需编译。这是大错特错的！带着这种误解，我们的直觉就会告诉我们，JS在运行时是从上至下顺序执行代码的，这样也就很难理解为什么会出现变量提升。所以，要深入理解变量提升，我们首先要牢牢的记住：<strong><em>JavaScript是一门编译语言</em></strong>。</p>
-<h2 id="JS编译原理"><a href="#JS编译原理" class="headerlink" title="JS编译原理"></a>JS编译原理</h2><p>我们已经知道，JS是一门编译语言了。也就是说，JS代码在运行之前需要编译。然而，JS的编译原理和过程与传统编译语言大不相同。</p>
-<ul>
-<li>传统编译语言如C++，是<strong><em>提前编译</em></strong> 的，可以简单理解为我们访问的是编译后的程序(编译-&gt;访问-&gt;运行)。我们在编写代码，编译生成编译结果，并可以将编译结果再分布式系统中移植。</li>
-<li>JS，是<strong><em>运行前编译</em></strong> 的，可以简单理解为我们访问的是未经编译的程序(访问-&gt;编译-&gt;运行)。我们编写代码，浏览器访问，进入到一个作用域后进行编译，编译后运行。</li>
-</ul>
-<h2 id="JS编译过程"><a href="#JS编译过程" class="headerlink" title="JS编译过程"></a>JS编译过程</h2><p>JS编译过程中，涉及两个协作的“好朋友”。负责编译和运行JS代码的<strong><em>JavaScript引擎</em></strong>，负责协助JavaScript引擎查找变量的<strong><em>作用域</em></strong>。<br>下面我们看看JS的编译过程。<br>程序运行过程中，进入到某个作用域-&gt;引擎处理代码进行编译-&gt;遇到变量，询问作用域，进行变量查找(可能的结果包括变量未声明报错、新变量声明、取得变量源值)-&gt;作用域中所有代码编译完毕-&gt;引擎执行编译后的代码。</p>
-<h1 id="变量提升"><a href="#变量提升" class="headerlink" title="变量提升"></a>变量提升</h1><p>对于在作用域中使用var声明的变量以及定义的function，会出现<strong><em>变量提升</em></strong> 的现象-在变量声明之间就可以使用变量。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">function init()&#123;</div><div class="line">	console.log(a);</div><div class="line">	var a = 12;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>上面的函数执行后，控制台会输出undefined(变量声明但未赋值)而不是抛出ReferenceError错误(变量未声明)。<br>如果是按照前面讲过的错误观念：”JS在运行时是从上至下顺序执行代码的”这种理解，那么在console.log时还不存在变量a的。</p>
-<p>现在按照我们在<strong><em>JS编译过程</em></strong> 中将的步骤，再来看看实际上发生了什么。</p>
-<p>编译过程实际上就是找到所有的声明，并通过作用域将其关联起来。对于上面的例子，当编译console.log(a)时，JS引擎询问了init函数的作用域是否存在变量a。用域查找发现自身中存在var a的声明，因此不会出错，仅仅是变量未赋值。</p>
-<p>有人可能会问，既然能发现var a的声明，为什么不能识别a的赋值呢？这是因为，<strong><em>在编译阶段，引擎并不执行代码</em></strong>，赋值运算实际是运行阶段的任务，因此作用域在找到var a的声明后，就不会继续进行a = 12这步赋值运算了。</p>
-<p>于是前面的代码就可以理解为编译之前的状态，而经过javascript引擎编译后直译的状态是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">function init()&#123;</div><div class="line">	var a ;</div><div class="line">	console.log(a);</div><div class="line">	a = 12;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>这也就是会出现<strong><em>变量提升</em></strong> 的原因了。</p>
-<p>关于变量提升，还有以下需要注意的地方：</p>
-<ul>
-<li>var 声明的变量以及函数会出现变量提升，函数的优先级高于var</li>
-<li>let 声明的变量不存在变量提升</li>
-</ul>
+        <h1 id="工作"><a href="#工作" class="headerlink" title="工作"></a>工作</h1><p>三月刚刚下了Iot项目，在清明节假假期前赶回了武汉，然后就开始了将近两周的beach生活。在沙滩上晒太阳还是比较无聊的，没有卡没有砖，需要自己给自己找事情做。刚好趁着没有新项目，我就好好总结了一下上个项目的收获和体验。并且由于项目里中重度使用了vue，因此也计划开一个vue系列的博客，以不同于官方文档的角度，从实际使用出发来介绍vue的一些比较好的实践。在刚写完系列第三篇博客之后，我就被安排到去另一个项目组临时支援两周，于是4月的后两周我都是在北京度过的。</p>
+<p>这就是我的第三个项目了，了解得知我又面临着不同于以往项目的新的挑战。第一个项目的挑战是一周学会react，工作模式，公司文化等等等等；第二个项目的挑战是只有1.5个前端，许多问题都要亲力亲为；然后第三个项目的挑战是，快速理解上下文和新需求，用react和react native改web和mobile端，涉及5个产品和7个代码库。刚开始理解context以及代码话费的时间久了一些，不过在这之后就没什么大的困难了，并且成功的把进度赶回来。</p>
+<p>感受：</p>
+<ol>
+<li>senior果然不一样</li>
+<li>即使需求简单，设计也不能简单</li>
+</ol>
+<p>收获：</p>
+<ol>
+<li>将需求串联起来，往往可以总结出一条原则，所有细节的实现都基于这个原则即可</li>
+<li>知其然也要知其所以然</li>
+</ol>
+<p>不足：</p>
+<ol>
+<li>鸭梨大的时候，过于着急以至于慌了阵脚</li>
+</ol>
+<h1 id="学习"><a href="#学习" class="headerlink" title="学习"></a>学习</h1><ol>
+<li><p>开始看《你不知道的JS中卷》<br>第一部分价值不大，就简单的看了看。第二部分异步和性能讲的很精彩，目前在二刷，如要完全理解估计还要刷几遍。看了这本书才知道，promise原来有这么大的意义，它的出现才意味着JS有了自己的异步。</p>
+</li>
+<li><p>了解Immutable<br>immutable是配合react使用的一个库，拥有自己的数据结构，可以让state变得更加易于追踪，并且减少不必要的渲染从而提高程序的性能。我会来了解immutable，是因为在项目中遇到了由于immutable使用不当而导致的bug。查阅了一些资料后，现在对它的常用方法和使用场景都有了一定的了解。我对immutable的理解是，它实现了一些数据结构，数据结构内部的存取算法可以最大程度的节省开销，只变化变了的位置。这对于react的意义就是，精确识别到state的变化位置，这样只会触发这部分变化相关的重新渲染。除此之外，每次存取immutable都会返回一个新的对象，这样就便于追踪state的变化历程了。</p>
+</li>
+</ol>
+<h1 id="生活"><a href="#生活" class="headerlink" title="生活"></a>生活</h1><p>数了数，这个四月我跑了4个城市。。月初在上海，下了项目回武汉，beach了两周去北京，在北京中间回了一趟沈阳，然后月底又下项目回武汉。。。然后折腾了这么多，还是办成了很多大事的。<br>回沈阳是和双方家长见面交流一下结婚买房的事情，结果意外的在见过家长之后赶上了认筹末班车。然后本来28号的开盘因为大大的出行推迟到了29号，我刚好在29号凌晨回武汉赶上了开盘。最后摇的号虽然没排在前面没机会买之前看好的高层，但也是又因为一系列的巧合我们定了一套花园洋房。回想起来，是要经过无意之中的很多决定和巧合，才能最后导致现在的结果呀。缘分，妙不可言2333。不过定了房子之后心情很复杂的，因为要靠家里出很多首付，觉得自己到了现在这个年纪，也依然要靠家里支持，这是一件蛮让人伤感的事情。我们只能更加努力了，以后不再需要家里支持，而是可以支持家里了，嗯！</p>
 
       
     </div>
@@ -365,11 +368,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/读书笔记/" rel="tag"># 读书笔记</a>
-          
-            <a href="/tags/javascript/" rel="tag"># javascript</a>
-          
-            <a href="/tags/你不知道的JS/" rel="tag"># 你不知道的JS</a>
+            <a href="/tags/月记也是月季/" rel="tag"># 月记也是月季</a>
           
         </div>
       
@@ -382,8 +381,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/08/03/仿网易云音乐PC-总结Part4-VUE/" rel="next" title="仿网易云音乐PC-总结Part4(VUE 2.x)">
-                <i class="fa fa-chevron-left"></i> 仿网易云音乐PC-总结Part4(VUE 2.x)
+              <a href="/2018/04/12/详解vue-从熟悉到熟练-part3-造一个简单的UI组件/" rel="next" title="详解vue-从熟悉到熟练-part3-造一个简单的UI组件">
+                <i class="fa fa-chevron-left"></i> 详解vue-从熟悉到熟练-part3-造一个简单的UI组件
               </a>
             
           </div>
@@ -391,6 +390,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/03/[项目总结]20180416-20180428_交易平台/" rel="prev" title="交易平台项目总结">
+                交易平台项目总结 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -460,7 +463,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">29</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -471,7 +474,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -506,7 +509,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#编译语言JavaScript"><span class="nav-number">1.</span> <span class="nav-text">编译语言JavaScript</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JS编译原理"><span class="nav-number">1.1.</span> <span class="nav-text">JS编译原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JS编译过程"><span class="nav-number">1.2.</span> <span class="nav-text">JS编译过程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#变量提升"><span class="nav-number">2.</span> <span class="nav-text">变量提升</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#工作"><span class="nav-number">1.</span> <span class="nav-text">工作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#学习"><span class="nav-number">2.</span> <span class="nav-text">学习</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#生活"><span class="nav-number">3.</span> <span class="nav-text">生活</span></a></li></ol></div>
             
 
           </div>
@@ -527,7 +530,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

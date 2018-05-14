@@ -1,0 +1,669 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="vue,教程,详解vue-从熟悉到熟练," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://o3sw4xojp.qnssl.com/paper_airplane.png?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="在组件化的世界观中，一个页面是由多个组件组装起来的。那么这些组件是如何协同工作的呢？本节就要介绍，在vue的context之下，组件之间是如何通讯的。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="详解vue-从熟悉到熟练-part4-组件间通讯">
+<meta property="og:url" content="http://yoursite.com/2018/05/14/详解vue-从熟悉到熟练-part4-组件间通讯/index.html">
+<meta property="og:site_name" content="萝三画室">
+<meta property="og:description" content="在组件化的世界观中，一个页面是由多个组件组装起来的。那么这些组件是如何协同工作的呢？本节就要介绍，在vue的context之下，组件之间是如何通讯的。">
+<meta property="og:updated_time" content="2018-05-14T07:23:38.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="详解vue-从熟悉到熟练-part4-组件间通讯">
+<meta name="twitter:description" content="在组件化的世界观中，一个页面是由多个组件组装起来的。那么这些组件是如何协同工作的呢？本节就要介绍，在vue的context之下，组件之间是如何通讯的。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/05/14/详解vue-从熟悉到熟练-part4-组件间通讯/"/>
+
+
+
+
+
+  <title> 详解vue-从熟悉到熟练-part4-组件间通讯 | 萝三画室 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">萝三画室</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle">向死而生</p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/14/详解vue-从熟悉到熟练-part4-组件间通讯/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="LOLISuri">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="https://o3sw4xojp.qnssl.com/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="萝三画室">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="萝三画室" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                详解vue-从熟悉到熟练-part4-组件间通讯
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-14T13:24:02+08:00">
+                2018-05-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在组件化的世界观中，一个页面是由多个组件组装起来的。那么这些组件是如何协同工作的呢？本节就要介绍，在vue的context之下，组件之间是如何通讯的。<br><a id="more"></a></p>
+<h1 id="基本通讯方法：父子组件通讯，父向子传递数据，子向父提交事件"><a href="#基本通讯方法：父子组件通讯，父向子传递数据，子向父提交事件" class="headerlink" title="基本通讯方法：父子组件通讯，父向子传递数据，子向父提交事件"></a>基本通讯方法：父子组件通讯，父向子传递数据，子向父提交事件</h1><p>首先需要澄清一点：vue实际上也是<strong><em>单向数据流</em></strong>，v-model所提供的双向数据流不过是一个语法糖（后面有栗子）。那么在vue中，数据流动是单向的，只能从父向子传递数据，并且父组件传递过来的数据，子组件无权直接修改。那么根据前几节的内容，相信你已经知道：<br><strong><em>父组件通过props向子组件传递数据</em></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">//子组件 Text.js</div><div class="line">&lt;template&gt;</div><div class="line">  &lt;div&gt;&#123;&#123;text&#125;&#125;&lt;/div&gt;</div><div class="line">&lt;/template&gt;</div><div class="line"></div><div class="line">&lt;script&gt;</div><div class="line">  export default &#123;</div><div class="line">    props: [&apos;text&apos;],</div><div class="line">  &#125;</div><div class="line">&lt;/script&gt;</div><div class="line">//父组件</div><div class="line">&lt;template&gt;</div><div class="line">  &lt;Text text=&quot;hello world&quot;/&gt;</div><div class="line">&lt;/template&gt;</div><div class="line"></div><div class="line">&lt;script&gt;</div><div class="line">  import Text from &apos;./Text.js&apos;</div><div class="line">  export default &#123;</div><div class="line">    components: &#123;</div><div class="line">      Text,</div><div class="line">    &#125;,</div><div class="line">  &#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<p><strong><em>子组件通过emit向父组件提交事件，并在父组件中监听事件</em></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">//子组件 Text.js</div><div class="line">&lt;template&gt;</div><div class="line">  &lt;div @click=handleClickText&gt;&#123;&#123;text&#125;&#125;&lt;/div&gt;</div><div class="line">&lt;/template&gt;</div><div class="line"></div><div class="line">&lt;script&gt;</div><div class="line">  export default &#123;</div><div class="line">    props: [&apos;text&apos;],</div><div class="line">    methods: &#123;</div><div class="line">      handleClickText() &#123;</div><div class="line">        this.$emit(&apos;clickText&apos;)</div><div class="line">      &#125;,</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&lt;/script&gt;</div><div class="line">//父组件</div><div class="line">&lt;template&gt;</div><div class="line">  &lt;Text text=&quot;hello world&quot; @clickText=clickText/&gt;</div><div class="line">&lt;/template&gt;</div><div class="line"></div><div class="line">&lt;script&gt;</div><div class="line">  import Text from &apos;./Text.js&apos;</div><div class="line">  export default &#123;</div><div class="line">    components: &#123;</div><div class="line">      Text,</div><div class="line">    &#125;,</div><div class="line">    methods: &#123;</div><div class="line">      clickText() &#123;</div><div class="line">        alert(&apos;text click&apos;);</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<p>我们在子组件被点击时，向父组件提交了自定义的‘clickText’事件，并在父组件中监听事件，用clickText函数来响应事件。如果有需要，我们在子组件中提交事件时，也可以传参。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">//子组件 Text.js</div><div class="line">&lt;template&gt;</div><div class="line">  &lt;div @click=handleClickText&gt;&#123;&#123;text&#125;&#125;&lt;/div&gt;</div><div class="line">&lt;/template&gt;</div><div class="line"></div><div class="line">&lt;script&gt;</div><div class="line">  export default &#123;</div><div class="line">    props: [&apos;text&apos;],</div><div class="line">    methods: &#123;</div><div class="line">      handleClickText() &#123;</div><div class="line">        this.$emit(&apos;clickText&apos;, &apos;text click&apos;)</div><div class="line">      &#125;,</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&lt;/script&gt;</div><div class="line">//父组件</div><div class="line">&lt;template&gt;</div><div class="line">  &lt;Text text=&quot;hello world&quot; @clickText=clickText/&gt;</div><div class="line">&lt;/template&gt;</div><div class="line"></div><div class="line">&lt;script&gt;</div><div class="line">  import Text from &apos;./Text.js&apos;</div><div class="line">  export default &#123;</div><div class="line">    components: &#123;</div><div class="line">      Text,</div><div class="line">    &#125;,</div><div class="line">    methods: &#123;</div><div class="line">      clickText(value) &#123;</div><div class="line">        alert(value);</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<h1 id="API通讯方法：父子组件通讯，通过API引用"><a href="#API通讯方法：父子组件通讯，通过API引用" class="headerlink" title="API通讯方法：父子组件通讯，通过API引用"></a>API通讯方法：父子组件通讯，通过API引用</h1><p>前边讲的父子间通讯方法是vue中最基本的方法，这里我们讲的是vue通过API提供的一些父子组件引用方法<br><strong><em>在子组件中通过$parent获得父实例，在父组件中通过$children获得子实例</em></strong><br>这种方法尽可能避免使用，因为它是非响应式的，并且会使得逻辑分散到不同地方，容易导致混乱的状况。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">//子组件 Text.js</div><div class="line">&lt;template&gt;</div><div class="line">  &lt;div @click=handleClickText&gt;&#123;&#123;text&#125;&#125;&lt;/div&gt;</div><div class="line">&lt;/template&gt;</div><div class="line"></div><div class="line">&lt;script&gt;</div><div class="line">  export default &#123;</div><div class="line">    props: [&apos;text&apos;],</div><div class="line">    methods: &#123;</div><div class="line">      handleClickText() &#123;</div><div class="line">        this.$parent.clickText();</div><div class="line">      &#125;,</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&lt;/script&gt;</div><div class="line">//父组件</div><div class="line">&lt;template&gt;</div><div class="line">  &lt;Text text=&quot;hello world&quot;/&gt;</div><div class="line">&lt;/template&gt;</div><div class="line"></div><div class="line">&lt;script&gt;</div><div class="line">  import Text from &apos;./Text.js&apos;</div><div class="line">  export default &#123;</div><div class="line">    components: &#123;</div><div class="line">      Text,</div><div class="line">    &#125;,</div><div class="line">    methods: &#123;</div><div class="line">      clickText() &#123;</div><div class="line">        alert(&apos;text click&apos;);</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<p>上面的例子并非这种通讯方法的应用场景，其实使用props和event就可以了。接下来我们讲一下，可能用API通讯的场景:<br><strong><em>父组件也是一个自定义组件，并且状态在父组件内部维护</em></strong><br>假设我们想要些一个select-option的通用组件，期望它使用起来是这样的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;template&gt;</div><div class="line">  &lt;Select&gt;</div><div class="line">    &lt;Option&gt;选项一&lt;/Option&gt;</div><div class="line">    &lt;Option&gt;选项二&lt;/Option&gt;</div><div class="line">  &lt;/Select&gt;</div><div class="line">&lt;/template&gt;</div></pre></td></tr></table></figure></p>
+<p>并且需要的交互式是，点击select，option面板就显示，点击一个option，option面板就关闭，并且选中的值传递到外部。</p>
+<p>总结下来，控制option面板的显隐需要一个状态；保存当前选中的值需要一个状态。对于这样的场景，如果我们用props和emit的方式，就需要把两个状态以及对应的事件响应办法全部写到使用这个通用组件的组件内。如果多个组件都用到了这个select-option，那么就要把同样的逻辑写多份。并且，这些逻辑本身是业务无关的，没有必要把它交给使用者处理。因此，我们的想法是，把这些option组件相关的逻辑封到select组件内管理。这样，select-option组件在使用起来，就只需要关心给option什么值，以及选中后的值保存给哪个变量就可以了。<br>实现：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div></pre></td><td class="code"><pre><div class="line">//Select</div><div class="line">&lt;template&gt;</div><div class="line">  &lt;div class=&quot;select&quot; tabindex=&quot;0&quot; @blur=&quot;handleHideOptions&quot;&gt;</div><div class="line">    &lt;div class=&quot;select-input&quot; :class=&quot;&#123;&apos;input-selecting&apos;: canSelect&#125;&quot; @click=&quot;handleSwitchOptions&quot;&gt;</div><div class="line">      &lt;input :value=&quot;selectedValue&quot; :placeholder=&quot;placeholder&quot; disabled/&gt;</div><div class="line">      &lt;label class=&quot;select-label&quot; :class=&quot;&#123;&apos;single-row&apos;: singleRow&#125;&quot;&gt;&#123;&#123;selectedObject.label&#125;&#125;&lt;/label&gt;</div><div class="line">      &lt;span class=&quot;select-input-icon&quot;&gt;&lt;/span&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">    &lt;ul class=&quot;select-options&quot; :style=&quot;scrollStyle&quot; v-show=&quot;canSelect&quot;&gt;</div><div class="line">      &lt;slot /&gt;</div><div class="line">    &lt;/ul&gt;</div><div class="line">  &lt;/div&gt;</div><div class="line">&lt;/template&gt;</div><div class="line"></div><div class="line">&lt;script&gt;</div><div class="line">  export default &#123;</div><div class="line">    props: &#123;</div><div class="line">      multiple: &#123;</div><div class="line">        type: Boolean,</div><div class="line">        default: false,</div><div class="line">      &#125;,</div><div class="line">      value: [String, Object],</div><div class="line">      disabled: &#123;</div><div class="line">        type: Boolean,</div><div class="line">        default: false,</div><div class="line">      &#125;,</div><div class="line">      placeholder: String,</div><div class="line">      isScroll: &#123;</div><div class="line">        type: Boolean,</div><div class="line">        default: false,</div><div class="line">      &#125;,</div><div class="line">      scrollItems: &#123;</div><div class="line">        type: Number,</div><div class="line">        default: 5,</div><div class="line">      &#125;,</div><div class="line">      singleRow: &#123;</div><div class="line">        type: Boolean,</div><div class="line">        default: false,</div><div class="line">      &#125;,</div><div class="line">    &#125;,</div><div class="line">    data() &#123;</div><div class="line">      return &#123;</div><div class="line">        selectedValue: this.value,</div><div class="line">        selectedObject: &#123;&#125;,</div><div class="line">        isShowOptions: false,</div><div class="line">      &#125;;</div><div class="line">    &#125;,</div><div class="line">    computed: &#123;</div><div class="line">      scrollStyle() &#123;</div><div class="line">        return this.isScroll ? &#123; maxHeight: `$&#123;(this.scrollItems * 30) + (7 * 2)&#125;px` &#125; : null;</div><div class="line">      &#125;,</div><div class="line">      hasOptions() &#123;</div><div class="line">        return this.$slots.default;</div><div class="line">      &#125;,</div><div class="line">      canSelect() &#123;</div><div class="line">        return this.hasOptions &amp;&amp; this.isShowOptions;</div><div class="line">      &#125;,</div><div class="line">    &#125;,</div><div class="line">    methods: &#123;</div><div class="line">      handleSwitchOptions() &#123;</div><div class="line">        if (this.disabled) return;</div><div class="line">        this.isShowOptions = !this.isShowOptions;</div><div class="line">      &#125;,</div><div class="line">      handleHideOptions() &#123;</div><div class="line">        this.isShowOptions = false;</div><div class="line">      &#125;,</div><div class="line">      setSelectedObject(value) &#123;</div><div class="line">        const &#123; multiple, selectedObject &#125; = this;</div><div class="line">        if (multiple) &#123;</div><div class="line">          this.selectedObject = &#123; ...selectedObject, value &#125;;</div><div class="line">        &#125; else &#123;</div><div class="line">          this.selectedObject = value;</div><div class="line">        &#125;</div><div class="line">        this.setSelectedValue();</div><div class="line">      &#125;,</div><div class="line">      setSelectedValue() &#123;</div><div class="line">        if (this.selectedValue === this.selectedObject.value) return;</div><div class="line">        this.selectedValue = this.selectedObject.value;</div><div class="line">        this.$emit(&apos;input&apos;, this.selectedValue);</div><div class="line">      &#125;,</div><div class="line">    &#125;,</div><div class="line">  &#125;;</div><div class="line">&lt;/script&gt;</div><div class="line">//Option</div><div class="line">&lt;template&gt;</div><div class="line">  &lt;li class=&quot;select-options-item&quot; :class=&quot;&#123;&apos;selected-item&apos;: isSelected&#125;&quot; @click=&quot;handleClickOption&quot;&gt;</div><div class="line">    &lt;span class=&quot;selected-icon&quot;&gt;&lt;/span&gt;</div><div class="line">    &lt;div class=&quot;item-content&quot;&gt;&#123;&#123;label || value&#125;&#125;&lt;/div&gt;</div><div class="line">  &lt;/li&gt;</div><div class="line">&lt;/template&gt;</div><div class="line"></div><div class="line">&lt;script&gt;</div><div class="line">  export default &#123;</div><div class="line">    props: &#123;</div><div class="line">      value: &#123;</div><div class="line">        require: true,</div><div class="line">      &#125;,</div><div class="line">      label: &#123;</div><div class="line">        default: &apos;&apos;,</div><div class="line">      &#125;,</div><div class="line">    &#125;,</div><div class="line">    methods: &#123;</div><div class="line">      setSelectedObject(parentValue = this.$parent.selectedValue) &#123;</div><div class="line">        const &#123; value, label &#125; = this;</div><div class="line">        if (parentValue === value) &#123;</div><div class="line">          this.$parent.setSelectedObject(&#123; value, label: label || value &#125;);</div><div class="line">        &#125;</div><div class="line">      &#125;,</div><div class="line">      handleClickOption() &#123;</div><div class="line">        const &#123; value, label &#125; = this;</div><div class="line">        this.$parent.setSelectedObject(&#123; value, label: label || value &#125;);</div><div class="line">        this.$parent.handleHideOptions();</div><div class="line">      &#125;,</div><div class="line">    &#125;,</div><div class="line">    computed: &#123;</div><div class="line">      isSelected() &#123;</div><div class="line">        return _.isEqual(this.$parent.selectedValue, this.value);</div><div class="line">      &#125;,</div><div class="line">    &#125;,</div><div class="line">    watch: &#123;</div><div class="line">      &apos;$parent.value&apos;: &apos;setSelectedObject&apos;,</div><div class="line">    &#125;,</div><div class="line">    mounted() &#123;</div><div class="line">      this.setSelectedObject();</div><div class="line">    &#125;,</div><div class="line">  &#125;;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<p>使用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">&lt;template&gt;</div><div class="line">  &lt;v-select v-model=&quot;targetStatus&quot; style=&quot;width: 100px&quot;&gt;</div><div class="line">    &lt;v-option v-for=&quot;item in LOG_STATUS&quot; :label=&quot;item.content&quot; :value=&quot;item.type&quot; :key=&quot;item.type&quot;/&gt;</div><div class="line">  &lt;/v-select&gt;</div><div class="line">&lt;/template&gt;</div><div class="line"></div><div class="line">&lt;script&gt;</div><div class="line">  export default &#123;</div><div class="line">    data() &#123;</div><div class="line">      return &#123;</div><div class="line">        targetStatus: &apos;ALL&apos;,</div><div class="line">        LOG_STATUS: &#123;</div><div class="line">          ALL: &#123; type: &apos;ALL&apos;, content: &apos;全部&apos; &#125;,</div><div class="line">          SUCCESS: &#123; type: &apos;SUCCESS&apos;, content: &apos;成功&apos;, color: &apos;green&apos; &#125;,</div><div class="line">          FAIL: &#123; type: &apos;FAIL&apos;, content: &apos;失败&apos;, color: &apos;red&apos; &#125;,</div><div class="line">        &#125;,</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<h1 id="非父子间通讯：小体量用global-event-bus"><a href="#非父子间通讯：小体量用global-event-bus" class="headerlink" title="非父子间通讯：小体量用global event bus"></a>非父子间通讯：小体量用global event bus</h1><p>前面是父子组件之间的通讯办法，数据可以通过两两父子间通讯不断传递下去。但是当传递的次数变多时，我们就需要在这个过程中的每个组件中都定义props和响应事件。十分繁琐并且难以管理。应对于这种情况，我们可以定义一个全局的组件，在其中保存状态和监听事件，这样在每个组件里都可以使用数据已经提交事件了。这就是global event bus。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">//定义event bus</div><div class="line">Object.defineProperties(Vue.prototype, &#123;</div><div class="line">    $bus: &#123;</div><div class="line">        get() &#123;</div><div class="line">            return new Vue();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;)</div><div class="line">//在某个组件中提交事件</div><div class="line">&lt;template&gt;</div><div class="line">  &lt;div @click=&quot;$bus.$emit(&apos;someClick&apos;)&quot;&gt;&lt;/div&gt;</div><div class="line">&lt;/template&gt;</div><div class="line">//在某个组件中监听事件</div><div class="line">&lt;template&gt;</div><div class="line">  &lt;div&gt;&lt;/div&gt;</div><div class="line">&lt;/template&gt;</div><div class="line">&lt;script&gt;</div><div class="line">  export default &#123;</div><div class="line">    mounted() &#123;</div><div class="line">      this.$bus.$on(&apos;someClick&apos;, () =&gt; &#123;</div><div class="line">        //do something</div><div class="line">      &#125;)</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<h1 id="非父子间通讯：大体量的终极解决方案，vuex"><a href="#非父子间通讯：大体量的终极解决方案，vuex" class="headerlink" title="非父子间通讯：大体量的终极解决方案，vuex"></a>非父子间通讯：大体量的终极解决方案，vuex</h1><p>vuex是vue官方维护的全局状态管理插件，相当于vue的Redux。具体用法这里就不再详述，请查阅官方文档。</p>
+<p>以上就是vue的组件间通讯方式。在写业务组件时，通常用props/emit和vuex就可以满足需求。对于一些通用UI组件，可能在一些场景中用AP和event bus通讯方式更合适，请按需使用吧～</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/vue/" rel="tag"># vue</a>
+          
+            <a href="/tags/教程/" rel="tag"># 教程</a>
+          
+            <a href="/tags/详解vue-从熟悉到熟练/" rel="tag"># 详解vue-从熟悉到熟练</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/03/[项目总结]20180416-20180428_交易平台/" rel="next" title="交易平台项目总结">
+                <i class="fa fa-chevron-left"></i> 交易平台项目总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://o3sw4xojp.qnssl.com/avatar.jpg"
+               alt="LOLISuri" />
+          <p class="site-author-name" itemprop="name">LOLISuri</p>
+          <p class="site-description motion-element" itemprop="description">进击的程序媛</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基本通讯方法：父子组件通讯，父向子传递数据，子向父提交事件"><span class="nav-number">1.</span> <span class="nav-text">基本通讯方法：父子组件通讯，父向子传递数据，子向父提交事件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#API通讯方法：父子组件通讯，通过API引用"><span class="nav-number">2.</span> <span class="nav-text">API通讯方法：父子组件通讯，通过API引用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#非父子间通讯：小体量用global-event-bus"><span class="nav-number">3.</span> <span class="nav-text">非父子间通讯：小体量用global event bus</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#非父子间通讯：大体量的终极解决方案，vuex"><span class="nav-number">4.</span> <span class="nav-text">非父子间通讯：大体量的终极解决方案，vuex</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LOLISuri</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

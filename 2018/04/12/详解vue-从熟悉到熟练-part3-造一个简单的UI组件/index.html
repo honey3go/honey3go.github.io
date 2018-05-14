@@ -1,0 +1,845 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="vue,教程,详解vue-从熟悉到熟练," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://o3sw4xojp.qnssl.com/paper_airplane.png?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="part2中我们已经了解一个单文件组件中的1234567891011121314&amp;lt;!--more--&amp;gt;# 写UI组件之前，一定记得划定功能范围如果是在实际项目上写UI组件，首先要注意一点就是***不要做过多的假设***。项目和项目之间UI风格差别可能非常大，你不可能一次性写好一套UI组件，靠着它走天下。然而同一个项目的风格一定是会保持一致的，所以这里我们说的不做过多假设的意思是，将UI">
+<meta property="og:type" content="article">
+<meta property="og:title" content="详解vue-从熟悉到熟练-part3-造一个简单的UI组件">
+<meta property="og:url" content="http://yoursite.com/2018/04/12/详解vue-从熟悉到熟练-part3-造一个简单的UI组件/index.html">
+<meta property="og:site_name" content="萝三画室">
+<meta property="og:description" content="part2中我们已经了解一个单文件组件中的1234567891011121314&amp;lt;!--more--&amp;gt;# 写UI组件之前，一定记得划定功能范围如果是在实际项目上写UI组件，首先要注意一点就是***不要做过多的假设***。项目和项目之间UI风格差别可能非常大，你不可能一次性写好一套UI组件，靠着它走天下。然而同一个项目的风格一定是会保持一致的，所以这里我们说的不做过多假设的意思是，将UI">
+<meta property="og:image" content="http://yoursite.com/./pic.jpg">
+<meta property="og:updated_time" content="2018-05-14T13:17:10.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="详解vue-从熟悉到熟练-part3-造一个简单的UI组件">
+<meta name="twitter:description" content="part2中我们已经了解一个单文件组件中的1234567891011121314&amp;lt;!--more--&amp;gt;# 写UI组件之前，一定记得划定功能范围如果是在实际项目上写UI组件，首先要注意一点就是***不要做过多的假设***。项目和项目之间UI风格差别可能非常大，你不可能一次性写好一套UI组件，靠着它走天下。然而同一个项目的风格一定是会保持一致的，所以这里我们说的不做过多假设的意思是，将UI">
+<meta name="twitter:image" content="http://yoursite.com/./pic.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/04/12/详解vue-从熟悉到熟练-part3-造一个简单的UI组件/"/>
+
+
+
+
+
+  <title> 详解vue-从熟悉到熟练-part3-造一个简单的UI组件 | 萝三画室 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">萝三画室</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle">向死而生</p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/12/详解vue-从熟悉到熟练-part3-造一个简单的UI组件/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="LOLISuri">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="https://o3sw4xojp.qnssl.com/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="萝三画室">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="萝三画室" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                详解vue-从熟悉到熟练-part3-造一个简单的UI组件
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-12T13:33:21+08:00">
+                2018-04-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>part2中我们已经了解一个单文件组件中的<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&lt;!--more--&gt;</div><div class="line"># 写UI组件之前，一定记得划定功能范围</div><div class="line">如果是在实际项目上写UI组件，首先要注意一点就是***不要做过多的假设***。项目和项目之间UI风格差别可能非常大，你不可能一次性写好一套UI组件，靠着它走天下。然而同一个项目的风格一定是会保持一致的，所以这里我们说的不做过多假设的意思是，将UI组件的功能范围限定在本项目之中，做到***刚好满足需求即可***。因此在动手写一个通用组件之前，我的经验是可以和UX沟通下，确认在这个项目中，他对这个按钮设计了哪些方案。</div><div class="line"></div><div class="line"># 通用组件三剑客: props, event, slot</div><div class="line"></div><div class="line">所谓UI组件，可以理解为一类不带任何业务逻辑的，功能性组件，如按钮，按钮组，输入框，tab等等。它们应具有设计好的样式，显示一些内容，可以响应一些事件（但不处理）。在写组件之前，我们需要知道通用组件三剑客props, event, slot是做什么的。</div><div class="line"></div><div class="line">## props用于配置组件的属性</div><div class="line">part2中我们说过，vue中父组件通过props向子组件传递数据。在一个UI组件中，我们可能为它设置了某些属性，如是否禁用，颜色，类型等等。在使用时，就可以依靠props来指定属性。比如，我们对button设计了如下属性：</div><div class="line">1. disabled: boolean, 默认为false；为true时按钮被禁用，并且显示禁用样式</div><div class="line">2. type: warning/success/primary/normal/opacity，与UX沟通按钮可能的样式。选择不同的type按钮将会显示不同的样式</div><div class="line"></div><div class="line">我们是写组件时，设计了disabled, type两个属性，并且为它们提供了可选项。用户在使用这个组件时，会按照他自己的需求，通过props来指定button组件应该体现什么样式。</div></pre></td></tr></table></figure></p>
+<p>//button组件</p>
+<template><br>  <div class="btn-wrapper"><br>    <button :class="buttonClass" :disabled="disabled"><br>    </button><br>  </div><br></template>
+
+<script>
+  const buttonTypes = ['warning', 'success', 'primary', 'normal', 'opacity'];
+
+  export default {
+    props: {
+      type: {
+        validator(value) {
+          return buttonTypes.includes(value);
+        },
+        default: 'normal',
+      },
+      disabled: {
+        type: Boolean,
+        default: false,
+      },
+    },
+    computed: {
+      buttonClass() {
+        const disabledStyle = { 'button-disabled': this.disabled };
+        const basicStyle = `button button-${this.type}`;
+        return [basicStyle, disabledStyle];
+      },
+    },
+  };
+</script>
+//在父组件中使用button组件
+<template>
+  <div class="btn-wrapper">
+    <v-button disabled type="success">
+  </v-button></div>
+</template>
+
+<script>
+    import button from './button';
+
+    export default {
+        components: {
+            'v-button': button,
+        },
+    };
+
+</script>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">如上，假设我们在父组件中就会得到一个被禁用的success按钮。</div><div class="line"></div><div class="line">## event是UI组件向父组件传递的通知</div><div class="line">props是从父到子的，相反从子到父就要用到event了。event用于告知父组件，发生了什么事情。</div><div class="line"></div><div class="line">要知道我们自定义的组件并不像原生HTML标签一样默认绑定了onclick等事件，对于我们自定义的vue组件，其上绑定的所有事件都来自于自组件的提交（emit）。</div><div class="line"></div><div class="line">举个栗子，比如对于button，我们最关心的事情就是click事件。在button被用户点击之后，它需要通知父组件“我被点击了哦”，然后在父组件监听到事件后，再去做一些事情。在这里要注意，为了复用，UI组件上不涉及任何业务逻辑的。比如对于click事件，button组件本身并不关系自己被点击之后会有什么后续操作，它只需要将click这件事传递到父组件。</div></pre></td></tr></table></figure>
+<p>//button组件</p>
+<template><br>  <div class="btn-wrapper"><br>    <button :class="buttonClass" :disabled="disabled" @click="handleClickButton"><br>    </button><br>  </div><br></template>
+
+<script>
+  const buttonTypes = ['warning', 'success', 'primary', 'normal', 'opacity'];
+
+  export default {
+    props: {
+      type: {
+        validator(value) {
+          return buttonTypes.includes(value);
+        },
+        default: 'normal',
+      },
+      disabled: {
+        type: Boolean,
+        default: false,
+      },
+    },
+    computed: {
+      buttonClass() {
+        const disabledStyle = { 'button-disabled': this.disabled };
+        const basicStyle = `button button-${this.type}`;
+        return [basicStyle, disabledStyle];
+      },
+    },
+    methods: {
+      handleClickButton() {
+        this.$emit('click');//提交事件‘click'
+      },
+    },
+  };
+</script>
+//在父组件中使用button组件
+<template>
+  <div class="btn-wrapper">
+    <v-button disabled type="success" @click="doSomeThing/">
+  </v-button></div>
+</template>
+
+<script>
+  import button from './button';
+
+  export default {
+    components: {
+      'v-button': button,
+    },
+    methods: {
+      doSomeThing() {
+        //do something...
+      },
+    },
+  };
+
+</script>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">我们监听了子组件中button的click事件，当被点击的时候执行handleClickButton，他做的唯一一件事就是将‘click’事件提交（emit）给父组件（同时可以传参）。然后，我们在父组件中监听‘click’，当被点击的时候执行doSomeThing。</div><div class="line">这样，就完成了从子到父的通信。</div><div class="line"></div><div class="line">## slot是插槽，用于为父组件中用户自定义的内容做占位。</div><div class="line">比如对一个原生的```&lt;button&gt;```标签，我们会这样写```&lt;button&gt;我是按钮&lt;/button&gt;```，这样生成一个带有‘我是按钮’文字的按钮。</div><div class="line">对于我们在上一节定义的button组件，这样写将不会把文字传递到子组件。在父组件中使用button组件时，button里面的文字上位于父组件作用域中的，子组件会无视它（关于组件作用域的说明，详见官方文档）。 </div><div class="line"></div><div class="line">那么根据前面所讲，我们可以借助props将文字传递到子组件中。</div></pre></td></tr></table></figure>
+
+//button组件
+<template>
+  <button></button>
+</template>
+
+<script>
+  export default {
+    props: {
+      text: {
+        type: String,
+        default: '',
+      },
+    },
+  };
+
+</script>
+
+<p>//在父组件中使用button组件</p>
+<template><br>  <div class="btn-wrapper"><br>    <v-button text="我是按钮"><br>  </v-button></div><br></template>
+
+<script>
+  import button from './button';
+
+  export default {
+    components: {
+      'v-button': button,
+    },
+  };
+
+</script>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">不光是文字，我们也可以在```&lt;button&gt;```中内嵌任何标签：</div><div class="line">```&lt;button&gt;&lt;span&gt;我是按钮&lt;/span&gt;&lt;/button&gt;```。通过props的方式，只能传递字符串，这样就很不优雅。那么我们就来尝试，能否通过和原生标签一样的写法，将内容传递到子组件。</div><div class="line"></div><div class="line">于是我们就用到了slot。</div><div class="line"></div><div class="line">先来看结果：</div></pre></td></tr></table></figure>
+<p>//button组件</p>
+<template><br>  <button><br>    <slot><br>  </slot></button><br></template>
+
+<script>
+  export default {};
+
+</script>
+
+<p>//在父组件中使用button组件</p>
+<template><br>  <div class="btn-wrapper"><br>    <v-button></v-button><br>  </div><br></template>
+
+<script>
+  import button from './button';
+
+  export default {
+    components: {
+      'v-button': button,
+    },
+  };
+
+</script>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">以上方法就可以完美实现需求啦。那么现在我们讲讲slot是干啥的。</div><div class="line"></div><div class="line">你可以把slot理解为一个占位符，用于给***在父组件中，写在button标签内的内容***占个位子。在没有slot会被子组件抛弃的内容，就会被插入到此处。很简单对吧！</div><div class="line"></div><div class="line">此外，为了应对对歌场景，我们还可以使用具名slot。就是在子组件中定义多个有name属性的slot标签，然后在父组件中，按名字入座。</div></pre></td></tr></table></figure>
+<p>//button组件</p>
+<template><br>  <button><br>    <slot><br>    <span><br>      <slot name="pic"><br>    </slot></span><br>  </slot></button><br></template>
+
+<script>
+  export default {};
+
+</script>
+
+<p>//在父组件中使用button组件</p>
+<template><br>  <div class="btn-wrapper"><br>    <v-button><br>      <br>      <img slot="pic" src="./pic.jpg"><br>    </v-button><br>  </div><br></template>
+
+<p><script><br>  import button from ‘./button’;</p>
+<p>  export default {<br>    components: {<br>      ‘v-button’: button,<br>    },<br>  };</p>
+<p></script><br>```<br>父组件里面标签中指定了slot名字的（包括其子元素），会被插入到对应名字到slot位置上；没有名字的标签会被插入的默认的slot中。</p>
+<p>上栗中，‘我是按钮’会被插入到 <code>&lt;slot /&gt;</code>处；<code>&lt;img slot=&quot;pic&quot;/&gt;</code>会被插入到<code>`&lt;slot name=&quot;pic&quot; /&gt;</code>处`。</p>
+<h1 id="简单UI组件的总结"><a href="#简单UI组件的总结" class="headerlink" title="简单UI组件的总结"></a>简单UI组件的总结</h1><ol>
+<li>开始写UI组件之前，划定功能需求范围</li>
+<li>不要做太多的假设</li>
+<li>只响应数据，不处理业务逻辑</li>
+<li>善用slot, props, event, 让你的组件更灵活</li>
+</ol>
+<p>本节我们讲的是最最简单的一个UI组件，用slot, props, event就可以完成需求。但是事实上存在很多复杂得多的情况，需要用到更多vue的小技巧。之后我们会先讲述vue中组件间通讯的其他方式，然后再来尝试更复杂的栗子。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/vue/" rel="tag"># vue</a>
+          
+            <a href="/tags/教程/" rel="tag"># 教程</a>
+          
+            <a href="/tags/详解vue-从熟悉到熟练/" rel="tag"># 详解vue-从熟悉到熟练</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/09/详解vue-从熟悉到熟练-part2-对象的选项们/" rel="next" title="详解vue-从熟悉到熟练-part2-对象的选项们">
+                <i class="fa fa-chevron-left"></i> 详解vue-从熟悉到熟练-part2-对象的选项们
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/30/201804月记/" rel="prev" title="201804月记">
+                201804月记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://o3sw4xojp.qnssl.com/avatar.jpg"
+               alt="LOLISuri" />
+          <p class="site-author-name" itemprop="name">LOLISuri</p>
+          <p class="site-description motion-element" itemprop="description">进击的程序媛</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简单UI组件的总结"><span class="nav-number">1.</span> <span class="nav-text">简单UI组件的总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LOLISuri</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

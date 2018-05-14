@@ -1,0 +1,903 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="vue,教程,详解vue-从熟悉到熟练," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://o3sw4xojp.qnssl.com/paper_airplane.png?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="现在距离我刚开始接触vue，已经将近有一年了。刚开始是自己摸索着写仿站写项目，对vue的理解不深，使用的也不够熟练，水平仅限于会用。经过Iot Paas这个项目，才可以说熟练使用vue。对于使用vue的同学来说，其官方文档就是最好的学习资料。你所能遇到的问题几乎都能在文档中找到原因或解决方案。但是，文档更适合于通读学习或者有针对性的查问题，并没有一个基于单文件组件的，以实际工程为例的视角。因此，我">
+<meta property="og:type" content="article">
+<meta property="og:title" content="详解vue-从熟悉到熟练-part1-一个单文件组件的结构">
+<meta property="og:url" content="http://yoursite.com/2018/04/04/详解vue-从熟悉到熟练-part1-一个单文件组件的结构/index.html">
+<meta property="og:site_name" content="萝三画室">
+<meta property="og:description" content="现在距离我刚开始接触vue，已经将近有一年了。刚开始是自己摸索着写仿站写项目，对vue的理解不深，使用的也不够熟练，水平仅限于会用。经过Iot Paas这个项目，才可以说熟练使用vue。对于使用vue的同学来说，其官方文档就是最好的学习资料。你所能遇到的问题几乎都能在文档中找到原因或解决方案。但是，文档更适合于通读学习或者有针对性的查问题，并没有一个基于单文件组件的，以实际工程为例的视角。因此，我">
+<meta property="og:updated_time" content="2018-04-11T02:10:06.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="详解vue-从熟悉到熟练-part1-一个单文件组件的结构">
+<meta name="twitter:description" content="现在距离我刚开始接触vue，已经将近有一年了。刚开始是自己摸索着写仿站写项目，对vue的理解不深，使用的也不够熟练，水平仅限于会用。经过Iot Paas这个项目，才可以说熟练使用vue。对于使用vue的同学来说，其官方文档就是最好的学习资料。你所能遇到的问题几乎都能在文档中找到原因或解决方案。但是，文档更适合于通读学习或者有针对性的查问题，并没有一个基于单文件组件的，以实际工程为例的视角。因此，我">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/04/04/详解vue-从熟悉到熟练-part1-一个单文件组件的结构/"/>
+
+
+
+
+
+  <title> 详解vue-从熟悉到熟练-part1-一个单文件组件的结构 | 萝三画室 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">萝三画室</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle">向死而生</p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/04/详解vue-从熟悉到熟练-part1-一个单文件组件的结构/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="LOLISuri">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="https://o3sw4xojp.qnssl.com/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="萝三画室">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="萝三画室" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                详解vue-从熟悉到熟练-part1-一个单文件组件的结构
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-04T09:24:51+08:00">
+                2018-04-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>现在距离我刚开始接触vue，已经将近有一年了。刚开始是自己摸索着写仿站写项目，对vue的理解不深，使用的也不够熟练，水平仅限于会用。经过Iot Paas这个项目，才可以说熟练使用vue。对于使用vue的同学来说，其官方文档就是最好的学习资料。你所能遇到的问题几乎都能在文档中找到原因或解决方案。但是，文档更适合于通读学习或者有针对性的查问题，并没有一个基于单文件组件的，以实际工程为例的视角。因此，我尝试开的这个详解vue系列，试图以实际工程为例，详述vue工程实践的一些经验。本系列假设你已经通读过官方文档，对vue的基本思路和用法有一些理解，文中就不再重复官方文档中已有的内容了。由于之前短暂的用过react，这里也会时不时的对比react的特性。</p>
+<p>本节我们讲的是，一个vue的单文件组件一般长什么样子。</p>
+<p>参考资料：vue官方文档</p>
+<a id="more"></a>
+<h1 id="一个-vue的结构"><a href="#一个-vue的结构" class="headerlink" title="一个.vue的结构"></a>一个.vue的结构</h1><p>与react的一切皆为js的思路不同，vue的单文件组件的结构是由前端三要素HTML，JS，CSS组成的。一个.vue单文件组件就是一个独立的私有作用域，你可以在其中写入所有改组件特有的标签，方法，样式。<br>以下就是一个单文件组件的基本格式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">&lt;template&gt;</div><div class="line">	&lt;div class=&quot;wrapper&quot;&gt;hello world&lt;/div&gt;</div><div class="line">&lt;/template&gt;</div><div class="line"></div><div class="line">&lt;script&gt;</div><div class="line">	export defalut &#123;&#125;;</div><div class="line">&lt;/script&gt;</div><div class="line"></div><div class="line">&lt;style&gt;</div><div class="line">	.wrapper &#123;</div><div class="line">		font-size: 14px;</div><div class="line">	&#125;</div><div class="line">&lt;/style&gt;</div><div class="line">```	</div><div class="line">```&lt;template&gt;```中，结合vue指令写HTML；```&lt;script&gt;```中，写JS；```&lt;style&gt;```中写CSS。</div><div class="line"></div><div class="line">虽然写起来的感觉确实在分开写前端三要素，但实际上```&lt;template&gt;```中写的HTML还是JS。具体原因请谷歌template标签的作用。</div><div class="line"></div><div class="line">## template中的HTML</div><div class="line">在```&lt;template&gt;```中，我们既可以按照原始的HTML规则写，也可以结合vue指令写。</div></pre></td></tr></table></figure></p>
+<template><br>    <div><br>        //原始<br>        <div>hello world</div><br>        //v-direct<br>        <input v-model="aVariable" v-show="isShowInput"><br>    </div><br></template>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">vue指令的用法请查文档，这里就不再详述了。</div><div class="line"></div><div class="line">vue在底层是将```&lt;template&gt;```编译成虚拟DOM渲染函数的。同时它也支持直接在```&lt;script&gt;```中编写渲染函数，让我们可以无需使用```&lt;template&gt;```，用react的方式写HTML。</div><div class="line"></div><div class="line">在一些场景中，直接编写渲染函数确实是独特的优势，但是在同一个项目中同时使用两类语法，会让代码整体的风格，可读性，易维护性都受到影响，并且丧失一些vue的特性。因此，在实践中对于渲染函数的使用，我的态度是能不用就不用。后续计划会单独开一篇文讲如何用render函数写vue组件，这里还是基于```&lt;template&gt;```叙述。</div><div class="line"></div><div class="line">## script中的JS</div><div class="line">一个单文件组件中的script结构如下</div></pre></td></tr></table></figure>
+<script>
+    import XX from XX;
+    import XXX from XXX;
+
+    export defalut {};
+</script>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">```import```导入外部依赖，```export```导出一个对象。是的并没有什么特别，一个单文件组件最终就是导出一个对象。</div><div class="line">vue已经为我们预先指定好了这个对象的选项（属性和方法），我们在实践中可以按需使用：</div></pre></td></tr></table></figure>
+
+<script>
+    import child from './child';
+
+    export defalut {
+        components: {
+            child,
+        },
+        data() {
+            return     {
+                data: 'hello world',
+                aVariable: '',
+                isShowInput: true,
+            };
+        },
+        methods: {
+            handleHideInput() {
+                this.isShowInput = false;
+            },
+        },
+    };
+</script>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">此外，既然它是个普通对象，当然我们也可以为它自定义属性用以满足更多需求：</div></pre></td></tr></table></figure>
+
+<script>
+    import child from './child';
+
+    export defalut {
+        //自定义
+        componentName: 'parent',
+        //vue原生
+        components: {
+            child,
+        },
+        data() {
+            return     {
+                data: 'hello world',
+                aVariable: '',
+                isShowInput: true,
+            };
+        },
+        methods: {
+            handleHideInput() {
+                this.isShowInput = false;
+            },
+        },
+    };
+</script>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">这么分析来，vue帮我们做了很多事情，以至于写一个组件就像写一个填空题。我们只要搞清楚对象的每个属性的用法，然后按需填进去就好了。本文就只先将基础结构，后面会有单独的文分享填空经验～</div><div class="line"></div><div class="line">## style中的CSS</div><div class="line">### 可以结合sass,less等预编译语言一起使用。</div></pre></td></tr></table></figure>
+
+<style lang="scss">
+    .wrapper {
+        .inner {
+            font-size: 12px;
+        }
+    }
+</style>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">### 可以封闭作用域</div></pre></td></tr></table></figure>
+
+<style scope="">
+    .inner {
+        font-size: 12px;
+    }
+</style>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">实践中，一般会将通用样式提到全局，单文件组件中的style用scope指定该组件使用的独有样式，不对外共享。</div><div class="line">这里需要注意的是，scope只能运用在```&lt;template&gt;```中显式存在的tag上。</div></pre></td></tr></table></figure>
+
+//data.js
+export defalut '<span class="color-red">I'm a span</span>';
+
+<template>
+    <div>
+        <div class="color-red"></div>
+        <div v-html="content"></div>
+    </div>
+</template>
+
+<script>
+    import content from './data.js';
+
+    export defalut {
+        data() {
+            return     {
+                content,
+            };
+        },
+    };
+</script>
+
+<p><style scope=""><br>    .color-red {<br>        color: red;<br>    }<br></style><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">对于上面的栗子，color-red类中的样式将不会运用到```&lt;span&gt;```上。</div><div class="line"># 一个静态组件栗子</div></pre></td></tr></table></figure></p>
+<template><br>    <div class="wrapper"><br>        <span><p>现在距离我刚开始接触vue，已经将近有一年了。刚开始是自己摸索着写仿站写项目，对vue的理解不深，使用的也不够熟练，水平仅限于会用。经过Iot Paas这个项目，才可以说熟练使用vue。对于使用vue的同学来说，其官方文档就是最好的学习资料。你所能遇到的问题几乎都能在文档中找到原因或解决方案。但是，文档更适合于通读学习或者有针对性的查问题，并没有一个基于单文件组件的，以实际工程为例的视角。因此，我尝试开的这个详解vue系列，试图以实际工程为例，详述vue工程实践的一些经验。本系列假设你已经通读过官方文档，对vue的基本思路和用法有一些理解，文中就不再重复官方文档中已有的内容了。由于之前短暂的用过react，这里也会时不时的对比react的特性。</p>
+<p>本节我们讲的是，一个vue的单文件组件一般长什么样子。</p>
+<p>参考资料：vue官方文档</p>
+<!--more-->
+<h1 id="一个-vue的结构"><a href="#一个-vue的结构" class="headerlink" title="一个.vue的结构"></a>一个.vue的结构</h1><p>与react的一切皆为js的思路不同，vue的单文件组件的结构是由前端三要素HTML，JS，CSS组成的。一个.vue单文件组件就是一个独立的私有作用域，你可以在其中写入所有改组件特有的标签，方法，样式。<br>以下就是一个单文件组件的基本格式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">&lt;template&gt;</div><div class="line">	&lt;div class=&quot;wrapper&quot;&gt;hello world&lt;/div&gt;</div><div class="line">&lt;/template&gt;</div><div class="line"></div><div class="line">&lt;script&gt;</div><div class="line">	export defalut &#123;&#125;;</div><div class="line">&lt;/script&gt;</div><div class="line"></div><div class="line">&lt;style&gt;</div><div class="line">	.wrapper &#123;</div><div class="line">		font-size: 14px;</div><div class="line">	&#125;</div><div class="line">&lt;/style&gt;</div><div class="line">```	</div><div class="line">```&lt;template&gt;```中，结合vue指令写HTML；```&lt;script&gt;```中，写JS；```&lt;style&gt;```中写CSS。</div><div class="line"></div><div class="line">虽然写起来的感觉确实在分开写前端三要素，但实际上```&lt;template&gt;```中写的HTML还是JS。具体原因请谷歌template标签的作用。</div><div class="line"></div><div class="line">## template中的HTML</div><div class="line">在```&lt;template&gt;```中，我们既可以按照原始的HTML规则写，也可以结合vue指令写。</div></pre></td></tr></table></figure></p>
+<template><br>    <div><br>        //原始<br>        <div>hello world</div><br>        //v-direct<br>        <input v-model="aVariable" v-show="isShowInput"><br>    </div><br></template>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">vue指令的用法请查文档，这里就不再详述了。</div><div class="line"></div><div class="line">vue在底层是将```&lt;template&gt;```编译成虚拟DOM渲染函数的。同时它也支持直接在```&lt;script&gt;```中编写渲染函数，让我们可以无需使用```&lt;template&gt;```，用react的方式写HTML。</div><div class="line"></div><div class="line">在一些场景中，直接编写渲染函数确实是独特的优势，但是在同一个项目中同时使用两类语法，会让代码整体的风格，可读性，易维护性都受到影响，并且丧失一些vue的特性。因此，在实践中对于渲染函数的使用，我的态度是能不用就不用。后续计划会单独开一篇文讲如何用render函数写vue组件，这里还是基于```&lt;template&gt;```叙述。</div><div class="line"></div><div class="line">## script中的JS</div><div class="line">一个单文件组件中的script结构如下</div></pre></td></tr></table></figure>
+<script>
+    import XX from XX;
+    import XXX from XXX;
+
+    export defalut {};
+</script>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">```import```导入外部依赖，```export```导出一个对象。是的并没有什么特别，一个单文件组件最终就是导出一个对象。</div><div class="line">vue已经为我们预先指定好了这个对象的选项（属性和方法），我们在实践中可以按需使用：</div></pre></td></tr></table></figure>
+
+<script>
+    import child from './child';
+
+    export defalut {
+        components: {
+            child,
+        },
+        data() {
+            return     {
+                data: 'hello world',
+                aVariable: '',
+                isShowInput: true,
+            };
+        },
+        methods: {
+            handleHideInput() {
+                this.isShowInput = false;
+            },
+        },
+    };
+</script>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">此外，既然它是个普通对象，当然我们也可以为它自定义属性用以满足更多需求：</div></pre></td></tr></table></figure>
+
+<script>
+    import child from './child';
+
+    export defalut {
+        //自定义
+        componentName: 'parent',
+        //vue原生
+        components: {
+            child,
+        },
+        data() {
+            return     {
+                data: 'hello world',
+                aVariable: '',
+                isShowInput: true,
+            };
+        },
+        methods: {
+            handleHideInput() {
+                this.isShowInput = false;
+            },
+        },
+    };
+</script>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">这么分析来，vue帮我们做了很多事情，以至于写一个组件就像写一个填空题。我们只要搞清楚对象的每个属性的用法，然后按需填进去就好了。本文就只先将基础结构，后面会有单独的文分享填空经验～</div><div class="line"></div><div class="line">## style中的CSS</div><div class="line">### 可以结合sass,less等预编译语言一起使用。</div></pre></td></tr></table></figure>
+
+<style lang="scss">
+    .wrapper {
+        .inner {
+            font-size: 12px;
+        }
+    }
+</style>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">### 可以封闭作用域</div></pre></td></tr></table></figure>
+
+<style scope="">
+    .inner {
+        font-size: 12px;
+    }
+</style>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">实践中，一般会将通用样式提到全局，单文件组件中的style用scope指定该组件使用的独有样式，不对外共享。</div><div class="line">这里需要注意的是，scope只能运用在```&lt;template&gt;```中显式存在的tag上。</div></pre></td></tr></table></figure>
+
+//data.js
+export defalut '<span class="color-red">I'm a span</span>';
+
+<template>
+    <div>
+        <div class="color-red"></div>
+        <div v-html="content"></div>
+    </div>
+</template>
+
+<script>
+    import content from './data.js';
+
+    export defalut {
+        data() {
+            return     {
+                content,
+            };
+        },
+    };
+</script>
+
+<p><style scope=""><br>    .color-red {<br>        color: red;<br>    }<br></style><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">对于上面的栗子，color-red类中的样式将不会运用到```&lt;span&gt;```上。</div><div class="line"># 一个静态组件栗子</div></pre></td></tr></table></figure></p>
+<template><br>    <div class="wrapper"><br>        <span>{{content}}</span><br>        <input v-model="aVariable" v-show="isShowInput"><br>    </div><br></template>
+
+<script>
+    export defalut {
+        data() {
+            return     {
+                content: 'hello world',
+                aVariable: '',
+                isShowInput: true,
+            };
+        },
+    };
+</script>
+
+<p><style scope=""><br>    .wrapper {<br>        font-size: 14px;<br>    }<br></style><br>```</p>
+</span><br>        <input v-model="aVariable" v-show="isShowInput"><br>    </div><br></template>
+
+<script>
+    export defalut {
+        data() {
+            return     {
+                content: 'hello world',
+                aVariable: '',
+                isShowInput: true,
+            };
+        },
+    };
+</script>
+
+<p><style scope=""><br>    .wrapper {<br>        font-size: 14px;<br>    }<br></style><br>```</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/vue/" rel="tag"># vue</a>
+          
+            <a href="/tags/教程/" rel="tag"># 教程</a>
+          
+            <a href="/tags/详解vue-从熟悉到熟练/" rel="tag"># 详解vue-从熟悉到熟练</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/03/[项目总结]20180122-20180330_Iot_Paas/" rel="next" title="Iot Paas项目总结">
+                <i class="fa fa-chevron-left"></i> Iot Paas项目总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/09/详解vue-从熟悉到熟练-part2-对象的选项们/" rel="prev" title="详解vue-从熟悉到熟练-part2-对象的选项们">
+                详解vue-从熟悉到熟练-part2-对象的选项们 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://o3sw4xojp.qnssl.com/avatar.jpg"
+               alt="LOLISuri" />
+          <p class="site-author-name" itemprop="name">LOLISuri</p>
+          <p class="site-description motion-element" itemprop="description">进击的程序媛</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一个-vue的结构"><span class="nav-number">1.</span> <span class="nav-text">一个.vue的结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一个-vue的结构"><span class="nav-number">2.</span> <span class="nav-text">一个.vue的结构</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LOLISuri</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

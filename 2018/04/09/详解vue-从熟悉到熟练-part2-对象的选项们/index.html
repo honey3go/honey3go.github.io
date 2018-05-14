@@ -1,0 +1,992 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="vue,教程,详解vue-从熟悉到熟练," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://o3sw4xojp.qnssl.com/paper_airplane.png?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="前文我们知道，在vue单文件组件中，最终会导出一个对象。123&amp;lt;script&amp;gt;	export default &amp;#123;&amp;#125;;&amp;lt;/script&amp;gt;
+vue已经为我们预先指定好了这个对象一些选项，如data, components, methods, computed, watch, mixins, filters, 钩子函数等等。本文我们将从组件的使用场景出发，详解">
+<meta property="og:type" content="article">
+<meta property="og:title" content="详解vue-从熟悉到熟练-part2-对象的选项们">
+<meta property="og:url" content="http://yoursite.com/2018/04/09/详解vue-从熟悉到熟练-part2-对象的选项们/index.html">
+<meta property="og:site_name" content="萝三画室">
+<meta property="og:description" content="前文我们知道，在vue单文件组件中，最终会导出一个对象。123&amp;lt;script&amp;gt;	export default &amp;#123;&amp;#125;;&amp;lt;/script&amp;gt;
+vue已经为我们预先指定好了这个对象一些选项，如data, components, methods, computed, watch, mixins, filters, 钩子函数等等。本文我们将从组件的使用场景出发，详解">
+<meta property="og:updated_time" content="2018-05-14T14:23:43.377Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="详解vue-从熟悉到熟练-part2-对象的选项们">
+<meta name="twitter:description" content="前文我们知道，在vue单文件组件中，最终会导出一个对象。123&amp;lt;script&amp;gt;	export default &amp;#123;&amp;#125;;&amp;lt;/script&amp;gt;
+vue已经为我们预先指定好了这个对象一些选项，如data, components, methods, computed, watch, mixins, filters, 钩子函数等等。本文我们将从组件的使用场景出发，详解">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/04/09/详解vue-从熟悉到熟练-part2-对象的选项们/"/>
+
+
+
+
+
+  <title> 详解vue-从熟悉到熟练-part2-对象的选项们 | 萝三画室 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">萝三画室</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle">向死而生</p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/09/详解vue-从熟悉到熟练-part2-对象的选项们/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="LOLISuri">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="https://o3sw4xojp.qnssl.com/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="萝三画室">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="萝三画室" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                详解vue-从熟悉到熟练-part2-对象的选项们
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-09T09:18:16+08:00">
+                2018-04-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>前文我们知道，在vue单文件组件中，最终会导出一个对象。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;</div><div class="line">	export default &#123;&#125;;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<p>vue已经为我们预先指定好了这个对象一些选项，如data, components, methods, computed, watch, mixins, filters, 钩子函数等等。本文我们将从组件的使用场景出发，详解这些属性和方法的用法。</p>
+<h1 id="组件内部属性"><a href="#组件内部属性" class="headerlink" title="组件内部属性"></a>组件内部属性</h1><p>这里的内部指的是，组件自用的，不与外部产生交互的属性。如果我们想构造出一个不与外部交互的静态页面，那么只使用这里的选项就可以了。</p>
+<h2 id="data用于保存组件内部状态"><a href="#data用于保存组件内部状态" class="headerlink" title="data用于保存组件内部状态"></a>data用于保存组件内部状态</h2><p>对于一个组件，它独有的内部状态全部保存在data中。组件被创建后，你可以在任何地方更改data中的状态。与状态绑定的一切都会跟随状态的变化响应式地变化：绑定的DOM会重新渲染，绑定的计算属性(computed)会自动更新，对应的观察者（watch）会自动执行。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">&lt;template&gt;</div><div class="line">	&lt;button @click=&quot;changeMsg&quot;&gt;</div><div class="line">		&#123;&#123;msg&#125;&#125;</div><div class="line">	&lt;/button&gt;</div><div class="line">&lt;/template&gt;</div><div class="line"></div><div class="line">&lt;script&gt;</div><div class="line">	export default &#123;</div><div class="line">		data() &#123;</div><div class="line">			return &#123;</div><div class="line">				msg: &apos;hello&apos;,</div><div class="line">			&#125;;</div><div class="line">		&#125;,</div><div class="line">		methods: &#123;</div><div class="line">			changeMsg() &#123;</div><div class="line">				this.msg = &apos;world&apos;;</div><div class="line">			&#125;,</div><div class="line">		&#125;,</div><div class="line">	&#125;;</div><div class="line">&lt;/script&gt;</div><div class="line">```	</div><div class="line">以上栗子，页面初始状态button上显示的文字是&apos;hello&apos;，点击按钮后，文字会变为&apos;world&apos;。</div><div class="line">## methods用于定义方法</div><div class="line">可以回头看上个栗子，我们用到了methods这个属性。它是个对象，其中定义了组件需要的方法。changeMsg这个函数就是用来改变组件内部状态的方法。</div><div class="line">## computed用于定义&quot;随着状态改变而改变的状态&quot;</div><div class="line">在实际应用中，我们通常会将data用于保存***基本状态***。在很多场景下，我们需要***对基本状态做一些转换***再使用。直接将转换逻辑写到用处，或者多处都用到同一逻辑时，我们就发现代码不很整洁，并且将逻辑散落到各处。</div></pre></td></tr></table></figure></p>
+<template><br>    <button @click="changeMsg"><br>    &#123;&#123; msg.split(‘’).reverse().join(‘’) &#125;&#123;<br>    </button><br></template>
+
+<p><script><br>    export default {<br>        data() {<br>            return {<br>                msg: ‘hello’,<br>            };<br>        },<br>        methods: {<br>            changeMsg() {<br>                this.msg = ‘world’;<br>            },<br>        },<br>    };<br></script><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">computed计算属性就是帮我们处理这个问题的。一个计算属性就是一个基于一个或几个基本状态的，不带参数的，有返回值的函数。</div></pre></td></tr></table></figure></p>
+<template><br>    <button @click="changeMsg"><br>        <br>    </button><br></template>
+
+<p><script><br>    export default {<br>        data() {<br>            return {<br>                msg: ‘hello’,<br>            };<br>        },<br>        computed: {<br>            reversedMsg() {<br>                return this.msg.split(‘’).reverse().join(‘’);<br>            },<br>        },<br>        methods: {<br>            changeMsg() {<br>                this.msg = ‘world’;<br>            },<br>        },<br>    };<br></script><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">上栗中，我们将散落在```&lt;template&gt;```中的状态转换逻辑写到计算属性reversedMsg中，这样便于逻辑的统一管理，也便于复用。计算属性会随着它内部引用的状态变化而变化，也就是说，只要msg变化，reversedMsg就会立即执行，返回一个新值。同data中的状态一样，与计算属性绑定的一切都会跟随着它的变化响应式地更新。</div><div class="line"></div><div class="line">计算属性默认只有getter，在需要时也可以围棋设置一个setter。使用setter的一个常用场景是：使用v-model双向绑定vuex中的state时。</div></pre></td></tr></table></figure></p>
+<p><script><br>    export default {<br>        data() {<br>            return {<br>                msg: ‘hello’,<br>            };<br>        },<br>        computed: {<br>            reversedMsg: {<br>                get() {<br>                    return this.msg.split(‘’).reverse().join(‘’);<br>                },<br>                set(newVal) {<br>                    //do some thing when set value<br>                },<br>            },<br>        },<br>    };<br></script><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">## watch用于侦听变化，在变化之后do something</div><div class="line">watch和computed有一些相似，它们都是在变化后自动执行的函数</div><div class="line">主要区别在于：computed无参有返回值，是一个‘随基本状态变化而变化的状态’；watch接受两个参数，不需要返回值，是‘在状态变化之后，做些什么’。此外还有性能上的区别，请查看官方文档。</div></pre></td></tr></table></figure></p>
+<p><script><br>    export default {<br>        data() {<br>            return {<br>                msg: ‘hello’,<br>            };<br>        },<br>        watch: {<br>            msg(newVal, oldVal) {<br>                //do something when msg change<br>            },<br>        },<br>    };<br></script><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">用法就是这样，至于什么时候用computed什么时候用watch，就看需要的是状态还是做一些事就可以了。</div><div class="line"></div><div class="line">## 钩子函数</div><div class="line">钩子函数就是在一个vue组件的完整生命周期中的某些阶段，我们可以做些什么。与react不同，vue的钩子函数比较多，并且不带参，相当于将react的钩子按照before和after进一步细分。</div><div class="line">1. beforeCreate:</div><div class="line">vue组件开始创建前，此时组件内所有都是不可用的，可以用来做一些组件创建前的准备工作。</div><div class="line">2. created：</div><div class="line">vue组件创建完成，此时虚拟DOM已准备好，组件内状态，方法等全部可用，但并未生成真实DOM，不能直接操作DOM或使用ref等方法简介使用DOM，可以用来发送请求以及做一些初始化工作。</div><div class="line">3. beforeMounted：</div><div class="line">虚拟DOM挂载到真实DOM之前。由于它与created相似，因此通常用得比较少。</div><div class="line">4. mounted：</div><div class="line">虚拟DOM已挂载到真实DOM元素上，vue的所有方法都可用，这个钩子中适合做一些依赖于DOM元素的操作。</div><div class="line">5. beforeupdate:</div><div class="line">状态改变之前，适合基于变化的判断和拦截。在跨组件使用时，相当于对另一个组件的watch。</div><div class="line">6. updated：</div><div class="line">状态改变之后。</div><div class="line">7. beforeDestroy：</div><div class="line">组件销毁之前，组件内部所有都存在且可用（类似mounted），适合于做一些销毁工作。</div><div class="line">8. destroyed:</div><div class="line">组件销毁之后，组件内所有都消失且不可用（类似beforeCreate）。</div><div class="line"></div><div class="line">#与其他组件交互的属性</div><div class="line">根据上一节的属性，我们可以构建起一个独立的，不与外部交互的静态页面。然而组件之间一定会存在通信的场景，这就需要我们对各自独立的组件之间建立连接。</div><div class="line"></div><div class="line">## 引入其他单文件组件时，用components局部注册</div><div class="line">当我们的组件需要引入其他组件时，引入后需要在components中注册, 然后才可以在```&lt;template&gt;```中以tag时形式写入。</div></pre></td></tr></table></figure></p>
+<template><br>    <div><br>        <child></child><br>        <b></b><br>    </div><br></template>
+
+<p><script><br>    import a from ‘./a.vue’;<br>    import b from ‘./b.vue’;</p>
+<pre><code>export default {
+    components: {
+        child: a,
+        b,
+    },
+};
+</code></pre><p></script><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">## 用props声明对外的数据接口</div><div class="line">使用components只是让其他组件在本组件内可用。为了完成组件之间的通信，我们还需要建立连接。在vue的概念中，组件之间是通过数据和事件完成通信的。父组件将数据通过子组件定义的props传递到子组件；子组件通过提交（emit），并在父组件中监听(on)来传递事件。（vue组件之间的通信方法不止这一种，后续会单独详述）</div><div class="line">子组件a.vue：</div></pre></td></tr></table></figure></p>
+<template><br>    <span><p>前文我们知道，在vue单文件组件中，最终会导出一个对象。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;</div><div class="line">	export default &#123;&#125;;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<p>vue已经为我们预先指定好了这个对象一些选项，如data, components, methods, computed, watch, mixins, filters, 钩子函数等等。本文我们将从组件的使用场景出发，详解这些属性和方法的用法。</p>
+<h1 id="组件内部属性"><a href="#组件内部属性" class="headerlink" title="组件内部属性"></a>组件内部属性</h1><p>这里的内部指的是，组件自用的，不与外部产生交互的属性。如果我们想构造出一个不与外部交互的静态页面，那么只使用这里的选项就可以了。</p>
+<h2 id="data用于保存组件内部状态"><a href="#data用于保存组件内部状态" class="headerlink" title="data用于保存组件内部状态"></a>data用于保存组件内部状态</h2><p>对于一个组件，它独有的内部状态全部保存在data中。组件被创建后，你可以在任何地方更改data中的状态。与状态绑定的一切都会跟随状态的变化响应式地变化：绑定的DOM会重新渲染，绑定的计算属性(computed)会自动更新，对应的观察者（watch）会自动执行。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">&lt;template&gt;</div><div class="line">	&lt;button @click=&quot;changeMsg&quot;&gt;</div><div class="line">		&#123;&#123;msg&#125;&#125;</div><div class="line">	&lt;/button&gt;</div><div class="line">&lt;/template&gt;</div><div class="line"></div><div class="line">&lt;script&gt;</div><div class="line">	export default &#123;</div><div class="line">		data() &#123;</div><div class="line">			return &#123;</div><div class="line">				msg: &apos;hello&apos;,</div><div class="line">			&#125;;</div><div class="line">		&#125;,</div><div class="line">		methods: &#123;</div><div class="line">			changeMsg() &#123;</div><div class="line">				this.msg = &apos;world&apos;;</div><div class="line">			&#125;,</div><div class="line">		&#125;,</div><div class="line">	&#125;;</div><div class="line">&lt;/script&gt;</div><div class="line">```	</div><div class="line">以上栗子，页面初始状态button上显示的文字是&apos;hello&apos;，点击按钮后，文字会变为&apos;world&apos;。</div><div class="line">## methods用于定义方法</div><div class="line">可以回头看上个栗子，我们用到了methods这个属性。它是个对象，其中定义了组件需要的方法。changeMsg这个函数就是用来改变组件内部状态的方法。</div><div class="line">## computed用于定义&quot;随着状态改变而改变的状态&quot;</div><div class="line">在实际应用中，我们通常会将data用于保存***基本状态***。在很多场景下，我们需要***对基本状态做一些转换***再使用。直接将转换逻辑写到用处，或者多处都用到同一逻辑时，我们就发现代码不很整洁，并且将逻辑散落到各处。</div></pre></td></tr></table></figure></p>
+<template><br>    <button @click="changeMsg"><br>    &#123;&#123; msg.split(‘’).reverse().join(‘’) &#125;&#123;<br>    </button><br></template>
+
+<p><script><br>    export default {<br>        data() {<br>            return {<br>                msg: ‘hello’,<br>            };<br>        },<br>        methods: {<br>            changeMsg() {<br>                this.msg = ‘world’;<br>            },<br>        },<br>    };<br></script><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">computed计算属性就是帮我们处理这个问题的。一个计算属性就是一个基于一个或几个基本状态的，不带参数的，有返回值的函数。</div></pre></td></tr></table></figure></p>
+<template><br>    <button @click="changeMsg"><br>        {{reversedMsg}}<br>    </button><br></template>
+
+<p><script><br>    export default {<br>        data() {<br>            return {<br>                msg: ‘hello’,<br>            };<br>        },<br>        computed: {<br>            reversedMsg() {<br>                return this.msg.split(‘’).reverse().join(‘’);<br>            },<br>        },<br>        methods: {<br>            changeMsg() {<br>                this.msg = ‘world’;<br>            },<br>        },<br>    };<br></script><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">上栗中，我们将散落在```&lt;template&gt;```中的状态转换逻辑写到计算属性reversedMsg中，这样便于逻辑的统一管理，也便于复用。计算属性会随着它内部引用的状态变化而变化，也就是说，只要msg变化，reversedMsg就会立即执行，返回一个新值。同data中的状态一样，与计算属性绑定的一切都会跟随着它的变化响应式地更新。</div><div class="line"></div><div class="line">计算属性默认只有getter，在需要时也可以围棋设置一个setter。使用setter的一个常用场景是：使用v-model双向绑定vuex中的state时。</div></pre></td></tr></table></figure></p>
+<p><script><br>    export default {<br>        data() {<br>            return {<br>                msg: ‘hello’,<br>            };<br>        },<br>        computed: {<br>            reversedMsg: {<br>                get() {<br>                    return this.msg.split(‘’).reverse().join(‘’);<br>                },<br>                set(newVal) {<br>                    //do some thing when set value<br>                },<br>            },<br>        },<br>    };<br></script><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">## watch用于侦听变化，在变化之后do something</div><div class="line">watch和computed有一些相似，它们都是在变化后自动执行的函数</div><div class="line">主要区别在于：computed无参有返回值，是一个‘随基本状态变化而变化的状态’；watch接受两个参数，不需要返回值，是‘在状态变化之后，做些什么’。此外还有性能上的区别，请查看官方文档。</div></pre></td></tr></table></figure></p>
+<p><script><br>    export default {<br>        data() {<br>            return {<br>                msg: ‘hello’,<br>            };<br>        },<br>        watch: {<br>            msg(newVal, oldVal) {<br>                //do something when msg change<br>            },<br>        },<br>    };<br></script><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">用法就是这样，至于什么时候用computed什么时候用watch，就看需要的是状态还是做一些事就可以了。</div><div class="line"></div><div class="line">## 钩子函数</div><div class="line">钩子函数就是在一个vue组件的完整生命周期中的某些阶段，我们可以做些什么。与react不同，vue的钩子函数比较多，并且不带参，相当于将react的钩子按照before和after进一步细分。</div><div class="line">1. beforeCreate:</div><div class="line">vue组件开始创建前，此时组件内所有都是不可用的，可以用来做一些组件创建前的准备工作。</div><div class="line">2. created：</div><div class="line">vue组件创建完成，此时虚拟DOM已准备好，组件内状态，方法等全部可用，但并未生成真实DOM，不能直接操作DOM或使用ref等方法简介使用DOM，可以用来发送请求以及做一些初始化工作。</div><div class="line">3. beforeMounted：</div><div class="line">虚拟DOM挂载到真实DOM之前。由于它与created相似，因此通常用得比较少。</div><div class="line">4. mounted：</div><div class="line">虚拟DOM已挂载到真实DOM元素上，vue的所有方法都可用，这个钩子中适合做一些依赖于DOM元素的操作。</div><div class="line">5. beforeupdate:</div><div class="line">状态改变之前，适合基于变化的判断和拦截。在跨组件使用时，相当于对另一个组件的watch。</div><div class="line">6. updated：</div><div class="line">状态改变之后。</div><div class="line">7. beforeDestroy：</div><div class="line">组件销毁之前，组件内部所有都存在且可用（类似mounted），适合于做一些销毁工作。</div><div class="line">8. destroyed:</div><div class="line">组件销毁之后，组件内所有都消失且不可用（类似beforeCreate）。</div><div class="line"></div><div class="line">#与其他组件交互的属性</div><div class="line">根据上一节的属性，我们可以构建起一个独立的，不与外部交互的静态页面。然而组件之间一定会存在通信的场景，这就需要我们对各自独立的组件之间建立连接。</div><div class="line"></div><div class="line">## 引入其他单文件组件时，用components局部注册</div><div class="line">当我们的组件需要引入其他组件时，引入后需要在components中注册, 然后才可以在```&lt;template&gt;```中以tag时形式写入。</div></pre></td></tr></table></figure></p>
+<template><br>    <div><br>        <child></child><br>        <b></b><br>    </div><br></template>
+
+<p><script><br>    import a from ‘./a.vue’;<br>    import b from ‘./b.vue’;</p>
+<pre><code>export default {
+    components: {
+        child: a,
+        b,
+    },
+};
+</code></pre><p></script><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">## 用props声明对外的数据接口</div><div class="line">使用components只是让其他组件在本组件内可用。为了完成组件之间的通信，我们还需要建立连接。在vue的概念中，组件之间是通过数据和事件完成通信的。父组件将数据通过子组件定义的props传递到子组件；子组件通过提交（emit），并在父组件中监听(on)来传递事件。（vue组件之间的通信方法不止这一种，后续会单独详述）</div><div class="line">子组件a.vue：</div></pre></td></tr></table></figure></p>
+<template><br>    <span>{{content}}</span><br></template>
+
+<p><script><br>    export default {<br>        props: [‘content’],<br>    };<br></script><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">父组件:</div></pre></td></tr></table></figure></p>
+<template><br>    <div><br>        <child content="hello world"></child><br>    </div><br></template>
+
+<p><script><br>    import a from ‘./a.vue’;</p>
+<pre><code>export default {
+    components: {
+        child: a,
+    },
+};
+</code></pre><p></script><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">最终渲染出来的元素将会是</div></pre></td></tr></table></figure></p>
+<p><div><br>    <span>hello world</span><br></div><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">props属性可以是数组也可以是对象，还支持类型验证，详情请查官方文档。</div><div class="line"></div><div class="line"># 复用和继承</div><div class="line">## filters定义过滤器</div><div class="line">一个过滤器就是一个管道，是一个带参数，有返回值的纯函数，常在```&lt;template&gt;```中用于一些常见的文本格式化。</div></pre></td></tr></table></figure></p>
+<template><br>    <div>&#123;&#123; timeStamp | parseTime &#125;&#123;</div><br></template>
+
+<p><script><br>    import moment from ‘moment’;</p>
+<pre><code>export default {
+    data() {
+        return {
+            timeStamp: 1523324560953,
+        };
+    },
+    filters: {
+        parseTime(millisecond) {
+            return moment(millisecond).format(&apos;YYYY-MM-DD HH:mm:ss&apos;);
+        },
+    },
+};
+</code></pre><p></script><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">上栗中，过滤器parseTime的作用就是将时间戳转换为指定格式的时间，它在	```&lt;template&gt;```中的用法就像管道：```&lt;div&gt;&#123;&#123; timeStamp | parseTime &#125;&#125;&lt;/div&gt;```。</div><div class="line">```|```左侧是待转换的时间戳，右侧是过滤器，表达式结果就是过滤器返回的结果。</div><div class="line"></div><div class="line"></div><div class="line">由于过滤器实际上就是一个纯函数，所以当然我们也可以在```&lt;script&gt;```中当做普通函数使用。</div><div class="line"></div><div class="line">## mixins用于混入公用属性</div><div class="line"></div><div class="line">组件的作用域是独立的，当多个组件共用一个方法时，我们一般会把方法抽到utils，按需引用。然而对于vue，我们还可以抽出其他属性。在vue中，我们可以把所有的属性都提出来放入一个JS文件中，再通过mixin混入。混入的属性将会与组件内部的属性merge到一起，变为组件的属性。</div></pre></td></tr></table></figure></p>
+<p>//logTimeInterval.js<br>import moment from ‘moment’;<br>import { LOG_INTERVAL } from ‘@/constants/application’;</p>
+<p>export default {<br>  data() {<br>    return {<br>      LOG_INTERVAL,<br>      interval: LOG_INTERVAL.ONEWEEK.type,<br>    };<br>  },<br>  computed: {<br>    targetTimeInterval() {<br>      const { time, unit } = LOG_INTERVAL[this.interval];<br>      return {<br>        from: moment().subtract(time, unit).valueOf(),<br>        to: moment().valueOf(),<br>      };<br>    },<br>  },<br>};</p>
+<p>//组件</p>
+<template><br>    <div><br>        <span>{{content}}</span><br>        <span>{{targetTimeInterval}}</span><br>    </div><br></template>
+
+<p>import logTimeInterval from ‘./logTimeInterval.js’;</p>
+<p>export default {<br>    mixins: [logTimeInterval],<br>    data() {<br>        return {<br>            content: ‘timeInterval:’,<br>        };<br>    },<br>};<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">## extends继承其他组件的属性</div><div class="line">extends的作用同mixins相同，都是将组件外部的属性merge为自身属性。区别在于minxin是混入一个js文件中的公共属性；extendes是基于一个vue组件，相当于继承一个组件。可以理解为：mixins是抽属性，extends是抽组件extends的使用场景更像是面向对象的抽父类。</div></pre></td></tr></table></figure></p>
+<p>//logTimeInterval.vue</p>
+<p><script><br>    import moment from ‘moment’;<br>    import { LOG_INTERVAL } from ‘@/constants/application’;</p>
+<pre><code>export default {
+  data() {
+    return {
+      LOG_INTERVAL,
+      interval: LOG_INTERVAL.ONEWEEK.type,
+    };
+  },
+  computed: {
+    targetTimeInterval() {
+      const { time, unit } = LOG_INTERVAL[this.interval];
+      return {
+        from: moment().subtract(time, unit).valueOf(),
+        to: moment().valueOf(),
+      };
+    },
+  },
+};
+</code></pre><p></script><br>//组件</p>
+<template><br>    <div><br>        <span>{{content}}</span><br>        <span>{{targetTimeInterval}}</span><br>    </div><br></template>
+
+<p>import logTimeInterval from ‘./logTimeInterval.vue’;</p>
+<p>export default {<br>    extends: logTimeInterval,<br>    data() {<br>        return {<br>            content: ‘timeInterval:’,<br>        };<br>    },<br>}<br>```</p>
+</span><br></template>
+
+<p><script><br>    export default {<br>        props: [‘content’],<br>    };<br></script><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">父组件:</div></pre></td></tr></table></figure></p>
+<template><br>    <div><br>        <child content="hello world"></child><br>    </div><br></template>
+
+<p><script><br>    import a from ‘./a.vue’;</p>
+<pre><code>export default {
+    components: {
+        child: a,
+    },
+};
+</code></pre><p></script><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">最终渲染出来的元素将会是</div></pre></td></tr></table></figure></p>
+<p><div><br>    <span>hello world</span><br></div><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">props属性可以是数组也可以是对象，还支持类型验证，详情请查官方文档。</div><div class="line"></div><div class="line"># 复用和继承</div><div class="line">## filters定义过滤器</div><div class="line">一个过滤器就是一个管道，是一个带参数，有返回值的纯函数，常在```&lt;template&gt;```中用于一些常见的文本格式化。</div></pre></td></tr></table></figure></p>
+<template><br>    <div>&#123;&#123; timeStamp | parseTime &#125;&#123;</div><br></template>
+
+<p><script><br>    import moment from ‘moment’;</p>
+<pre><code>export default {
+    data() {
+        return {
+            timeStamp: 1523324560953,
+        };
+    },
+    filters: {
+        parseTime(millisecond) {
+            return moment(millisecond).format(&apos;YYYY-MM-DD HH:mm:ss&apos;);
+        },
+    },
+};
+</code></pre><p></script><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">上栗中，过滤器parseTime的作用就是将时间戳转换为指定格式的时间，它在	```&lt;template&gt;```中的用法就像管道：```&lt;div&gt;&#123;&#123; timeStamp | parseTime &#125;&#125;&lt;/div&gt;```。</div><div class="line">```|```左侧是待转换的时间戳，右侧是过滤器，表达式结果就是过滤器返回的结果。</div><div class="line"></div><div class="line"></div><div class="line">由于过滤器实际上就是一个纯函数，所以当然我们也可以在```&lt;script&gt;```中当做普通函数使用。</div><div class="line"></div><div class="line">## mixins用于混入公用属性</div><div class="line"></div><div class="line">组件的作用域是独立的，当多个组件共用一个方法时，我们一般会把方法抽到utils，按需引用。然而对于vue，我们还可以抽出其他属性。在vue中，我们可以把所有的属性都提出来放入一个JS文件中，再通过mixin混入。混入的属性将会与组件内部的属性merge到一起，变为组件的属性。</div></pre></td></tr></table></figure></p>
+<p>//logTimeInterval.js<br>import moment from ‘moment’;<br>import { LOG_INTERVAL } from ‘@/constants/application’;</p>
+<p>export default {<br>  data() {<br>    return {<br>      LOG_INTERVAL,<br>      interval: LOG_INTERVAL.ONEWEEK.type,<br>    };<br>  },<br>  computed: {<br>    targetTimeInterval() {<br>      const { time, unit } = LOG_INTERVAL[this.interval];<br>      return {<br>        from: moment().subtract(time, unit).valueOf(),<br>        to: moment().valueOf(),<br>      };<br>    },<br>  },<br>};</p>
+<p>//组件</p>
+<template><br>    <div><br>        <span><p>前文我们知道，在vue单文件组件中，最终会导出一个对象。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;</div><div class="line">	export default &#123;&#125;;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<p>vue已经为我们预先指定好了这个对象一些选项，如data, components, methods, computed, watch, mixins, filters, 钩子函数等等。本文我们将从组件的使用场景出发，详解这些属性和方法的用法。</p>
+<h1 id="组件内部属性"><a href="#组件内部属性" class="headerlink" title="组件内部属性"></a>组件内部属性</h1><p>这里的内部指的是，组件自用的，不与外部产生交互的属性。如果我们想构造出一个不与外部交互的静态页面，那么只使用这里的选项就可以了。</p>
+<h2 id="data用于保存组件内部状态"><a href="#data用于保存组件内部状态" class="headerlink" title="data用于保存组件内部状态"></a>data用于保存组件内部状态</h2><p>对于一个组件，它独有的内部状态全部保存在data中。组件被创建后，你可以在任何地方更改data中的状态。与状态绑定的一切都会跟随状态的变化响应式地变化：绑定的DOM会重新渲染，绑定的计算属性(computed)会自动更新，对应的观察者（watch）会自动执行。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">&lt;template&gt;</div><div class="line">	&lt;button @click=&quot;changeMsg&quot;&gt;</div><div class="line">		&#123;&#123;msg&#125;&#125;</div><div class="line">	&lt;/button&gt;</div><div class="line">&lt;/template&gt;</div><div class="line"></div><div class="line">&lt;script&gt;</div><div class="line">	export default &#123;</div><div class="line">		data() &#123;</div><div class="line">			return &#123;</div><div class="line">				msg: &apos;hello&apos;,</div><div class="line">			&#125;;</div><div class="line">		&#125;,</div><div class="line">		methods: &#123;</div><div class="line">			changeMsg() &#123;</div><div class="line">				this.msg = &apos;world&apos;;</div><div class="line">			&#125;,</div><div class="line">		&#125;,</div><div class="line">	&#125;;</div><div class="line">&lt;/script&gt;</div><div class="line">```	</div><div class="line">以上栗子，页面初始状态button上显示的文字是&apos;hello&apos;，点击按钮后，文字会变为&apos;world&apos;。</div><div class="line">## methods用于定义方法</div><div class="line">可以回头看上个栗子，我们用到了methods这个属性。它是个对象，其中定义了组件需要的方法。changeMsg这个函数就是用来改变组件内部状态的方法。</div><div class="line">## computed用于定义&quot;随着状态改变而改变的状态&quot;</div><div class="line">在实际应用中，我们通常会将data用于保存***基本状态***。在很多场景下，我们需要***对基本状态做一些转换***再使用。直接将转换逻辑写到用处，或者多处都用到同一逻辑时，我们就发现代码不很整洁，并且将逻辑散落到各处。</div></pre></td></tr></table></figure></p>
+<template><br>    <button @click="changeMsg"><br>    &#123;&#123; msg.split(‘’).reverse().join(‘’) &#125;&#123;<br>    </button><br></template>
+
+<p><script><br>    export default {<br>        data() {<br>            return {<br>                msg: ‘hello’,<br>            };<br>        },<br>        methods: {<br>            changeMsg() {<br>                this.msg = ‘world’;<br>            },<br>        },<br>    };<br></script><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">computed计算属性就是帮我们处理这个问题的。一个计算属性就是一个基于一个或几个基本状态的，不带参数的，有返回值的函数。</div></pre></td></tr></table></figure></p>
+<template><br>    <button @click="changeMsg"><br>        {{reversedMsg}}<br>    </button><br></template>
+
+<p><script><br>    export default {<br>        data() {<br>            return {<br>                msg: ‘hello’,<br>            };<br>        },<br>        computed: {<br>            reversedMsg() {<br>                return this.msg.split(‘’).reverse().join(‘’);<br>            },<br>        },<br>        methods: {<br>            changeMsg() {<br>                this.msg = ‘world’;<br>            },<br>        },<br>    };<br></script><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">上栗中，我们将散落在```&lt;template&gt;```中的状态转换逻辑写到计算属性reversedMsg中，这样便于逻辑的统一管理，也便于复用。计算属性会随着它内部引用的状态变化而变化，也就是说，只要msg变化，reversedMsg就会立即执行，返回一个新值。同data中的状态一样，与计算属性绑定的一切都会跟随着它的变化响应式地更新。</div><div class="line"></div><div class="line">计算属性默认只有getter，在需要时也可以围棋设置一个setter。使用setter的一个常用场景是：使用v-model双向绑定vuex中的state时。</div></pre></td></tr></table></figure></p>
+<p><script><br>    export default {<br>        data() {<br>            return {<br>                msg: ‘hello’,<br>            };<br>        },<br>        computed: {<br>            reversedMsg: {<br>                get() {<br>                    return this.msg.split(‘’).reverse().join(‘’);<br>                },<br>                set(newVal) {<br>                    //do some thing when set value<br>                },<br>            },<br>        },<br>    };<br></script><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">## watch用于侦听变化，在变化之后do something</div><div class="line">watch和computed有一些相似，它们都是在变化后自动执行的函数</div><div class="line">主要区别在于：computed无参有返回值，是一个‘随基本状态变化而变化的状态’；watch接受两个参数，不需要返回值，是‘在状态变化之后，做些什么’。此外还有性能上的区别，请查看官方文档。</div></pre></td></tr></table></figure></p>
+<p><script><br>    export default {<br>        data() {<br>            return {<br>                msg: ‘hello’,<br>            };<br>        },<br>        watch: {<br>            msg(newVal, oldVal) {<br>                //do something when msg change<br>            },<br>        },<br>    };<br></script><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">用法就是这样，至于什么时候用computed什么时候用watch，就看需要的是状态还是做一些事就可以了。</div><div class="line"></div><div class="line">## 钩子函数</div><div class="line">钩子函数就是在一个vue组件的完整生命周期中的某些阶段，我们可以做些什么。与react不同，vue的钩子函数比较多，并且不带参，相当于将react的钩子按照before和after进一步细分。</div><div class="line">1. beforeCreate:</div><div class="line">vue组件开始创建前，此时组件内所有都是不可用的，可以用来做一些组件创建前的准备工作。</div><div class="line">2. created：</div><div class="line">vue组件创建完成，此时虚拟DOM已准备好，组件内状态，方法等全部可用，但并未生成真实DOM，不能直接操作DOM或使用ref等方法简介使用DOM，可以用来发送请求以及做一些初始化工作。</div><div class="line">3. beforeMounted：</div><div class="line">虚拟DOM挂载到真实DOM之前。由于它与created相似，因此通常用得比较少。</div><div class="line">4. mounted：</div><div class="line">虚拟DOM已挂载到真实DOM元素上，vue的所有方法都可用，这个钩子中适合做一些依赖于DOM元素的操作。</div><div class="line">5. beforeupdate:</div><div class="line">状态改变之前，适合基于变化的判断和拦截。在跨组件使用时，相当于对另一个组件的watch。</div><div class="line">6. updated：</div><div class="line">状态改变之后。</div><div class="line">7. beforeDestroy：</div><div class="line">组件销毁之前，组件内部所有都存在且可用（类似mounted），适合于做一些销毁工作。</div><div class="line">8. destroyed:</div><div class="line">组件销毁之后，组件内所有都消失且不可用（类似beforeCreate）。</div><div class="line"></div><div class="line">#与其他组件交互的属性</div><div class="line">根据上一节的属性，我们可以构建起一个独立的，不与外部交互的静态页面。然而组件之间一定会存在通信的场景，这就需要我们对各自独立的组件之间建立连接。</div><div class="line"></div><div class="line">## 引入其他单文件组件时，用components局部注册</div><div class="line">当我们的组件需要引入其他组件时，引入后需要在components中注册, 然后才可以在```&lt;template&gt;```中以tag时形式写入。</div></pre></td></tr></table></figure></p>
+<template><br>    <div><br>        <child></child><br>        <b></b><br>    </div><br></template>
+
+<p><script><br>    import a from ‘./a.vue’;<br>    import b from ‘./b.vue’;</p>
+<pre><code>export default {
+    components: {
+        child: a,
+        b,
+    },
+};
+</code></pre><p></script><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">## 用props声明对外的数据接口</div><div class="line">使用components只是让其他组件在本组件内可用。为了完成组件之间的通信，我们还需要建立连接。在vue的概念中，组件之间是通过数据和事件完成通信的。父组件将数据通过子组件定义的props传递到子组件；子组件通过提交（emit），并在父组件中监听(on)来传递事件。（vue组件之间的通信方法不止这一种，后续会单独详述）</div><div class="line">子组件a.vue：</div></pre></td></tr></table></figure></p>
+<template><br>    <span>{{content}}</span><br></template>
+
+<p><script><br>    export default {<br>        props: [‘content’],<br>    };<br></script><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">父组件:</div></pre></td></tr></table></figure></p>
+<template><br>    <div><br>        <child content="hello world"></child><br>    </div><br></template>
+
+<p><script><br>    import a from ‘./a.vue’;</p>
+<pre><code>export default {
+    components: {
+        child: a,
+    },
+};
+</code></pre><p></script><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">最终渲染出来的元素将会是</div></pre></td></tr></table></figure></p>
+<p><div><br>    <span>hello world</span><br></div><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">props属性可以是数组也可以是对象，还支持类型验证，详情请查官方文档。</div><div class="line"></div><div class="line"># 复用和继承</div><div class="line">## filters定义过滤器</div><div class="line">一个过滤器就是一个管道，是一个带参数，有返回值的纯函数，常在```&lt;template&gt;```中用于一些常见的文本格式化。</div></pre></td></tr></table></figure></p>
+<template><br>    <div>&#123;&#123; timeStamp | parseTime &#125;&#123;</div><br></template>
+
+<p><script><br>    import moment from ‘moment’;</p>
+<pre><code>export default {
+    data() {
+        return {
+            timeStamp: 1523324560953,
+        };
+    },
+    filters: {
+        parseTime(millisecond) {
+            return moment(millisecond).format(&apos;YYYY-MM-DD HH:mm:ss&apos;);
+        },
+    },
+};
+</code></pre><p></script><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">上栗中，过滤器parseTime的作用就是将时间戳转换为指定格式的时间，它在	```&lt;template&gt;```中的用法就像管道：```&lt;div&gt;&#123;&#123; timeStamp | parseTime &#125;&#125;&lt;/div&gt;```。</div><div class="line">```|```左侧是待转换的时间戳，右侧是过滤器，表达式结果就是过滤器返回的结果。</div><div class="line"></div><div class="line"></div><div class="line">由于过滤器实际上就是一个纯函数，所以当然我们也可以在```&lt;script&gt;```中当做普通函数使用。</div><div class="line"></div><div class="line">## mixins用于混入公用属性</div><div class="line"></div><div class="line">组件的作用域是独立的，当多个组件共用一个方法时，我们一般会把方法抽到utils，按需引用。然而对于vue，我们还可以抽出其他属性。在vue中，我们可以把所有的属性都提出来放入一个JS文件中，再通过mixin混入。混入的属性将会与组件内部的属性merge到一起，变为组件的属性。</div></pre></td></tr></table></figure></p>
+<p>//logTimeInterval.js<br>import moment from ‘moment’;<br>import { LOG_INTERVAL } from ‘@/constants/application’;</p>
+<p>export default {<br>  data() {<br>    return {<br>      LOG_INTERVAL,<br>      interval: LOG_INTERVAL.ONEWEEK.type,<br>    };<br>  },<br>  computed: {<br>    targetTimeInterval() {<br>      const { time, unit } = LOG_INTERVAL[this.interval];<br>      return {<br>        from: moment().subtract(time, unit).valueOf(),<br>        to: moment().valueOf(),<br>      };<br>    },<br>  },<br>};</p>
+<p>//组件</p>
+<template><br>    <div><br>        <span>{{content}}</span><br>        <span>{{targetTimeInterval}}</span><br>    </div><br></template>
+
+<p>import logTimeInterval from ‘./logTimeInterval.js’;</p>
+<p>export default {<br>    mixins: [logTimeInterval],<br>    data() {<br>        return {<br>            content: ‘timeInterval:’,<br>        };<br>    },<br>};<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">## extends继承其他组件的属性</div><div class="line">extends的作用同mixins相同，都是将组件外部的属性merge为自身属性。区别在于minxin是混入一个js文件中的公共属性；extendes是基于一个vue组件，相当于继承一个组件。可以理解为：mixins是抽属性，extends是抽组件extends的使用场景更像是面向对象的抽父类。</div></pre></td></tr></table></figure></p>
+<p>//logTimeInterval.vue</p>
+<p><script><br>    import moment from ‘moment’;<br>    import { LOG_INTERVAL } from ‘@/constants/application’;</p>
+<pre><code>export default {
+  data() {
+    return {
+      LOG_INTERVAL,
+      interval: LOG_INTERVAL.ONEWEEK.type,
+    };
+  },
+  computed: {
+    targetTimeInterval() {
+      const { time, unit } = LOG_INTERVAL[this.interval];
+      return {
+        from: moment().subtract(time, unit).valueOf(),
+        to: moment().valueOf(),
+      };
+    },
+  },
+};
+</code></pre><p></script><br>//组件</p>
+<template><br>    <div><br>        <span>{{content}}</span><br>        <span>{{targetTimeInterval}}</span><br>    </div><br></template>
+
+<p>import logTimeInterval from ‘./logTimeInterval.vue’;</p>
+<p>export default {<br>    extends: logTimeInterval,<br>    data() {<br>        return {<br>            content: ‘timeInterval:’,<br>        };<br>    },<br>}<br>```</p>
+</span><br>        <span></span><br>    </div><br></template>
+
+<p>import logTimeInterval from ‘./logTimeInterval.js’;</p>
+<p>export default {<br>    mixins: [logTimeInterval],<br>    data() {<br>        return {<br>            content: ‘timeInterval:’,<br>        };<br>    },<br>};<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">## extends继承其他组件的属性</div><div class="line">extends的作用同mixins相同，都是将组件外部的属性merge为自身属性。区别在于minxin是混入一个js文件中的公共属性；extendes是基于一个vue组件，相当于继承一个组件。可以理解为：mixins是抽属性，extends是抽组件extends的使用场景更像是面向对象的抽父类。</div></pre></td></tr></table></figure></p>
+<p>//logTimeInterval.vue</p>
+<p><script><br>    import moment from ‘moment’;<br>    import { LOG_INTERVAL } from ‘@/constants/application’;</p>
+<pre><code>export default {
+  data() {
+    return {
+      LOG_INTERVAL,
+      interval: LOG_INTERVAL.ONEWEEK.type,
+    };
+  },
+  computed: {
+    targetTimeInterval() {
+      const { time, unit } = LOG_INTERVAL[this.interval];
+      return {
+        from: moment().subtract(time, unit).valueOf(),
+        to: moment().valueOf(),
+      };
+    },
+  },
+};
+</code></pre><p></script><br>//组件</p>
+<template><br>    <div><br>        <span><p>前文我们知道，在vue单文件组件中，最终会导出一个对象。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;</div><div class="line">	export default &#123;&#125;;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<p>vue已经为我们预先指定好了这个对象一些选项，如data, components, methods, computed, watch, mixins, filters, 钩子函数等等。本文我们将从组件的使用场景出发，详解这些属性和方法的用法。</p>
+<h1 id="组件内部属性"><a href="#组件内部属性" class="headerlink" title="组件内部属性"></a>组件内部属性</h1><p>这里的内部指的是，组件自用的，不与外部产生交互的属性。如果我们想构造出一个不与外部交互的静态页面，那么只使用这里的选项就可以了。</p>
+<h2 id="data用于保存组件内部状态"><a href="#data用于保存组件内部状态" class="headerlink" title="data用于保存组件内部状态"></a>data用于保存组件内部状态</h2><p>对于一个组件，它独有的内部状态全部保存在data中。组件被创建后，你可以在任何地方更改data中的状态。与状态绑定的一切都会跟随状态的变化响应式地变化：绑定的DOM会重新渲染，绑定的计算属性(computed)会自动更新，对应的观察者（watch）会自动执行。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">&lt;template&gt;</div><div class="line">	&lt;button @click=&quot;changeMsg&quot;&gt;</div><div class="line">		&#123;&#123;msg&#125;&#125;</div><div class="line">	&lt;/button&gt;</div><div class="line">&lt;/template&gt;</div><div class="line"></div><div class="line">&lt;script&gt;</div><div class="line">	export default &#123;</div><div class="line">		data() &#123;</div><div class="line">			return &#123;</div><div class="line">				msg: &apos;hello&apos;,</div><div class="line">			&#125;;</div><div class="line">		&#125;,</div><div class="line">		methods: &#123;</div><div class="line">			changeMsg() &#123;</div><div class="line">				this.msg = &apos;world&apos;;</div><div class="line">			&#125;,</div><div class="line">		&#125;,</div><div class="line">	&#125;;</div><div class="line">&lt;/script&gt;</div><div class="line">```	</div><div class="line">以上栗子，页面初始状态button上显示的文字是&apos;hello&apos;，点击按钮后，文字会变为&apos;world&apos;。</div><div class="line">## methods用于定义方法</div><div class="line">可以回头看上个栗子，我们用到了methods这个属性。它是个对象，其中定义了组件需要的方法。changeMsg这个函数就是用来改变组件内部状态的方法。</div><div class="line">## computed用于定义&quot;随着状态改变而改变的状态&quot;</div><div class="line">在实际应用中，我们通常会将data用于保存***基本状态***。在很多场景下，我们需要***对基本状态做一些转换***再使用。直接将转换逻辑写到用处，或者多处都用到同一逻辑时，我们就发现代码不很整洁，并且将逻辑散落到各处。</div></pre></td></tr></table></figure></p>
+<template><br>    <button @click="changeMsg"><br>    &#123;&#123; msg.split(‘’).reverse().join(‘’) &#125;&#123;<br>    </button><br></template>
+
+<p><script><br>    export default {<br>        data() {<br>            return {<br>                msg: ‘hello’,<br>            };<br>        },<br>        methods: {<br>            changeMsg() {<br>                this.msg = ‘world’;<br>            },<br>        },<br>    };<br></script><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">computed计算属性就是帮我们处理这个问题的。一个计算属性就是一个基于一个或几个基本状态的，不带参数的，有返回值的函数。</div></pre></td></tr></table></figure></p>
+<template><br>    <button @click="changeMsg"><br>        {{reversedMsg}}<br>    </button><br></template>
+
+<p><script><br>    export default {<br>        data() {<br>            return {<br>                msg: ‘hello’,<br>            };<br>        },<br>        computed: {<br>            reversedMsg() {<br>                return this.msg.split(‘’).reverse().join(‘’);<br>            },<br>        },<br>        methods: {<br>            changeMsg() {<br>                this.msg = ‘world’;<br>            },<br>        },<br>    };<br></script><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">上栗中，我们将散落在```&lt;template&gt;```中的状态转换逻辑写到计算属性reversedMsg中，这样便于逻辑的统一管理，也便于复用。计算属性会随着它内部引用的状态变化而变化，也就是说，只要msg变化，reversedMsg就会立即执行，返回一个新值。同data中的状态一样，与计算属性绑定的一切都会跟随着它的变化响应式地更新。</div><div class="line"></div><div class="line">计算属性默认只有getter，在需要时也可以围棋设置一个setter。使用setter的一个常用场景是：使用v-model双向绑定vuex中的state时。</div></pre></td></tr></table></figure></p>
+<p><script><br>    export default {<br>        data() {<br>            return {<br>                msg: ‘hello’,<br>            };<br>        },<br>        computed: {<br>            reversedMsg: {<br>                get() {<br>                    return this.msg.split(‘’).reverse().join(‘’);<br>                },<br>                set(newVal) {<br>                    //do some thing when set value<br>                },<br>            },<br>        },<br>    };<br></script><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">## watch用于侦听变化，在变化之后do something</div><div class="line">watch和computed有一些相似，它们都是在变化后自动执行的函数</div><div class="line">主要区别在于：computed无参有返回值，是一个‘随基本状态变化而变化的状态’；watch接受两个参数，不需要返回值，是‘在状态变化之后，做些什么’。此外还有性能上的区别，请查看官方文档。</div></pre></td></tr></table></figure></p>
+<p><script><br>    export default {<br>        data() {<br>            return {<br>                msg: ‘hello’,<br>            };<br>        },<br>        watch: {<br>            msg(newVal, oldVal) {<br>                //do something when msg change<br>            },<br>        },<br>    };<br></script><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">用法就是这样，至于什么时候用computed什么时候用watch，就看需要的是状态还是做一些事就可以了。</div><div class="line"></div><div class="line">## 钩子函数</div><div class="line">钩子函数就是在一个vue组件的完整生命周期中的某些阶段，我们可以做些什么。与react不同，vue的钩子函数比较多，并且不带参，相当于将react的钩子按照before和after进一步细分。</div><div class="line">1. beforeCreate:</div><div class="line">vue组件开始创建前，此时组件内所有都是不可用的，可以用来做一些组件创建前的准备工作。</div><div class="line">2. created：</div><div class="line">vue组件创建完成，此时虚拟DOM已准备好，组件内状态，方法等全部可用，但并未生成真实DOM，不能直接操作DOM或使用ref等方法简介使用DOM，可以用来发送请求以及做一些初始化工作。</div><div class="line">3. beforeMounted：</div><div class="line">虚拟DOM挂载到真实DOM之前。由于它与created相似，因此通常用得比较少。</div><div class="line">4. mounted：</div><div class="line">虚拟DOM已挂载到真实DOM元素上，vue的所有方法都可用，这个钩子中适合做一些依赖于DOM元素的操作。</div><div class="line">5. beforeupdate:</div><div class="line">状态改变之前，适合基于变化的判断和拦截。在跨组件使用时，相当于对另一个组件的watch。</div><div class="line">6. updated：</div><div class="line">状态改变之后。</div><div class="line">7. beforeDestroy：</div><div class="line">组件销毁之前，组件内部所有都存在且可用（类似mounted），适合于做一些销毁工作。</div><div class="line">8. destroyed:</div><div class="line">组件销毁之后，组件内所有都消失且不可用（类似beforeCreate）。</div><div class="line"></div><div class="line">#与其他组件交互的属性</div><div class="line">根据上一节的属性，我们可以构建起一个独立的，不与外部交互的静态页面。然而组件之间一定会存在通信的场景，这就需要我们对各自独立的组件之间建立连接。</div><div class="line"></div><div class="line">## 引入其他单文件组件时，用components局部注册</div><div class="line">当我们的组件需要引入其他组件时，引入后需要在components中注册, 然后才可以在```&lt;template&gt;```中以tag时形式写入。</div></pre></td></tr></table></figure></p>
+<template><br>    <div><br>        <child></child><br>        <b></b><br>    </div><br></template>
+
+<p><script><br>    import a from ‘./a.vue’;<br>    import b from ‘./b.vue’;</p>
+<pre><code>export default {
+    components: {
+        child: a,
+        b,
+    },
+};
+</code></pre><p></script><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">## 用props声明对外的数据接口</div><div class="line">使用components只是让其他组件在本组件内可用。为了完成组件之间的通信，我们还需要建立连接。在vue的概念中，组件之间是通过数据和事件完成通信的。父组件将数据通过子组件定义的props传递到子组件；子组件通过提交（emit），并在父组件中监听(on)来传递事件。（vue组件之间的通信方法不止这一种，后续会单独详述）</div><div class="line">子组件a.vue：</div></pre></td></tr></table></figure></p>
+<template><br>    <span>{{content}}</span><br></template>
+
+<p><script><br>    export default {<br>        props: [‘content’],<br>    };<br></script><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">父组件:</div></pre></td></tr></table></figure></p>
+<template><br>    <div><br>        <child content="hello world"></child><br>    </div><br></template>
+
+<p><script><br>    import a from ‘./a.vue’;</p>
+<pre><code>export default {
+    components: {
+        child: a,
+    },
+};
+</code></pre><p></script><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">最终渲染出来的元素将会是</div></pre></td></tr></table></figure></p>
+<p><div><br>    <span>hello world</span><br></div><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">props属性可以是数组也可以是对象，还支持类型验证，详情请查官方文档。</div><div class="line"></div><div class="line"># 复用和继承</div><div class="line">## filters定义过滤器</div><div class="line">一个过滤器就是一个管道，是一个带参数，有返回值的纯函数，常在```&lt;template&gt;```中用于一些常见的文本格式化。</div></pre></td></tr></table></figure></p>
+<template><br>    <div>&#123;&#123; timeStamp | parseTime &#125;&#123;</div><br></template>
+
+<p><script><br>    import moment from ‘moment’;</p>
+<pre><code>export default {
+    data() {
+        return {
+            timeStamp: 1523324560953,
+        };
+    },
+    filters: {
+        parseTime(millisecond) {
+            return moment(millisecond).format(&apos;YYYY-MM-DD HH:mm:ss&apos;);
+        },
+    },
+};
+</code></pre><p></script><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">上栗中，过滤器parseTime的作用就是将时间戳转换为指定格式的时间，它在	```&lt;template&gt;```中的用法就像管道：```&lt;div&gt;&#123;&#123; timeStamp | parseTime &#125;&#125;&lt;/div&gt;```。</div><div class="line">```|```左侧是待转换的时间戳，右侧是过滤器，表达式结果就是过滤器返回的结果。</div><div class="line"></div><div class="line"></div><div class="line">由于过滤器实际上就是一个纯函数，所以当然我们也可以在```&lt;script&gt;```中当做普通函数使用。</div><div class="line"></div><div class="line">## mixins用于混入公用属性</div><div class="line"></div><div class="line">组件的作用域是独立的，当多个组件共用一个方法时，我们一般会把方法抽到utils，按需引用。然而对于vue，我们还可以抽出其他属性。在vue中，我们可以把所有的属性都提出来放入一个JS文件中，再通过mixin混入。混入的属性将会与组件内部的属性merge到一起，变为组件的属性。</div></pre></td></tr></table></figure></p>
+<p>//logTimeInterval.js<br>import moment from ‘moment’;<br>import { LOG_INTERVAL } from ‘@/constants/application’;</p>
+<p>export default {<br>  data() {<br>    return {<br>      LOG_INTERVAL,<br>      interval: LOG_INTERVAL.ONEWEEK.type,<br>    };<br>  },<br>  computed: {<br>    targetTimeInterval() {<br>      const { time, unit } = LOG_INTERVAL[this.interval];<br>      return {<br>        from: moment().subtract(time, unit).valueOf(),<br>        to: moment().valueOf(),<br>      };<br>    },<br>  },<br>};</p>
+<p>//组件</p>
+<template><br>    <div><br>        <span>{{content}}</span><br>        <span>{{targetTimeInterval}}</span><br>    </div><br></template>
+
+<p>import logTimeInterval from ‘./logTimeInterval.js’;</p>
+<p>export default {<br>    mixins: [logTimeInterval],<br>    data() {<br>        return {<br>            content: ‘timeInterval:’,<br>        };<br>    },<br>};<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">## extends继承其他组件的属性</div><div class="line">extends的作用同mixins相同，都是将组件外部的属性merge为自身属性。区别在于minxin是混入一个js文件中的公共属性；extendes是基于一个vue组件，相当于继承一个组件。可以理解为：mixins是抽属性，extends是抽组件extends的使用场景更像是面向对象的抽父类。</div></pre></td></tr></table></figure></p>
+<p>//logTimeInterval.vue</p>
+<p><script><br>    import moment from ‘moment’;<br>    import { LOG_INTERVAL } from ‘@/constants/application’;</p>
+<pre><code>export default {
+  data() {
+    return {
+      LOG_INTERVAL,
+      interval: LOG_INTERVAL.ONEWEEK.type,
+    };
+  },
+  computed: {
+    targetTimeInterval() {
+      const { time, unit } = LOG_INTERVAL[this.interval];
+      return {
+        from: moment().subtract(time, unit).valueOf(),
+        to: moment().valueOf(),
+      };
+    },
+  },
+};
+</code></pre><p></script><br>//组件</p>
+<template><br>    <div><br>        <span>{{content}}</span><br>        <span>{{targetTimeInterval}}</span><br>    </div><br></template>
+
+<p>import logTimeInterval from ‘./logTimeInterval.vue’;</p>
+<p>export default {<br>    extends: logTimeInterval,<br>    data() {<br>        return {<br>            content: ‘timeInterval:’,<br>        };<br>    },<br>}<br>```</p>
+</span><br>        <span></span><br>    </div><br></template>
+
+<p>import logTimeInterval from ‘./logTimeInterval.vue’;</p>
+<p>export default {<br>    extends: logTimeInterval,<br>    data() {<br>        return {<br>            content: ‘timeInterval:’,<br>        };<br>    },<br>}<br>```</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/vue/" rel="tag"># vue</a>
+          
+            <a href="/tags/教程/" rel="tag"># 教程</a>
+          
+            <a href="/tags/详解vue-从熟悉到熟练/" rel="tag"># 详解vue-从熟悉到熟练</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/04/详解vue-从熟悉到熟练-part1-一个单文件组件的结构/" rel="next" title="详解vue-从熟悉到熟练-part1-一个单文件组件的结构">
+                <i class="fa fa-chevron-left"></i> 详解vue-从熟悉到熟练-part1-一个单文件组件的结构
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/12/详解vue-从熟悉到熟练-part3-造一个简单的UI组件/" rel="prev" title="详解vue-从熟悉到熟练-part3-造一个简单的UI组件">
+                详解vue-从熟悉到熟练-part3-造一个简单的UI组件 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://o3sw4xojp.qnssl.com/avatar.jpg"
+               alt="LOLISuri" />
+          <p class="site-author-name" itemprop="name">LOLISuri</p>
+          <p class="site-description motion-element" itemprop="description">进击的程序媛</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#组件内部属性"><span class="nav-number">1.</span> <span class="nav-text">组件内部属性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#data用于保存组件内部状态"><span class="nav-number">1.1.</span> <span class="nav-text">data用于保存组件内部状态</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#组件内部属性"><span class="nav-number">2.</span> <span class="nav-text">组件内部属性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#data用于保存组件内部状态"><span class="nav-number">2.1.</span> <span class="nav-text">data用于保存组件内部状态</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#组件内部属性"><span class="nav-number">3.</span> <span class="nav-text">组件内部属性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#data用于保存组件内部状态"><span class="nav-number">3.1.</span> <span class="nav-text">data用于保存组件内部状态</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#组件内部属性"><span class="nav-number">4.</span> <span class="nav-text">组件内部属性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#data用于保存组件内部状态"><span class="nav-number">4.1.</span> <span class="nav-text">data用于保存组件内部状态</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LOLISuri</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
